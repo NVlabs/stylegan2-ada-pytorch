@@ -1,0 +1,50 @@
+Usage: dataset_tool.py [OPTIONS]
+
+  Convert an image dataset into a dataset archive usable with StyleGAN2 ADA
+  PyTorch.
+
+  The input dataset format is guessed from the --source argument:
+
+  --source *_lmdb/                - Load LSUN dataset
+  --source cifar-10-python.tar.gz - Load CIFAR-10 dataset
+  --source path/                  - Recursively load all images from path/
+  --source dataset.zip            - Recursively load all images from dataset.zip
+
+  The output dataset format can be either an image folder or a zip archive.
+  Specifying the output format and path:
+
+  --dest /path/to/dir             - Save output files under /path/to/dir
+  --dest /path/to/dataset.zip     - Save output files into /path/to/dataset.zip archive
+
+  Images within the dataset archive will be stored as uncompressed PNG.
+
+  Image scale/crop and resolution requirements:
+
+  Output images must be square-shaped and they must all have the same power-
+  of-two dimensions.
+
+  To scale arbitrary input image size to a specific width and height, use
+  the --width and --height options.  Output resolution will be either the
+  original input resolution (if --width/--height was not specified) or the
+  one specified with --width/height.
+
+  Use the --transform=center-crop or --transform=center-crop-wide options to
+  apply a center crop transform on the input image.  These options should be
+  used with the --width and --height options.  For example:
+
+  python dataset_tool.py --source LSUN/raw/cat_lmdb --dest /tmp/lsun_cat \
+      --transform=center-crop-wide --width 512 --height=384
+
+Options:
+  --source PATH                   Directory or archive name for input dataset
+                                  [required]
+  --dest PATH                     Output directory or archive name for output
+                                  dataset  [required]
+  --max-images INTEGER            Output only up to `max-images` images
+  --resize-filter [box|lanczos]   Filter to use when resizing images for
+                                  output resolution  [default: lanczos]
+  --transform [center-crop|center-crop-wide]
+                                  Input crop/resize mode
+  --width INTEGER                 Output width
+  --height INTEGER                Output height
+  --help                          Show this message and exit.

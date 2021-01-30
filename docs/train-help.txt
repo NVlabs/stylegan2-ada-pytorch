@@ -1,0 +1,69 @@
+Usage: train.py [OPTIONS]
+
+  Train a GAN using the techniques described in the paper "Training
+  Generative Adversarial Networks with Limited Data".
+
+  Examples:
+
+  # Train with custom images using 1 GPU.
+  python train.py --outdir=~/training-runs --data=~/my-image-folder
+
+  # Train class-conditional CIFAR-10 using 2 GPUs.
+  python train.py --outdir=~/training-runs --data=~/datasets/cifar10.zip \
+      --gpus=2 --cfg=cifar --cond=1
+
+  # Transfer learn MetFaces from FFHQ using 4 GPUs.
+  python train.py --outdir=~/training-runs --data=~/datasets/metfaces.zip \
+      --gpus=4 --cfg=paper1024 --mirror=1 --resume=ffhq1024 --snap=10
+
+  # Reproduce original StyleGAN2 config F.
+  python train.py --outdir=~/training-runs --data=~/datasets/ffhq.zip \
+      --gpus=8 --cfg=stylegan2 --mirror=1 --aug=noaug
+
+  Base configs (--cfg):
+    auto       Automatically select reasonable defaults based on resolution
+               and GPU count. Good starting point for new datasets.
+    stylegan2  Reproduce results for StyleGAN2 config F at 1024x1024.
+    paper256   Reproduce results for FFHQ and LSUN Cat at 256x256.
+    paper512   Reproduce results for BreCaHAD and AFHQ at 512x512.
+    paper1024  Reproduce results for MetFaces at 1024x1024.
+    cifar      Reproduce results for CIFAR-10 at 32x32.
+
+  Transfer learning source networks (--resume):
+    ffhq256        FFHQ trained at 256x256 resolution.
+    ffhq512        FFHQ trained at 512x512 resolution.
+    ffhq1024       FFHQ trained at 1024x1024 resolution.
+    celebahq256    CelebA-HQ trained at 256x256 resolution.
+    lsundog256     LSUN Dog trained at 256x256 resolution.
+    <PATH or URL>  Custom network pickle.
+
+Options:
+  --outdir DIR                    Where to save the results  [required]
+  --gpus INT                      Number of GPUs to use [default: 1]
+  --snap INT                      Snapshot interval [default: 50 ticks]
+  --metrics LIST                  Comma-separated list or "none" [default:
+                                  fid50k_full]
+  --seed INT                      Random seed [default: 0]
+  -n, --dry-run                   Print training options and exit
+  --data PATH                     Training data (directory or zip)  [required]
+  --cond BOOL                     Train conditional model based on dataset
+                                  labels [default: false]
+  --subset INT                    Train with only N images [default: all]
+  --mirror BOOL                   Enable dataset x-flips [default: false]
+  --cfg [auto|stylegan2|paper256|paper512|paper1024|cifar]
+                                  Base config [default: auto]
+  --gamma FLOAT                   Override R1 gamma
+  --kimg INT                      Override training duration
+  --batch INT                     Override batch size
+  --aug [noaug|ada|fixed]         Augmentation mode [default: ada]
+  --p FLOAT                       Augmentation probability for --aug=fixed
+  --target FLOAT                  ADA target value for --aug=ada
+  --augpipe [blit|geom|color|filter|noise|cutout|bg|bgc|bgcf|bgcfn|bgcfnc]
+                                  Augmentation pipeline [default: bgc]
+  --resume PKL                    Resume training [default: noresume]
+  --freezed INT                   Freeze-D [default: 0 layers]
+  --fp32 BOOL                     Disable mixed-precision training
+  --nhwc BOOL                     Use NHWC memory format with FP16
+  --nobench BOOL                  Disable cuDNN benchmarking
+  --workers INT                   Override number of DataLoader workers
+  --help                          Show this message and exit.
