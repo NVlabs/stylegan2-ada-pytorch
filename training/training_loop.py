@@ -161,6 +161,12 @@ def training_loop(
     if resume_kimg > 0:
         print(f'Resuming from kimg = {resume_kimg}')
 
+    if ada_target is not None and augment_p == 0:
+        # Overwrite augment_p only if the augmentation probability is not fixed by the user
+        augment_p = tmisc.parse_augment_p_from_log(resume_pkl)
+        if augment_p > 0:
+            print(f'Resuming with augment_p = {augment_p}')
+
     if (resume_pkl is not None) and (rank == 0):
         print(f'Resuming from "{resume_pkl}"')
         with dnnlib.util.open_url(resume_pkl) as f:
