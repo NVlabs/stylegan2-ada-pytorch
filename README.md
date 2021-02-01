@@ -1,3 +1,14 @@
+## Changelog
+
+- save output images as JPG,
+- automatically resume from the latest `.pkl` file with the command-line argument `--resume=latest`,
+- automatically set the resume value of `kimg`,
+- automatically set the resume value of the augmentation strength,
+- allow to **manually** set the resume value of the augmentation strength,
+- add config `auto_norp` to replicate the `auto` config without EMA rampup,
+- allow to override mapping net depth with the command-line argument `--cfg_map`,
+- allow to enforce CIFAR-specific architecture tuning with the command-line argument `--cifar_tune`.
+
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
