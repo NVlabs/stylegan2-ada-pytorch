@@ -23,6 +23,7 @@ from torch_utils.ops import grid_sample_gradfix
 
 import legacy
 from metrics import metric_main
+from training import misc as tmisc
 
 #----------------------------------------------------------------------------
 
@@ -152,6 +153,10 @@ def training_loop(
     G_ema = copy.deepcopy(G).eval()
 
     # Resume from existing pickle.
+    if resume_pkl == 'latest':
+        out_dir = tmisc.get_parent_dir(run_dir)
+        resume_pkl = tmisc.locate_latest_pkl(out_dir)
+
     if (resume_pkl is not None) and (rank == 0):
         print(f'Resuming from "{resume_pkl}"')
         with dnnlib.util.open_url(resume_pkl) as f:
