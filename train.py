@@ -44,6 +44,7 @@ def setup_training_loop_kwargs(
 
     # Base config.
     cfg        = None, # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar'
+    cifar_tune = None, # Enforce CIFAR-specific architecture tuning: <bool>, default = False
     gamma      = None, # Override R1 gamma: <float>
     kimg       = None, # Override training duration: <int>
     batch      = None, # Override batch size: <int>
@@ -194,7 +195,14 @@ def setup_training_loop_kwargs(
     args.ema_kimg = spec.ema
     args.ema_rampup = spec.ramp
 
-    if cfg == 'cifar':
+    if cifar_tune is None:
+        cifar_tune = False
+    else:
+        assert isinstance(cifar_tune, bool)
+        if cifar_tune:
+            desc += '-tuning'
+
+    if cifar_tune or cfg == 'cifar':
         args.loss_kwargs.pl_weight = 0 # disable path length regularization
         args.loss_kwargs.style_mixing_prob = 0 # disable style mixing
         args.D_kwargs.architecture = 'orig' # disable residual skip connections
@@ -422,6 +430,7 @@ class CommaSeparatedList(click.ParamType):
 
 # Base config.
 @click.option('--cfg', help='Base config [default: auto]', type=click.Choice(['auto', 'auto_norp', 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar']))
+@click.option('--cifar_tune', help='Enforce CIFAR-specific architecture tuning (default: false)', type=bool, metavar='BOOL')
 @click.option('--gamma', help='Override R1 gamma', type=float)
 @click.option('--kimg', help='Override training duration', type=int, metavar='INT')
 @click.option('--batch', help='Override batch size', type=int, metavar='INT')
