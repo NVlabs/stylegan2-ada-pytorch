@@ -47,6 +47,7 @@ def setup_training_loop_kwargs(
     cfg        = None, # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar'
     gamma      = None, # Override R1 gamma: <float>
     kimg       = None, # Override training duration: <int>
+    nkimg      = None, # Override starting count
     batch      = None, # Override batch size: <int>
 
     # Discriminator augmentation.
@@ -54,6 +55,7 @@ def setup_training_loop_kwargs(
     p          = None, # Specify p for 'fixed' (required): <float>
     target     = None, # Override ADA target for 'ada': <float>, default = depends on aug
     augpipe    = None, # Augmentation pipeline: 'blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc' (default), ..., 'bgcfnc'
+    initstrength = None,
 
     # Transfer learning.
     resume     = None, # Load previous network: 'noresume' (default), 'ffhq256', 'ffhq512', 'ffhq1024', 'celebahq256', 'lsundog256', <file>, <url>
@@ -211,6 +213,10 @@ def setup_training_loop_kwargs(
         desc += f'-gamma{gamma:g}'
         args.loss_kwargs.r1_gamma = gamma
 
+    if nkimg is not None:
+        assert isinstance(nkimg, int)
+        args.nimg = nkimg * 1000
+
     if kimg is not None:
         assert isinstance(kimg, int)
         if not kimg >= 1:
@@ -266,6 +272,10 @@ def setup_training_loop_kwargs(
             raise UserError('--target must be between 0 and 1')
         desc += f'-target{target:g}'
         args.ada_target = target
+
+    if initstrength is not None:
+        assert isinstance(initstrength, float)
+        args.augment_p = initstrength
 
     assert augpipe is None or isinstance(augpipe, str)
     if augpipe is None:
@@ -418,6 +428,7 @@ class CommaSeparatedList(click.ParamType):
 @click.option('--cfg', help='Base config [default: auto]', type=click.Choice(['auto', 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar']))
 @click.option('--gamma', help='Override R1 gamma', type=float)
 @click.option('--kimg', help='Override training duration', type=int, metavar='INT')
+@click.option('--nkimg',  help='Override starting count', type=int, metavar='INT')
 @click.option('--batch', help='Override batch size', type=int, metavar='INT')
 
 # Discriminator augmentation.
@@ -425,6 +436,7 @@ class CommaSeparatedList(click.ParamType):
 @click.option('--p', help='Augmentation probability for --aug=fixed', type=float)
 @click.option('--target', help='ADA target value for --aug=ada', type=float)
 @click.option('--augpipe', help='Augmentation pipeline [default: bgc]', type=click.Choice(['blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc', 'bgcf', 'bgcfn', 'bgcfnc']))
+@click.option('--initstrength', help='Override ADA strength at start', type=float)
 
 # Transfer learning.
 @click.option('--resume', help='Resume training [default: noresume]', metavar='PKL')

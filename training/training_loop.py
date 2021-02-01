@@ -109,6 +109,7 @@ def training_loop(
     ada_target              = None,     # ADA target value. None = fixed p.
     ada_interval            = 4,        # How often to perform ADA adjustment?
     ada_kimg                = 500,      # ADA adjustment speed, measured in how many kimg it takes for p to increase/decrease by one unit.
+    nimg                    = 0,        # current image count
     total_kimg              = 25000,    # Total length of the training, measured in thousands of real images.
     kimg_per_tick           = 4,        # Progress snapshot interval.
     image_snapshot_ticks    = 50,       # How often to save image snapshots? None = disable.
@@ -242,7 +243,7 @@ def training_loop(
     if rank == 0:
         print(f'Training for {total_kimg} kimg...')
         print()
-    cur_nimg = 0
+    cur_nimg = nimg
     cur_tick = 0
     tick_start_nimg = cur_nimg
     tick_start_time = time.time()
