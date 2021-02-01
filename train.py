@@ -41,6 +41,7 @@ def setup_training_loop_kwargs(
     cond       = None, # Train conditional model based on dataset labels: <bool>, default = False
     subset     = None, # Train with only N images: <int>, default = all
     mirror     = None, # Augment dataset with x-flips: <bool>, default = False
+    mirrory    = None, # Augment dataset with y-flips: <bool>, default = False
 
     # Base config.
     cfg        = None, # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar'
@@ -140,6 +141,13 @@ def setup_training_loop_kwargs(
     if mirror:
         desc += '-mirror'
         args.training_set_kwargs.xflip = True
+
+    if mirrory is None:
+        mirrory = False
+    assert isinstance(mirrory, bool)
+    if mirrory:
+        desc += '-mirrory'
+        args.training_set_kwargs.yflip = True
 
     # ------------------------------------
     # Base config: cfg, gamma, kimg, batch
@@ -404,6 +412,7 @@ class CommaSeparatedList(click.ParamType):
 @click.option('--cond', help='Train conditional model based on dataset labels [default: false]', type=bool, metavar='BOOL')
 @click.option('--subset', help='Train with only N images [default: all]', type=int, metavar='INT')
 @click.option('--mirror', help='Enable dataset x-flips [default: false]', type=bool, metavar='BOOL')
+@click.option('--mirrory', help='Augment dataset with y-flips (default: false)', type=bool, metavar='BOOL')
 
 # Base config.
 @click.option('--cfg', help='Base config [default: auto]', type=click.Choice(['auto', 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar']))

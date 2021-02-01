@@ -28,6 +28,7 @@ class Dataset(torch.utils.data.Dataset):
         max_size    = None,     # Artificially limit the size of the dataset. None = no limit. Applied before xflip.
         use_labels  = False,    # Enable conditioning labels? False = label dimension is zero.
         xflip       = False,    # Artificially double the size of the dataset via x-flips. Applied after max_size.
+        yflip       = False,    # Apply mirror augment vertically?
         random_seed = 0,        # Random seed to use when applying max_size.
     ):
         self._name = name
@@ -47,6 +48,12 @@ class Dataset(torch.utils.data.Dataset):
         if xflip:
             self._raw_idx = np.tile(self._raw_idx, 2)
             self._xflip = np.concatenate([self._xflip, np.ones_like(self._xflip)])
+
+        # Apply yflip.
+        self._yflip = np.zeros(self._raw_idx.size, dtype=np.uint8)
+        if yflip:
+            self._raw_idx = np.tile(self._raw_idx, 2)
+            self._yflip = np.concatenate([self._yflip, np.ones_like(self._yflip)])
 
     def _get_raw_labels(self):
         if self._raw_labels is None:
@@ -90,6 +97,9 @@ class Dataset(torch.utils.data.Dataset):
         if self._xflip[idx]:
             assert image.ndim == 3 # CHW
             image = image[:, :, ::-1]
+        if self._yflip[idx]:
+            assert image.ndim == 3 # CHW
+            image = image[:, ::-1, :]
         return image.copy(), self.get_label(idx)
 
     def get_label(self, idx):
@@ -104,6 +114,7 @@ class Dataset(torch.utils.data.Dataset):
         d = dnnlib.EasyDict()
         d.raw_idx = int(self._raw_idx[idx])
         d.xflip = (int(self._xflip[idx]) != 0)
+        d.yflip = (int(self._yflip[idx]) != 0)
         d.raw_label = self._get_raw_labels()[d.raw_idx].copy()
         return d
 
