@@ -157,6 +157,10 @@ def training_loop(
         out_dir = tmisc.get_parent_dir(run_dir)
         resume_pkl = tmisc.locate_latest_pkl(out_dir)
 
+    resume_kimg = tmisc.parse_kimg_from_network_name(resume_pkl)
+    if resume_kimg > 0:
+        print(f'Resuming from kimg = {resume_kimg}')
+
     if (resume_pkl is not None) and (rank == 0):
         print(f'Resuming from "{resume_pkl}"')
         with dnnlib.util.open_url(resume_pkl) as f:
@@ -250,14 +254,14 @@ def training_loop(
     if rank == 0:
         print(f'Training for {total_kimg} kimg...')
         print()
-    cur_nimg = 0
+    cur_nimg = int(resume_kimg * 1000)
     cur_tick = 0
     tick_start_nimg = cur_nimg
     tick_start_time = time.time()
     maintenance_time = tick_start_time - start_time
     batch_idx = 0
     if progress_fn is not None:
-        progress_fn(0, total_kimg)
+        progress_fn(int(resume_kimg), total_kimg)
     while True:
 
         # Fetch training data.
