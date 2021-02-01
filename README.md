@@ -203,7 +203,7 @@ python dataset_tool.py --source=~/downloads/afhq/train/wild --dest=~/datasets/af
 python dataset_tool.py --source=~/downloads/cifar-10-python.tar.gz --dest=~/datasets/cifar10.zip
 ```
 
-**LSUN**: Download the desired LSUN categories in LMDB format from the [LSUN project page](https://www.yf.io/p/lsun/) and convert to ZIP archive:
+**LSUN**: Download the desired categories from the [LSUN project page](https://www.yf.io/p/lsun/) and convert to ZIP archive:
 
 ```.bash
 python dataset_tool.py --source=~/downloads/lsun/raw/cat_lmdb --dest=~/datasets/lsuncat200k.zip \
@@ -262,7 +262,7 @@ The training configuration can be further customized with additional command lin
 * `--cond=1` enables class-conditional training (requires a dataset with labels).
 * `--mirror=1` amplifies the dataset with x-flips. Often beneficial, even with ADA.
 * `--resume=ffhq1024 --snap=10` performs transfer learning from FFHQ trained at 1024x1024.
-* `--resume=~/training-runs/<NAME>/network-snapshot-<KIMG>.pkl` resumes a previous training run where it left off.
+* `--resume=~/training-runs/<NAME>/network-snapshot-<INT>.pkl` resumes a previous training run.
 * `--gamma=10` overrides R1 gamma. We recommend trying a couple of different values for each new dataset.
 * `--aug=ada --target=0.7` adjusts ADA target value (default: 0.6).
 * `--augpipe=blit` enables pixel blitting but disables all other augmentations.
@@ -293,7 +293,7 @@ The total training time depends heavily on resolution, number of GPUs, dataset, 
 | 1024x1024  | 4    | 11h 36m   | 12d 02h    | 40.1&ndash;40.8   | 8.4 GB  | 21.9 GB
 | 1024x1024  | 8    | 5h 54m    | 6d 03h     | 20.2&ndash;20.6   | 8.3 GB  | 44.7 GB
 
-The above measurements were done using NVIDIA Tesla V100 GPUs with default settings (`--cfg=auto --aug=ada --metrics=fid50k_full`). "sec/kimg" shows the expected range of variation in raw training performance, as reported in `log.txt`, and "GPU mem" and "CPU mem" show the peak memory consumption observed over the course of training.
+The above measurements were done using NVIDIA Tesla V100 GPUs with default settings (`--cfg=auto --aug=ada --metrics=fid50k_full`). "sec/kimg" shows the expected range of variation in raw training performance, as reported in `log.txt`. "GPU mem" and "CPU mem" show the highest observed memory consumption, excluding the peak at the beginning caused by `torch.backends.cudnn.benchmark`.
 
 In typical cases, 25000 kimg or more is needed to reach convergence, but the results are already quite reasonable around 5000 kimg. 1000 kimg is often enough for transfer learning, which tends to converge significantly faster. The following figure shows example convergence curves for different datasets as a function of wallclock time, using the same settings as above:
 
@@ -325,23 +325,23 @@ We employ the following metrics in the ADA paper. Execution time and GPU memory 
 
 | Metric        | Time   | GPU mem | Description |
 | :-----        | :----: | :-----: | :---------- |
-| `fid50k_full` | 13 min | 1.8 GB  | Fr&eacute;chet inception distance<sup>[1]</sup> against the full dataset.
-| `kid50k_full` | 13 min | 1.8 GB  | Kernel inception distance<sup>[2]</sup> against the full dataset.
-| `pr50k3_full` | 13 min | 4.1 GB  | Precision and recall<sup>[3]</sup> againt the full dataset.
-| `is50k`       | 13 min | 1.8 GB  | Inception score<sup>[4]</sup> for CIFAR-10.
+| `fid50k_full` | 13 min | 1.8 GB  | Fr&eacute;chet inception distance<sup>[1]</sup> against the full dataset
+| `kid50k_full` | 13 min | 1.8 GB  | Kernel inception distance<sup>[2]</sup> against the full dataset
+| `pr50k3_full` | 13 min | 4.1 GB  | Precision and recall<sup>[3]</sup> againt the full dataset
+| `is50k`       | 13 min | 1.8 GB  | Inception score<sup>[4]</sup> for CIFAR-10
 
 In addition, the following metrics from the [StyleGAN](https://github.com/NVlabs/stylegan) and [StyleGAN2](https://github.com/NVlabs/stylegan2) papers are also supported:
 
 | Metric        | Time   | GPU mem | Description |
 | :------------ | :----: | :-----: | :---------- |
-| `fid50k`      | 13 min | 1.8 GB  | Fr&eacute;chet inception distance against 50k real images.
-| `kid50k`      | 13 min | 1.8 GB  | Kernel inception distance against 50k real images.
-| `pr50k3`      | 13 min | 4.1 GB  | Precision and recall against 50k real images.
-| `ppl2_wend`   | 36 min | 2.4 GB  | Perceptual path length<sup>[5]</sup> in W at path endpoints against full image.
-| `ppl_zfull`   | 36 min | 2.4 GB  | Perceptual path length in Z for full paths against cropped image.
-| `ppl_wfull`   | 36 min | 2.4 GB  | Perceptual path length in W for full paths against cropped image.
-| `ppl_zend`    | 36 min | 2.4 GB  | Perceptual path length in Z at path endpoints against cropped image.
-| `ppl_wend`    | 36 min | 2.4 GB  | Perceptual path length in W at path endpoints against cropped image.
+| `fid50k`      | 13 min | 1.8 GB  | Fr&eacute;chet inception distance against 50k real images
+| `kid50k`      | 13 min | 1.8 GB  | Kernel inception distance against 50k real images
+| `pr50k3`      | 13 min | 4.1 GB  | Precision and recall against 50k real images
+| `ppl2_wend`   | 36 min | 2.4 GB  | Perceptual path length<sup>[5]</sup> in W, endpoints, full image
+| `ppl_zfull`   | 36 min | 2.4 GB  | Perceptual path length in Z, full paths, cropped image
+| `ppl_wfull`   | 36 min | 2.4 GB  | Perceptual path length in W, full paths, cropped image
+| `ppl_zend`    | 36 min | 2.4 GB  | Perceptual path length in Z, endpoints, cropped image
+| `ppl_wend`    | 36 min | 2.4 GB  | Perceptual path length in W, endpoints, cropped image
 
 References:
 1. [GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium](https://arxiv.org/abs/1706.08500), Heusel et al. 2017

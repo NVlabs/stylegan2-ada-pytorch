@@ -6,16 +6,21 @@
 # distribution of this software and related documentation without an express
 # license agreement from NVIDIA CORPORATION is strictly prohibited.
 
+"""Frechet Inception Distance (FID) from the paper
+"GANs trained by a two time-scale update rule converge to a local Nash
+equilibrium". Matches the original implementation by Heusel et al. at
+https://github.com/bioinf-jku/TTUR/blob/master/fid.py"""
+
 import numpy as np
 import scipy.linalg
-
 from . import metric_utils
 
 #----------------------------------------------------------------------------
 
 def compute_fid(opts, max_real, num_gen):
+    # Direct TorchScript translation of http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz
     detector_url = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/inception-2015-12-05.pt'
-    detector_kwargs = dict(return_features=True)
+    detector_kwargs = dict(return_features=True) # Return raw features before the softmax layer.
 
     mu_real, sigma_real = metric_utils.compute_feature_stats_for_dataset(
         opts=opts, detector_url=detector_url, detector_kwargs=detector_kwargs,
