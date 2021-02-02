@@ -29,8 +29,11 @@ rest=$@
 IMAGE="${IMAGE:-sg2ada:latest}"
 
 CONTAINER_ID=$(docker inspect --format="{{.Id}}" ${IMAGE} 2> /dev/null)
+WORKDIR=$(pwd)
 if [[ "${CONTAINER_ID}" ]]; then
-    docker run --gpus all -it --rm -v `pwd`:/scratch --user $(id -u):$(id -g) \
+    docker run --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 --gpus all \
+    --mount type=bind,source="$WORKDIR",target=/workspace \
+    -it --rm -v `pwd`:/scratch --user $(id -u):$(id -g) \
         --workdir=/scratch -e HOME=/scratch $IMAGE $@
 else
     echo "Unknown container image: ${IMAGE}"
