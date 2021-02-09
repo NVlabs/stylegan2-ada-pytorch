@@ -17,11 +17,11 @@ set -e
 #
 # Use it like:
 #
-# ./run_docker.sh python generate.py --help
+# ./docker_run.sh python generate.py --help
 #
 # To override the default `stylegan2ada:latest` image, run:
 #
-# IMAGE=my_image:v1.0 ./run_docker.sh python generate.py --help
+# IMAGE=my_image:v1.0 ./docker_run.sh python generate.py --help
 #
 
 rest=$@
