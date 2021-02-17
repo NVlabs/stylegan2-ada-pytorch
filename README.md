@@ -63,7 +63,8 @@ This repository is a faithful reimplementation of [StyleGAN2-ADA](https://github
 
 * Linux and Windows are supported, but we recommend Linux for performance and compatibility reasons.
 * 1&ndash;8 high-end NVIDIA GPUs with at least 12 GB of memory. We have done all testing and development using NVIDIA DGX-1 with 8 Tesla V100 GPUs.
-* 64-bit Python 3.7, PyTorch 1.7.1, and CUDA toolkit 11.0 or newer. Use CUDA toolkit 11.1 or later with RTX 3090.  See [https://pytorch.org/](https://pytorch.org/) for PyTorch install instructions.
+* 64-bit Python 3.7 and PyTorch 1.7.1. See [https://pytorch.org/](https://pytorch.org/) for PyTorch install instructions.
+* CUDA toolkit 11.0 or later.  Use at least version 11.1 if running on RTX 3090.  (Why is a separate CUDA toolkit installation required?  See comments in [#2](https://github.com/NVlabs/stylegan2-ada-pytorch/issues/2#issuecomment-779457121).)
 * Python libraries: `pip install click requests tqdm pyspng ninja imageio-ffmpeg==0.4.3`.  We use the Anaconda3 2020.11 distribution which installs most of these by default.
 * Docker users: use the [provided Dockerfile](./Dockerfile) to build an image with the required library dependencies.
 
