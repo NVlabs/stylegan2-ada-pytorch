@@ -331,14 +331,34 @@ def convert_dataset(
     --source path/                      Recursively load all images from path/
     --source dataset.zip                Recursively load all images from dataset.zip
 
-    The output dataset format can be either an image folder or a zip archive.
     Specifying the output format and path:
 
     \b
     --dest /path/to/dir                 Save output files under /path/to/dir
     --dest /path/to/dataset.zip         Save output files into /path/to/dataset.zip
 
+    The output dataset format can be either an image folder or an uncompressed zip archive.
+    Zip archives makes it easier to move datasets around file servers and clusters, and may
+    offer better training performance on network file systems.
+
     Images within the dataset archive will be stored as uncompressed PNG.
+    Uncompresed PNGs can be efficiently decoded in the training loop.
+
+    Class labels are stored in a file called 'dataset.json' that is stored at the
+    dataset root folder.  This file has the following structure:
+
+    \b
+    {
+        "labels": [
+            ["00000/img00000000.png",6],
+            ["00000/img00000001.png",9],
+            ... repeated for every image in the datase
+            ["00049/img00049999.png",1]
+        ]
+    }
+
+    If the 'dataset.json' file cannot be found, the dataset is interpreted as
+    not containing class labels.
 
     Image scale/crop and resolution requirements:
 

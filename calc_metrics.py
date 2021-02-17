@@ -47,6 +47,8 @@ def subprocess_fn(rank, args, temp_dir):
     # Print network summary.
     device = torch.device('cuda', rank)
     torch.backends.cudnn.benchmark = True
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
     G = copy.deepcopy(args.G).eval().requires_grad_(False).to(device)
     if rank == 0 and args.verbose:
         z = torch.empty([1, G.z_dim], device=device)
