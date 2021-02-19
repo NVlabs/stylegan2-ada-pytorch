@@ -9,11 +9,11 @@
 """Custom PyTorch ops for efficient bias and activation."""
 
 import os
-import sys
 import warnings
 import numpy as np
 import torch
 import dnnlib
+import traceback
 
 from .. import custom_ops
 from .. import misc
@@ -47,7 +47,7 @@ def _init():
         try:
             _plugin = custom_ops.get_plugin('bias_act_plugin', sources=sources, extra_cuda_cflags=['--use_fast_math'])
         except:
-            warnings.warn('Failed to build CUDA kernels for bias_act. Falling back to slow reference implementation. Details:\n\n' + str(sys.exc_info()[1]))
+            warnings.warn('Failed to build CUDA kernels for bias_act. Falling back to slow reference implementation. Details:\n\n' + traceback.format_exc())
     return _plugin is not None
 
 #----------------------------------------------------------------------------
