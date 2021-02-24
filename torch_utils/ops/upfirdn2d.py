@@ -24,15 +24,7 @@ _inited = False
 _plugin = None
 
 def _init():
-    global _inited, _plugin
-    if not _inited:
-        sources = ['upfirdn2d.cpp', 'upfirdn2d.cu']
-        sources = [os.path.join(os.path.dirname(__file__), s) for s in sources]
-        try:
-            _plugin = custom_ops.get_plugin('upfirdn2d_plugin', sources=sources, extra_cuda_cflags=['--use_fast_math'])
-        except:
-            warnings.warn('Failed to build CUDA kernels for upfirdn2d. Falling back to slow reference implementation. Details:\n\n' + traceback.format_exc())
-    return _plugin is not None
+    return False
 
 def _parse_scaling(scaling):
     if isinstance(scaling, int):
