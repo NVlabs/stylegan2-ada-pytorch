@@ -9,6 +9,7 @@
 """Generate images using pretrained network pickle."""
 
 import os
+import subprocess
 import re
 from typing import List, Optional
 
@@ -19,6 +20,8 @@ import PIL.Image
 import torch
 
 import legacy
+
+from opensimplex import OpenSimplex
 
 #----------------------------------------------------------------------------
 
@@ -32,12 +35,38 @@ def num_range(s: str) -> List[int]:
     vals = s.split(',')
     return [int(x) for x in vals]
 
+def images(G,device,inputs,truncation_psi,label,noise_mode,outdir):
+    for idx, i in enumerate(inputs):
+        print('Generating image for frame %d/%d ...' % (idx, len(inputs)))
+        z = torch.from_numpy(i).to(device)
+        img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+        img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
+        PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frames/frame{idx:04d}.png')
+
+def seeds_to_zs(G,device,seeds):
+    zs = []
+    for seed_idx, seed in enumerate(seeds):
+        z = np.random.RandomState(seed).randn(1, G.z_dim)
+        zs.append(z)
+    return zs
+
+
+def line_interpolate(zs, steps):
+    out = []
+    for i in range(len(zs)-1):
+        for index in range(steps):
+            fraction = index/float(steps)
+            out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
+    return out
+
 #----------------------------------------------------------------------------
 
 @click.command()
 @click.pass_context
+@click.option('--process', type=click.Choice(['image', 'interpolation']), default='image', help='generation method', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--seeds', type=num_range, help='List of random seeds', required=True)
+@click.option('--frames', type=int, help='how many frames to produce', default=240, show_default=True)
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
@@ -46,7 +75,9 @@ def num_range(s: str) -> List[int]:
 def generate_images(
     ctx: click.Context,
     network_pkl: str,
+    process: str,
     seeds: Optional[List[int]],
+    frames: Optional[int],
     truncation_psi: float,
     noise_mode: str,
     outdir: str,
@@ -112,13 +143,28 @@ def generate_images(
         if class_idx is not None:
             print ('warn: --class=lbl ignored when running on an unconditional network')
 
-    # Generate images.
-    for seed_idx, seed in enumerate(seeds):
-        print('Generating image for seed %d (%d/%d) ...' % (seed, seed_idx, len(seeds)))
-        z = torch.from_numpy(np.random.RandomState(seed).randn(1, G.z_dim)).to(device)
-        img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
-        img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
-        PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/seed{seed:04d}.png')
+
+    if(process=='image'):
+        # Generate images.
+        for seed_idx, seed in enumerate(seeds):
+            print('Generating image for seed %d (%d/%d) ...' % (seed, seed_idx, len(seeds)))
+            z = torch.from_numpy(np.random.RandomState(seed).randn(1, G.z_dim)).to(device)
+            img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+            img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
+            PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/seed{seed:04d}.png')
+            
+    elif(process=='interpolation'):
+        os.makedirs(outdir+"/frames", exist_ok=True)
+
+        # get zs from seeds
+        zs = seeds_to_zs(G,device,seeds)
+        # get interpolation zs
+        points = line_interpolate(zs,frames)
+        # generate frames
+        images(G,device,points,truncation_psi,label,noise_mode,outdir)
+        # convert to video
+        cmd="ffmpeg -y -r 24 -i {}/frames/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {}/walk-test-24fps.mp4".format(outdir,outdir)
+        subprocess.call(cmd, shell=True)
 
 
 #----------------------------------------------------------------------------
