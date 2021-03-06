@@ -35,6 +35,14 @@ def num_range(s: str) -> List[int]:
     vals = s.split(',')
     return [int(x) for x in vals]
 
+def line_interpolate(zs, steps):
+    out = []
+    for i in range(len(zs)-1):
+        for index in range(steps):
+            fraction = index/float(steps)
+            out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
+    return out
+
 def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
     for idx, i in enumerate(inputs):
         print('Generating image for frame %d/%d ...' % (idx, len(inputs)))
@@ -47,6 +55,30 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
         PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frames/frame{idx:04d}.png')
 
+def interpolate(G,device,seeds,space,truncation_psi,label,frames,noise_mode,outdir,interpolation):
+	if(interpolation=='noiseloop' or interpolation=='circularloop'):
+		if seeds is not None:
+			print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
+	else:
+		# get zs from seeds
+		points = seeds_to_zs(G,device,seeds)
+	        
+		# convert to ws
+		if(space=='w'):
+			points = zs_to_ws(G,device,label,truncation_psi,points)
+
+		# get interpolation points
+		if(interpolation=='linear'):
+			points = line_interpolate(points,frames)
+		elif(interpolation=='slerp'):
+			if(space=='w'):
+				print(f'Slerp currently isn’t supported in w space.')
+			else:
+				points = slerp_interpolate(points,frames)
+
+	# generate frames
+	images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
+
 def seeds_to_zs(G,device,seeds):
     zs = []
     for seed_idx, seed in enumerate(seeds):
@@ -54,14 +86,40 @@ def seeds_to_zs(G,device,seeds):
         zs.append(z)
     return zs
 
+# very hacky implementation of:
+# https://github.com/soumith/dcgan.torch/issues/14
+def slerp(val, low, high):
+    assert low.shape == high.shape
 
-def line_interpolate(zs, steps):
-    out = []
-    for i in range(len(zs)-1):
-        for index in range(steps):
-            fraction = index/float(steps)
-            out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
+    # z space
+    if len(low.shape) == 2:
+        out = np.zeros([low.shape[0],low.shape[1]])
+        for i in range(low.shape[0]):
+            omega = np.arccos(np.clip(np.dot(low[i]/np.linalg.norm(low[i]), high[i]/np.linalg.norm(high[i])), -1, 1))
+            so = np.sin(omega)
+            if so == 0:
+                out[i] = (1.0-val) * low[i] + val * high[i] # L'Hopital's rule/LERP
+            out[i] = np.sin((1.0-val)*omega) / so * low[i] + np.sin(val*omega) / so * high[i]
+    # w space
+    else:
+        out = np.zeros([low.shape[0],low.shape[1],low.shape[2]])
+
+        for i in range(low.shape[1]):
+            omega = np.arccos(np.clip(np.dot(low[0][i]/np.linalg.norm(low[0][i]), high[0][i]/np.linalg.norm(high[0][i])), -1, 1))
+            so = np.sin(omega)
+            if so == 0:
+                out[i] = (1.0-val) * low[0][i] + val * high[0][i] # L'Hopital's rule/LERP
+            out[0][i] = np.sin((1.0-val)*omega) / so * low[0][i] + np.sin(val*omega) / so * high[0][i]
+
     return out
+
+def slerp_interpolate(zs, steps):
+	out = []
+	for i in range(len(zs)-1):
+		for index in range(steps):
+			fraction = index/float(steps)
+			out.append(slerp(fraction,zs[i],zs[i+1]))
+	return out
 
 def zs_to_ws(G,device,label,truncation_psi,zs):
     ws = []
@@ -75,18 +133,21 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 
 @click.command()
 @click.pass_context
-@click.option('--process', type=click.Choice(['image', 'interpolation']), default='image', help='generation method', required=True)
+@click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
+@click.option('--frames', type=int, help='how many frames to produce (with seeds this is frames between each step, with loops this is total length)', default=240, show_default=True)
+@click.option('--interpolation', type=click.Choice(['linear', 'slerp', 'noiseloop', 'circularloop']), default='linear', help='interpolation type', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
+@click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
+@click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
+@click.option('--process', type=click.Choice(['image', 'interpolation']), default='image', help='generation method', required=True)
+@click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--seeds', type=num_range, help='List of random seeds', required=True)
 @click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
-@click.option('--frames', type=int, help='how many frames to produce', default=240, show_default=True)
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
-@click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
-@click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
-@click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
-@click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
+
 def generate_images(
     ctx: click.Context,
+    interpolation: str,
     network_pkl: str,
     process: str,
     seeds: Optional[List[int]],
@@ -133,7 +194,7 @@ def generate_images(
     # Synthesize the result of a W projection.
     if projected_w is not None:
         if seeds is not None:
-            print ('warn: --seeds is ignored when using --projected-w')
+            print ('Warning: --seeds is ignored when using --projected-w')
         print(f'Generating images from projected W "{projected_w}"')
         ws = np.load(projected_w)['w']
         ws = torch.tensor(ws, device=device) # pylint: disable=not-callable
@@ -169,18 +230,8 @@ def generate_images(
 
     elif(process=='interpolation'):
         os.makedirs(outdir+"/frames", exist_ok=True)
+        interpolate(G,device,seeds,space,truncation_psi,label,frames,noise_mode,outdir,interpolation)
 
-        # get zs from seeds
-        points = seeds_to_zs(G,device,seeds)
-        
-        # convert to ws
-        if(space=='w'):
-        	points = zs_to_ws(G,device,label,truncation_psi,points)
-
-        # get interpolation zs
-        points = line_interpolate(points,frames)
-        # generate frames
-        images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
         # convert to video
         cmd="ffmpeg -y -r 24 -i {}/frames/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {}/walk-test-24fps.mp4".format(outdir,outdir)
         subprocess.call(cmd, shell=True)
