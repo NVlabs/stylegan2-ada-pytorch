@@ -25,6 +25,21 @@ from opensimplex import OpenSimplex
 
 #----------------------------------------------------------------------------
 
+class OSN():
+	min=-1
+	max= 1
+
+	def __init__(self,seed,diameter):
+		self.tmp = OpenSimplex(seed)
+		self.d = diameter
+		self.x = 0
+		self.y = 0
+
+	def get_val(self,angle):
+		self.xoff = valmap(np.cos(angle), -1, 1, self.x, self.x + self.d);
+		self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d);
+		return self.tmp.noise2d(self.xoff,self.yoff)
+
 def num_range(s: str) -> List[int]:
     '''Accept either a comma separated list of numbers 'a,b,c' or a range 'a-c' and return as a list of ints.'''
 
@@ -43,6 +58,21 @@ def line_interpolate(zs, steps):
             out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
     return out
 
+def noiseloop(nf, d, seed):
+    features = []
+    zs = []
+    for i in range(512):
+      features.append(OSN(i+seed,d))
+
+    inc = (np.pi*2)/nf
+    for f in range(nf):
+      z = np.random.randn(1, 512)
+      for i in range(512):
+        z[0,i] = features[i].get_val(inc*f)
+      zs.append(z)
+
+    return zs
+
 def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
     for idx, i in enumerate(inputs):
         print('Generating image for frame %d/%d ...' % (idx, len(inputs)))
@@ -55,10 +85,16 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
         PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frames/frame{idx:04d}.png')
 
-def interpolate(G,device,seeds,space,truncation_psi,label,frames,noise_mode,outdir,interpolation):
+def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter):
 	if(interpolation=='noiseloop' or interpolation=='circularloop'):
 		if seeds is not None:
 			print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
+
+		if(interpolation=='noiseloop'):
+			points = noiseloop(frames,diameter,random_seed)
+		elif(interpolation=='circularloop'):
+			print('not yet!')
+
 	else:
 		# get zs from seeds
 		points = seeds_to_zs(G,device,seeds)
@@ -121,6 +157,9 @@ def slerp_interpolate(zs, steps):
 			out.append(slerp(fraction,zs[i],zs[i+1]))
 	return out
 
+def valmap(value, istart, istop, ostart, ostop):
+	return ostart + (ostop - ostart) * ((value - istart) / (istop - istart))
+
 def zs_to_ws(G,device,label,truncation_psi,zs):
     ws = []
     for z_idx, z in enumerate(zs):
@@ -134,6 +173,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.command()
 @click.pass_context
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
+@click.option('--diameter', type=float, help='diameter of loops', default=100.0, show_default=True)
 @click.option('--frames', type=int, help='how many frames to produce (with seeds this is frames between each step, with loops this is total length)', default=240, show_default=True)
 @click.option('--interpolation', type=click.Choice(['linear', 'slerp', 'noiseloop', 'circularloop']), default='linear', help='interpolation type', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
@@ -141,7 +181,8 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
 @click.option('--process', type=click.Choice(['image', 'interpolation']), default='image', help='generation method', required=True)
 @click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
-@click.option('--seeds', type=num_range, help='List of random seeds', required=True)
+@click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
+@click.option('--seeds', type=num_range, help='List of random seeds')
 @click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 
@@ -150,6 +191,8 @@ def generate_images(
     interpolation: str,
     network_pkl: str,
     process: str,
+    random_seed: Optional[int],
+    diameter: Optional[float],
     seeds: Optional[List[int]],
     space: str,
     frames: Optional[int],
@@ -205,9 +248,6 @@ def generate_images(
             img = PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/proj{idx:02d}.png')
         return
 
-    if seeds is None:
-        ctx.fail('--seeds option is required when not using --projected-w')
-
     # Labels.
     label = torch.zeros([1, G.c_dim], device=device)
     if G.c_dim != 0:
@@ -220,6 +260,9 @@ def generate_images(
 
 
     if(process=='image'):
+        if seeds is None:
+            ctx.fail('--seeds option is required when not using --projected-w')
+
         # Generate images.
         for seed_idx, seed in enumerate(seeds):
             print('Generating image for seed %d (%d/%d) ...' % (seed, seed_idx, len(seeds)))
@@ -230,7 +273,7 @@ def generate_images(
 
     elif(process=='interpolation'):
         os.makedirs(outdir+"/frames", exist_ok=True)
-        interpolate(G,device,seeds,space,truncation_psi,label,frames,noise_mode,outdir,interpolation)
+        interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter)
 
         # convert to video
         cmd="ffmpeg -y -r 24 -i {}/frames/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {}/walk-test-24fps.mp4".format(outdir,outdir)
