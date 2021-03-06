@@ -35,11 +35,15 @@ def num_range(s: str) -> List[int]:
     vals = s.split(',')
     return [int(x) for x in vals]
 
-def images(G,device,inputs,truncation_psi,label,noise_mode,outdir):
+def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
     for idx, i in enumerate(inputs):
         print('Generating image for frame %d/%d ...' % (idx, len(inputs)))
-        z = torch.from_numpy(i).to(device)
-        img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+        
+        if (space=='z'):
+        	z = torch.from_numpy(i).to(device)
+        	img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+        else:
+        	img = G.synthesis(i, noise_mode=noise_mode, force_fp32=True)
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
         PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frames/frame{idx:04d}.png')
 
@@ -59,6 +63,14 @@ def line_interpolate(zs, steps):
             out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
     return out
 
+def zs_to_ws(G,device,label,truncation_psi,zs):
+    ws = []
+    for z_idx, z in enumerate(zs):
+        z = torch.from_numpy(z).to(device)
+        w = G.mapping(z, label, truncation_psi=0.5, truncation_cutoff=8)
+        ws.append(w)
+    return ws
+
 #----------------------------------------------------------------------------
 
 @click.command()
@@ -66,6 +78,7 @@ def line_interpolate(zs, steps):
 @click.option('--process', type=click.Choice(['image', 'interpolation']), default='image', help='generation method', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--seeds', type=num_range, help='List of random seeds', required=True)
+@click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
 @click.option('--frames', type=int, help='how many frames to produce', default=240, show_default=True)
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
@@ -77,6 +90,7 @@ def generate_images(
     network_pkl: str,
     process: str,
     seeds: Optional[List[int]],
+    space: str,
     frames: Optional[int],
     truncation_psi: float,
     noise_mode: str,
@@ -152,16 +166,21 @@ def generate_images(
             img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
             img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
             PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/seed{seed:04d}.png')
-            
+
     elif(process=='interpolation'):
         os.makedirs(outdir+"/frames", exist_ok=True)
 
         # get zs from seeds
-        zs = seeds_to_zs(G,device,seeds)
+        points = seeds_to_zs(G,device,seeds)
+        
+        # convert to ws
+        if(space=='w'):
+        	points = zs_to_ws(G,device,label,truncation_psi,points)
+
         # get interpolation zs
-        points = line_interpolate(zs,frames)
+        points = line_interpolate(points,frames)
         # generate frames
-        images(G,device,points,truncation_psi,label,noise_mode,outdir)
+        images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
         # convert to video
         cmd="ffmpeg -y -r 24 -i {}/frames/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {}/walk-test-24fps.mp4".format(outdir,outdir)
         subprocess.call(cmd, shell=True)
