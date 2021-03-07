@@ -16,6 +16,7 @@ from typing import List, Optional
 import click
 import dnnlib
 import numpy as np
+from numpy import linalg
 import PIL.Image
 import torch
 
@@ -40,6 +41,42 @@ class OSN():
 		self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d);
 		return self.tmp.noise2d(self.xoff,self.yoff)
 
+def circularloop(nf, d, seed):
+    if seed:
+        np.random.RandomState(seed)
+
+    r = d/2
+
+    zs = []
+
+    rnd = np.random
+    # hardcoding in 512, prob TODO fix needed
+    # latents_c = rnd.randn(1, G.input_shape[1])
+    latents_a = rnd.randn(1, 512)
+    latents_b = rnd.randn(1, 512)
+    latents_c = rnd.randn(1, 512)
+    latents = (latents_a, latents_b, latents_c)
+
+    current_pos = 0.0
+    step = 1./nf
+    
+    while(current_pos < 1.0):
+        zs.append(circular_interpolation(r, latents, current_pos))
+        current_pos += step
+    return zs
+
+def circular_interpolation(radius, latents_persistent, latents_interpolate):
+    latents_a, latents_b, latents_c = latents_persistent
+
+    latents_axis_x = (latents_a - latents_b).flatten() / linalg.norm(latents_a - latents_b)
+    latents_axis_y = (latents_a - latents_c).flatten() / linalg.norm(latents_a - latents_c)
+
+    latents_x = np.sin(np.pi * 2.0 * latents_interpolate) * radius
+    latents_y = np.cos(np.pi * 2.0 * latents_interpolate) * radius
+
+    latents = latents_a + latents_x * latents_axis_x + latents_y * latents_axis_y
+    return latents
+
 def num_range(s: str) -> List[int]:
     '''Accept either a comma separated list of numbers 'a,b,c' or a range 'a-c' and return as a list of ints.'''
 
@@ -59,6 +96,9 @@ def line_interpolate(zs, steps):
     return out
 
 def noiseloop(nf, d, seed):
+    if seed:
+        np.random.RandomState(seed)
+
     features = []
     zs = []
     for i in range(512):
@@ -91,9 +131,9 @@ def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noi
 			print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
 
 		if(interpolation=='noiseloop'):
-			points = noiseloop(frames,diameter,random_seed)
+			points = noiseloop(frames, diameter, random_seed)
 		elif(interpolation=='circularloop'):
-			print('not yet!')
+			points = circularloop(frames, diameter, random_seed)
 
 	else:
 		# get zs from seeds
