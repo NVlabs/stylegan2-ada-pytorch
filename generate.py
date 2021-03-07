@@ -27,19 +27,19 @@ from opensimplex import OpenSimplex
 #----------------------------------------------------------------------------
 
 class OSN():
-	min=-1
-	max= 1
+    min=-1
+    max= 1
 
-	def __init__(self,seed,diameter):
-		self.tmp = OpenSimplex(seed)
-		self.d = diameter
-		self.x = 0
-		self.y = 0
+    def __init__(self,seed,diameter):
+        self.tmp = OpenSimplex(seed)
+        self.d = diameter
+        self.x = 0
+        self.y = 0
 
-	def get_val(self,angle):
-		self.xoff = valmap(np.cos(angle), -1, 1, self.x, self.x + self.d);
-		self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d);
-		return self.tmp.noise2d(self.xoff,self.yoff)
+    def get_val(self,angle):
+        self.xoff = valmap(np.cos(angle), -1, 1, self.x, self.x + self.d);
+        self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d);
+        return self.tmp.noise2d(self.xoff,self.yoff)
 
 def circularloop(nf, d, seed):
     if seed:
@@ -118,42 +118,42 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
         print('Generating image for frame %d/%d ...' % (idx, len(inputs)))
         
         if (space=='z'):
-        	z = torch.from_numpy(i).to(device)
-        	img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+            z = torch.from_numpy(i).to(device)
+            img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
         else:
-        	img = G.synthesis(i, noise_mode=noise_mode, force_fp32=True)
+            img = G.synthesis(i, noise_mode=noise_mode, force_fp32=True)
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
-        PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frames/frame{idx:04d}.png')
+        PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frame{idx:04d}.png')
 
 def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter):
-	if(interpolation=='noiseloop' or interpolation=='circularloop'):
-		if seeds is not None:
-			print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
+    if(interpolation=='noiseloop' or interpolation=='circularloop'):
+        if seeds is not None:
+            print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
 
-		if(interpolation=='noiseloop'):
-			points = noiseloop(frames, diameter, random_seed)
-		elif(interpolation=='circularloop'):
-			points = circularloop(frames, diameter, random_seed)
+        if(interpolation=='noiseloop'):
+            points = noiseloop(frames, diameter, random_seed)
+        elif(interpolation=='circularloop'):
+            points = circularloop(frames, diameter, random_seed)
 
-	else:
-		# get zs from seeds
-		points = seeds_to_zs(G,device,seeds)
-	        
-		# convert to ws
-		if(space=='w'):
-			points = zs_to_ws(G,device,label,truncation_psi,points)
+    else:
+        # get zs from seeds
+        points = seeds_to_zs(G,device,seeds)
+            
+        # convert to ws
+        if(space=='w'):
+            points = zs_to_ws(G,device,label,truncation_psi,points)
 
-		# get interpolation points
-		if(interpolation=='linear'):
-			points = line_interpolate(points,frames)
-		elif(interpolation=='slerp'):
-			if(space=='w'):
-				print(f'Slerp currently isn’t supported in w space.')
-			else:
-				points = slerp_interpolate(points,frames)
+        # get interpolation points
+        if(interpolation=='linear'):
+            points = line_interpolate(points,frames)
+        elif(interpolation=='slerp'):
+            if(space=='w'):
+                print(f'Slerp currently isn’t supported in w space.')
+            else:
+                points = slerp_interpolate(points,frames)
 
-	# generate frames
-	images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
+    # generate frames
+    images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
 
 def seeds_to_zs(G,device,seeds):
     zs = []
@@ -190,15 +190,15 @@ def slerp(val, low, high):
     return out
 
 def slerp_interpolate(zs, steps):
-	out = []
-	for i in range(len(zs)-1):
-		for index in range(steps):
-			fraction = index/float(steps)
-			out.append(slerp(fraction,zs[i],zs[i+1]))
-	return out
+    out = []
+    for i in range(len(zs)-1):
+        for index in range(steps):
+            fraction = index/float(steps)
+            out.append(slerp(fraction,zs[i],zs[i+1]))
+    return out
 
 def valmap(value, istart, istop, ostart, ostop):
-	return ostart + (ostop - ostart) * ((value - istart) / (istop - istart))
+    return ostart + (ostop - ostart) * ((value - istart) / (istop - istart))
 
 def zs_to_ws(G,device,label,truncation_psi,zs):
     ws = []
@@ -215,11 +215,12 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
 @click.option('--diameter', type=float, help='diameter of loops', default=100.0, show_default=True)
 @click.option('--frames', type=int, help='how many frames to produce (with seeds this is frames between each step, with loops this is total length)', default=240, show_default=True)
+@click.option('--fps', type=int, help='framerate for video', default=24, show_default=True)
 @click.option('--interpolation', type=click.Choice(['linear', 'slerp', 'noiseloop', 'circularloop']), default='linear', help='interpolation type', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
 @click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
-@click.option('--process', type=click.Choice(['image', 'interpolation']), default='image', help='generation method', required=True)
+@click.option('--process', type=click.Choice(['image', 'interpolation','truncation']), default='image', help='generation method', required=True)
 @click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
 @click.option('--seeds', type=num_range, help='List of random seeds')
@@ -235,6 +236,7 @@ def generate_images(
     diameter: Optional[float],
     seeds: Optional[List[int]],
     space: str,
+    fps: Optional[int],
     frames: Optional[int],
     truncation_psi: float,
     noise_mode: str,
@@ -312,13 +314,34 @@ def generate_images(
             PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/seed{seed:04d}.png')
 
     elif(process=='interpolation'):
-        os.makedirs(outdir+"/frames", exist_ok=True)
-        interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter)
+        # create path for frames
+        dirpath = os.path.join(outdir,'frames')
+        os.makedirs(dirpath, exist_ok=True)
+
+        # autogenerate video name: not great!
+        if seeds is not None:
+            seedstr = '_'.join([str(seed) for seed in seeds])
+            vidname = f'{process}-{interpolation}-seeds_{seedstr}-{fps}fps'
+        elif(interpolation=='noiseloop' or 'circularloop'):
+            vidname = f'{process}-{interpolation}-{diameter}dia-seed_{random_seed}-{fps}fps'
+
+        interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,diameter)
 
         # convert to video
-        cmd="ffmpeg -y -r 24 -i {}/frames/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {}/walk-test-24fps.mp4".format(outdir,outdir)
+        cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'
         subprocess.call(cmd, shell=True)
 
+    elif(process=='truncation'):
+        # create path for frames
+        dirpath = os.path.join(outdir,'frames')
+        os.makedirs(dirpath, exist_ok=True)
+
+        #vidname
+        vidname = f'{process}-{interpolation}-{fps}fps'
+
+        # convert to video
+        cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'
+        subprocess.call(cmd, shell=True)
 
 #----------------------------------------------------------------------------
 
