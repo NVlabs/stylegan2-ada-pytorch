@@ -197,6 +197,23 @@ def slerp_interpolate(zs, steps):
             out.append(slerp(fraction,zs[i],zs[i+1]))
     return out
 
+def truncation_traversal(G,z,label,start,stop,increment,noise_mode,outdir):
+    count = 1
+    trunc = start
+
+    z = seeds_to_zs(z)
+    z = torch.from_numpy(z).to(device)
+
+    while trunc <= stop:
+        print('Generating truncation %0.2f' % trunc)
+        
+        img = G(z, label, truncation_psi=trunc, noise_mode=noise_mode)
+        img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
+        PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frame{count:04d}.png')
+
+        trunc+=increment
+        count+=1
+
 def valmap(value, istart, istop, ostart, ostop):
     return ostart + (ostop - ostart) * ((value - istart) / (istop - istart))
 
@@ -216,6 +233,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--diameter', type=float, help='diameter of loops', default=100.0, show_default=True)
 @click.option('--frames', type=int, help='how many frames to produce (with seeds this is frames between each step, with loops this is total length)', default=240, show_default=True)
 @click.option('--fps', type=int, help='framerate for video', default=24, show_default=True)
+@click.option('--increment', type=float, help='truncation increment value', default=0.01, show_default=True)
 @click.option('--interpolation', type=click.Choice(['linear', 'slerp', 'noiseloop', 'circularloop']), default='linear', help='interpolation type', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
@@ -225,11 +243,14 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
 @click.option('--seeds', type=num_range, help='List of random seeds')
 @click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
+@click.option('--start', type=float, help='starting truncation value', default=0.0, show_default=True)
+@click.option('--stop', type=float, help='stopping truncation value', default=1.0, show_default=True)
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 
 def generate_images(
     ctx: click.Context,
     interpolation: str,
+    increment: Optional[float],
     network_pkl: str,
     process: str,
     random_seed: Optional[int],
@@ -242,7 +263,9 @@ def generate_images(
     noise_mode: str,
     outdir: str,
     class_idx: Optional[int],
-    projected_w: Optional[str]
+    projected_w: Optional[str],
+    start: Optional[float],
+    stop: Optional[float],
 ):
     """Generate images using pretrained network pickle.
 
@@ -332,12 +355,19 @@ def generate_images(
         subprocess.call(cmd, shell=True)
 
     elif(process=='truncation'):
+        if seeds is None or (len(seeds)>1):
+            ctx.fail('truncation requires a single seed value')
+
         # create path for frames
         dirpath = os.path.join(outdir,'frames')
         os.makedirs(dirpath, exist_ok=True)
 
         #vidname
-        vidname = f'{process}-{interpolation}-{fps}fps'
+        seed = seeds[0]
+        vidname = f'{process}-{interpolation}-seed_{seed}-start_{start}-stop_{stop}-inc_{increment}-{fps}fps'
+
+        # generate frames
+        truncation_traversal(G,seed,label,start,stop,increment,noise_mode,dirpath)
 
         # convert to video
         cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'
