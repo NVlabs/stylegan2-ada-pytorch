@@ -245,7 +245,11 @@ def training_loop(
     if rank == 0:
         print(f'Training for {total_kimg} kimg...')
         print()
-    cur_nimg = 0
+    # Grab acual kmig from resume pkl
+    if (resume_pkl is not None) and (rank == 0):
+      cur_nimg = int(resume_pkl.split('-')[-1].split('.')[0])*1000
+    else: 
+      cur_nimg = 0
     cur_tick = 0
     tick_start_nimg = cur_nimg
     tick_start_time = time.time()
