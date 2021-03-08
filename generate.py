@@ -41,7 +41,7 @@ def num_range(s: str) -> List[int]:
 @click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
-@click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
+@click.option('--projected_w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
 def generate_images(
     ctx: click.Context,
@@ -88,7 +88,7 @@ def generate_images(
     # Synthesize the result of a W projection.
     if projected_w is not None:
         if seeds is not None:
-            print ('warn: --seeds is ignored when using --projected-w')
+            print ('warn: --seeds is ignored when using --projected_w')
         print(f'Generating images from projected W "{projected_w}"')
         ws = np.load(projected_w)['w']
         ws = torch.tensor(ws, device=device) # pylint: disable=not-callable
@@ -100,7 +100,7 @@ def generate_images(
         return
 
     if seeds is None:
-        ctx.fail('--seeds option is required when not using --projected-w')
+        ctx.fail('--seeds option is required when not using --projected_w')
 
     # Labels.
     label = torch.zeros([1, G.c_dim], device=device)
