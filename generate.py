@@ -137,7 +137,7 @@ def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noi
 
     else:
         # get zs from seeds
-        points = seeds_to_zs(G,device,seeds)
+        points = seeds_to_zs(G,seeds)
             
         # convert to ws
         if(space=='w'):
@@ -155,7 +155,7 @@ def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noi
     # generate frames
     images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
 
-def seeds_to_zs(G,device,seeds):
+def seeds_to_zs(G,seeds):
     zs = []
     for seed_idx, seed in enumerate(seeds):
         z = np.random.RandomState(seed).randn(1, G.z_dim)
@@ -197,12 +197,12 @@ def slerp_interpolate(zs, steps):
             out.append(slerp(fraction,zs[i],zs[i+1]))
     return out
 
-def truncation_traversal(G,z,label,start,stop,increment,noise_mode,outdir):
+def truncation_traversal(G,device,z,label,start,stop,increment,noise_mode,outdir):
     count = 1
     trunc = start
 
-    z = seeds_to_zs(z)
-    z = torch.from_numpy(z).to(device)
+    z = seeds_to_zs(G,z)[0]
+    z = torch.from_numpy(np.asarray(z)).to(device)
 
     while trunc <= stop:
         print('Generating truncation %0.2f' % trunc)
@@ -364,10 +364,10 @@ def generate_images(
 
         #vidname
         seed = seeds[0]
-        vidname = f'{process}-{interpolation}-seed_{seed}-start_{start}-stop_{stop}-inc_{increment}-{fps}fps'
+        vidname = f'{process}-seed_{seed}-start_{start}-stop_{stop}-inc_{increment}-{fps}fps'
 
         # generate frames
-        truncation_traversal(G,seed,label,start,stop,increment,noise_mode,dirpath)
+        truncation_traversal(G,device,seeds,label,start,stop,increment,noise_mode,dirpath)
 
         # convert to video
         cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'
