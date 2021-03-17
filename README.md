@@ -9,6 +9,7 @@
 * ~~**Vertical Mirroring**: use `--mirrory=True` to flip training set top to bottom~~ currently broken
 * **Set Initial Augmentation Strength**: use `--initstrength={float value}` to set the initialized strength of augmentations (really helpful when restarting training)
 * **Set Initial Kimg count**: use `--nkimg={int value}` to set the initial kimg count (helpful with restarts)
+* **Closed Form Factorization:** converted from Rosinality repo by [Philip Bizimis](https://github.com/pbizimis); additional video creation features
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
