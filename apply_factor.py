@@ -8,6 +8,7 @@ import legacy
 import dnnlib
 from typing import List
 import numpy as np
+import random
 
 """
 Use closed_form_factorization.py first to create your factor.pt
@@ -112,7 +113,8 @@ if __name__ == "__main__":
     index_list_of_eigenvalues = []
 
     if isinstance(seeds, int):
-        latents = torch.randn([seeds, G.z_dim]).cuda()
+        for i in range(seeds):
+            latents.append(random.randint(0,2**32-1)) # 2**32-1 is the highest seed value
         mode = "random"
         log_str = str(seeds) + " samples"
     else:
@@ -134,10 +136,7 @@ if __name__ == "__main__":
     for l in latents:
         print(f"Generate images for seed ", l)
 
-        if mode == "random":
-            z = l.unsqueeze(0)
-        elif mode == "seeds":
-            z = torch.from_numpy(np.random.RandomState(l).randn(1, G.z_dim)).to(device)
+        z = torch.from_numpy(np.random.RandomState(l).randn(1, G.z_dim)).to(device)
 
         file_name = ""
         image_grid_eigvec = []
@@ -184,10 +183,7 @@ if __name__ == "__main__":
             if not os.path.exists(seed_folder_path):
                 os.makedirs(seed_folder_path)
 
-            if mode == "random":
-                z = l.unsqueeze(0)
-            elif mode == "seeds":
-                z = torch.from_numpy(np.random.RandomState(l).randn(1, G.z_dim)).to(device)
+            z = torch.from_numpy(np.random.RandomState(l).randn(1, G.z_dim)).to(device)
 
 
             for j in index_list_of_eigenvalues:
