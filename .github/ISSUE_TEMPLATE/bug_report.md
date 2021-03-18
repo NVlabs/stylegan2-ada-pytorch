@@ -13,7 +13,7 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 Steps to reproduce the behavior:
 1. In '...' directory, run command '...'
-2. See error (please copy&paste full log and stacktraces).  
+2. See error (copy&paste full log, including exceptions and **stacktraces**).
 
 Please copy&paste text instead of screenshots for better searchability.
 
