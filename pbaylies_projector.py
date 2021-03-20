@@ -364,8 +364,18 @@ def run_projection(
     )
     print (f'Elapsed: {(perf_counter()-start_time):.1f} s')
 
-    # Render debug output: optional video and projected image and W vector.
     os.makedirs(outdir, exist_ok=True)
+    # Save final projected frame and W vector.
+    if target_fname:
+        target_pil.save(f'{outdir}/target.png')
+    projected_w = projected_w_steps[-1]
+    synth_image = G.synthesis(projected_w.unsqueeze(0), noise_mode='const')
+    synth_image = (synth_image + 1) * (255/2)
+    synth_image = synth_image.permute(0, 2, 3, 1).clamp(0, 255).to(torch.uint8)[0].cpu().numpy()
+    PIL.Image.fromarray(synth_image, 'RGB').save(f'{outdir}/proj.png')
+    np.savez(f'{outdir}/projected_w.npz', w=projected_w.unsqueeze(0).cpu().numpy())
+
+    # Render debug output: optional video and projected image and W vector.
     if save_video:
         video = imageio.get_writer(f'{outdir}/proj.mp4', mode='I', fps=10, codec='libx264', bitrate='16M')
         print (f'Saving optimization progress video "{outdir}/proj.mp4"')
@@ -378,16 +388,6 @@ def run_projection(
             else:
                 video.append_data(synth_image)
         video.close()
-
-    # Save final projected frame and W vector.
-    if target_fname:
-        target_pil.save(f'{outdir}/target.png')
-    projected_w = projected_w_steps[-1]
-    synth_image = G.synthesis(projected_w.unsqueeze(0), noise_mode='const')
-    synth_image = (synth_image + 1) * (255/2)
-    synth_image = synth_image.permute(0, 2, 3, 1).clamp(0, 255).to(torch.uint8)[0].cpu().numpy()
-    PIL.Image.fromarray(synth_image, 'RGB').save(f'{outdir}/proj.png')
-    np.savez(f'{outdir}/projected_w.npz', w=projected_w.unsqueeze(0).cpu().numpy())
 
 #----------------------------------------------------------------------------
 
