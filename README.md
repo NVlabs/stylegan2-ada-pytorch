@@ -10,6 +10,8 @@
 * **Set Initial Augmentation Strength**: use `--initstrength={float value}` to set the initialized strength of augmentations (really helpful when restarting training)
 * **Set Initial Kimg count**: use `--nkimg={int value}` to set the initial kimg count (helpful with restarts)
 * **Closed Form Factorization:** converted from Rosinality repo by [Philip Bizimis](https://github.com/pbizimis); additional video creation features
+* **Additional Projector Techniques** Thanks to Peter Baylies for his projector code that optionally uses pixel-based loss or CLIP
+* **Interpolate from Projector .npz Files** Use the `combine_npz.py` script to combine multiple .npz files
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
