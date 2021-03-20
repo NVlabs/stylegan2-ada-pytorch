@@ -121,11 +121,13 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
             z = torch.from_numpy(i).to(device)
             img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
         else:
+            if i.shape[0] == 18: 
+              i = torch.from_numpy(i).unsqueeze(0).to(device)
             img = G.synthesis(i, noise_mode=noise_mode, force_fp32=True)
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
         PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frame{idx:04d}.png')
 
-def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter):
+def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter):
     if(interpolation=='noiseloop' or interpolation=='circularloop'):
         if seeds is not None:
             print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
@@ -136,22 +138,23 @@ def interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noi
             points = circularloop(frames, diameter, random_seed)
 
     else:
-        # get zs from seeds
-        points = seeds_to_zs(G,seeds)
-            
-        # convert to ws
-        if(space=='w'):
-            points = zs_to_ws(G,device,label,truncation_psi,points)
+        if projected_w is not None:
+            points = np.load(projected_w)['w']
+        else:
+            # get zs from seeds
+            points = seeds_to_zs(G,seeds)  
+            # convert to ws
+            if(space=='w'):
+                points = zs_to_ws(G,device,label,truncation_psi,points)
 
         # get interpolation points
         if(interpolation=='linear'):
             points = line_interpolate(points,frames)
         elif(interpolation=='slerp'):
             if(space=='w'):
-                print(f'Slerp currently isn’t supported in w space.')
+                print(f'Slerp currently isn’t supported in w space. Working on it!')
             else:
                 points = slerp_interpolate(points,frames)
-
     # generate frames
     images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
 
@@ -221,7 +224,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
     ws = []
     for z_idx, z in enumerate(zs):
         z = torch.from_numpy(z).to(device)
-        w = G.mapping(z, label, truncation_psi=0.5, truncation_cutoff=8)
+        w = G.mapping(z, label, truncation_psi=truncation_psi, truncation_cutoff=8)
         ws.append(w)
     return ws
 
@@ -300,7 +303,7 @@ def generate_images(
     os.makedirs(outdir, exist_ok=True)
 
     # Synthesize the result of a W projection.
-    if projected_w is not None:
+    if (process=='image') and projected_w is not None:
         if seeds is not None:
             print ('Warning: --seeds is ignored when using --projected-w')
         print(f'Generating images from projected W "{projected_w}"')
@@ -348,7 +351,8 @@ def generate_images(
         elif(interpolation=='noiseloop' or 'circularloop'):
             vidname = f'{process}-{interpolation}-{diameter}dia-seed_{random_seed}-{fps}fps'
 
-        interpolate(G,device,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,diameter)
+
+        interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,diameter)
 
         # convert to video
         cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'
