@@ -24,21 +24,21 @@ import legacy
 
 from opensimplex import OpenSimplex
 
-#----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
 class OSN():
-    min=-1
-    max= 1
+    min = -1
+    max = 1
 
-    def __init__(self,seed,diameter):
+    def __init__(self, seed, diameter):
         self.tmp = OpenSimplex(seed)
         self.d = diameter
         self.x = 0
         self.y = 0
 
-    def get_val(self,angle):
-        self.xoff = valmap(np.cos(angle), -1, 1, self.x, self.x + self.d);
-        self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d);
+    def get_val(self, angle):
+        self.xoff = valmap(np.cos(angle), -1, 1, self.x, self.x + self.d)
+        self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d)
         return self.tmp.noise2d(self.xoff,self.yoff)
 
 def circularloop(nf, d, seed):
@@ -59,7 +59,7 @@ def circularloop(nf, d, seed):
 
     current_pos = 0.0
     step = 1./nf
-    
+
     while(current_pos < 1.0):
         zs.append(circular_interpolation(r, latents, current_pos))
         current_pos += step
@@ -87,12 +87,30 @@ def num_range(s: str) -> List[int]:
     vals = s.split(',')
     return [int(x) for x in vals]
 
-def line_interpolate(zs, steps):
+def line_interpolate(zs, steps, easing):
     out = []
     for i in range(len(zs)-1):
         for index in range(steps):
-            fraction = index/float(steps)
-            out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
+            t = index/float(steps)
+
+            if(easing == 'linear'):
+                out.append(zs[i+1]*t + zs[i]*(1-t))
+            elif (easing == 'easeInOutQuad'):
+                if(t < 0.5):
+                    fr = 2 * t * t
+                else:
+                    fr = (-2 * t * t) + (4 * t) - 1
+                out.append(zs[i+1]*fr + zs[i]*(1-fr))
+            elif (easing == 'bounceEaseOut'):
+                if (t < 4/11):
+                    fr = 121 * t * t / 16
+                elif (t < 8/11):
+                    fr = (363 / 40.0 * t * t) - (99 / 10.0 * t) + 17 / 5.0
+                elif t < 9/ 0:
+                    fr = (4356 / 361.0 * t * t) - (35442 / 1805.0 * t) + 16061 / 1805.0
+                else:
+                    fr = (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
+                out.append(zs[i+1]*fr + zs[i]*(1-fr))
     return out
 
 def noiseloop(nf, d, seed):
@@ -127,7 +145,7 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
         PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frame{idx:04d}.png')
 
-def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,diameter):
+def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,easing,diameter):
     if(interpolation=='noiseloop' or interpolation=='circularloop'):
         if seeds is not None:
             print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
@@ -149,7 +167,7 @@ def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,labe
 
         # get interpolation points
         if(interpolation=='linear'):
-            points = line_interpolate(points,frames)
+            points = line_interpolate(points,frames,easing)
         elif(interpolation=='slerp'):
             if(space=='w'):
                 print(f'Slerp currently isn’t supported in w space. Working on it!')
@@ -238,6 +256,9 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--fps', type=int, help='framerate for video', default=24, show_default=True)
 @click.option('--increment', type=float, help='truncation increment value', default=0.01, show_default=True)
 @click.option('--interpolation', type=click.Choice(['linear', 'slerp', 'noiseloop', 'circularloop']), default='linear', help='interpolation type', required=True)
+@click.option('--easing',
+              type=click.Choice(['linear', 'easeInOutQuad', 'bounceEaseOut']),
+              default='linear', help='easing method', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
 @click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
@@ -252,6 +273,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 
 def generate_images(
     ctx: click.Context,
+    easing: str,
     interpolation: str,
     increment: Optional[float],
     network_pkl: str,
@@ -352,7 +374,7 @@ def generate_images(
             vidname = f'{process}-{interpolation}-{diameter}dia-seed_{random_seed}-{fps}fps'
 
 
-        interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,diameter)
+        interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,easing,diameter)
 
         # convert to video
         cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'

@@ -22,7 +22,6 @@ import PIL.Image
 from PIL import ImageFilter
 import torch
 import torch.nn.functional as F
-import clip
 
 import dnnlib
 import legacy
@@ -84,6 +83,10 @@ def project(
     else:
         use_vgg = False
         use_pixel = False
+
+    # reduce errors unless using clip
+    if use_clip:
+        import clip
 
     def logprint(*args):
         if verbose:
