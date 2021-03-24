@@ -58,7 +58,7 @@ def convert(network_pkl, output_file):
         state_ros[f"style.{i+1}.weight"] = state_nv[f"mapping.fc{i}.weight"]
         state_ros[f"style.{i+1}.bias"] = state_nv[f"mapping.fc{i}.bias"]
 
-    for i in range(n_layers):
+    for i in range(int(n_layers)):
         if i > 0:
             for conv_level in range(2):
                 convert_conv(state_ros, state_nv, f"convs.{2*i-2+conv_level}", f"synthesis.b{4*(2**i)}.conv{conv_level}")
