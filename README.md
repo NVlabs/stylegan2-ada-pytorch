@@ -5,13 +5,14 @@
 ## Edits made to this repo
 
 * **Fakes .jpg**: save yourself a ton of space with fakes during training saved as .jpg instead of .png
-* **Basic interpolationn**: use `--process="interpolation"`
+* **Multiple interpolation options**: use `--process="interpolation"`, see `--help` for more options
 * ~~**Vertical Mirroring**: use `--mirrory=True` to flip training set top to bottom~~ currently broken
 * **Set Initial Augmentation Strength**: use `--initstrength={float value}` to set the initialized strength of augmentations (really helpful when restarting training)
 * **Set Initial Kimg count**: use `--nkimg={int value}` to set the initial kimg count (helpful with restarts)
 * **Closed Form Factorization:** converted from Rosinality repo by [Philip Bizimis](https://github.com/pbizimis); additional video creation features
 * **Additional Projector Techniques** Thanks to Peter Baylies for his projector code that optionally uses pixel-based loss or CLIP
 * **Interpolate from Projector .npz Files** Use the `combine_npz.py` script to combine multiple .npz files
+* **Convert to Rosinality model structure** Thanks to [Justin Pinkney](https://github.com/justinpinkney) for making this! Converting to Rosinality opens up numerous additional tools for manipulatinng StyleGAN models
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
