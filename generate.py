@@ -114,6 +114,9 @@ def line_interpolate(zs, steps, easing):
             elif (easing == 'circularEaseOut'):
                 fr = np.sqrt((2 - t) * t)
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
+            elif (easing == 'circularEaseOut2'):
+                fr = np.sqrt(np.sqrt((2 - t) * t))
+                out.append(zs[i+1]*fr + zs[i]*(1-fr))
     return out
 
 def noiseloop(nf, d, seed):
@@ -268,7 +271,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--increment', type=float, help='truncation increment value', default=0.01, show_default=True)
 @click.option('--interpolation', type=click.Choice(['linear', 'slerp', 'noiseloop', 'circularloop']), default='linear', help='interpolation type', required=True)
 @click.option('--easing',
-              type=click.Choice(['linear', 'easeInOutQuad', 'bounceEaseOut']),
+              type=click.Choice(['linear', 'easeInOutQuad', 'bounceEaseOut','circularEaseOut','circularEaseOut2']),
               default='linear', help='easing method', required=True)
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
