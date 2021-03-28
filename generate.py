@@ -111,6 +111,9 @@ def line_interpolate(zs, steps, easing):
                 else:
                     fr = (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
+            elif (easing == 'circularEaseOut'):
+                fr = np.sqrt((2 - t) * t)
+                out.append(zs[i+1]*fr + zs[i]*(1-fr))
     return out
 
 def noiseloop(nf, d, seed):
@@ -131,13 +134,21 @@ def noiseloop(nf, d, seed):
 
     return zs
 
-def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
+def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir,start=None,stop=None):
+    if(start is not None and stop is not None):
+        tp = start
+        tp_i = (stop-start)/len(inputs)
+
     for idx, i in enumerate(inputs):
         print('Generating image for frame %d/%d ...' % (idx, len(inputs)))
         
         if (space=='z'):
             z = torch.from_numpy(i).to(device)
-            img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+            if(start is not None and stop is not None):
+                img = G(z, label, truncation_psi=tp, noise_mode=noise_mode)
+                tp = tp+tp_i
+            else:
+                img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
         else:
             if i.shape[0] == 18: 
               i = torch.from_numpy(i).unsqueeze(0).to(device)
@@ -145,7 +156,7 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir):
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
         PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/frame{idx:04d}.png')
 
-def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,easing,diameter):
+def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,outdir,interpolation,easing,diameter,start=None,stop=None):
     if(interpolation=='noiseloop' or interpolation=='circularloop'):
         if seeds is not None:
             print(f'Warning: interpolation type: "{interpolation}" doesn’t support set seeds.')
@@ -174,7 +185,7 @@ def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,labe
             else:
                 points = slerp_interpolate(points,frames)
     # generate frames
-    images(G,device,points,space,truncation_psi,label,noise_mode,outdir)
+    images(G,device,points,space,truncation_psi,label,noise_mode,outdir,start,stop)
 
 def seeds_to_zs(G,seeds):
     zs = []
@@ -262,7 +273,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
 @click.option('--noise-mode', help='Noise mode', type=click.Choice(['const', 'random', 'none']), default='const', show_default=True)
 @click.option('--outdir', help='Where to save the output images', type=str, required=True, metavar='DIR')
-@click.option('--process', type=click.Choice(['image', 'interpolation','truncation']), default='image', help='generation method', required=True)
+@click.option('--process', type=click.Choice(['image', 'interpolation','truncation','interpolation-truncation']), default='image', help='generation method', required=True)
 @click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
 @click.option('--seeds', type=num_range, help='List of random seeds')
@@ -361,7 +372,7 @@ def generate_images(
             img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
             PIL.Image.fromarray(img[0].cpu().numpy(), 'RGB').save(f'{outdir}/seed{seed:04d}.png')
 
-    elif(process=='interpolation'):
+    elif(process=='interpolation' or process=='interpolation-truncation'):
         # create path for frames
         dirpath = os.path.join(outdir,'frames')
         os.makedirs(dirpath, exist_ok=True)
@@ -373,8 +384,10 @@ def generate_images(
         elif(interpolation=='noiseloop' or 'circularloop'):
             vidname = f'{process}-{interpolation}-{diameter}dia-seed_{random_seed}-{fps}fps'
 
-
-        interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,easing,diameter)
+        if process=='interpolation-truncation':
+            interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,easing,diameter,start,stop)
+        else:
+            interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,label,frames,noise_mode,dirpath,interpolation,easing,diameter)
 
         # convert to video
         cmd=f'ffmpeg -y -r {fps} -i {dirpath}/frame%04d.png -vcodec libx264 -pix_fmt yuv420p {outdir}/{vidname}.mp4'
