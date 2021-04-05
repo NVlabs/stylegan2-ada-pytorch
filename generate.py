@@ -117,6 +117,10 @@ def line_interpolate(zs, steps, easing):
             elif (easing == 'circularEaseOut2'):
                 fr = np.sqrt(np.sqrt((2 - t) * t))
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
+            elif(easing == 'backEaseOut')
+                p = 1 - t
+                fr = 1 - (p * p * p - p * math.sin(p * math.pi))
+                out.append(zs[i+1]*fr + zs[i]*(1-fr))
     return out
 
 def noiseloop(nf, d, seed):
