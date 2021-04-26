@@ -44,9 +44,11 @@ def setup_training_loop_kwargs(
 
     # Base config.
     cfg        = None, # Base config: 'auto' (default), 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar'
+    cifar_tune = None, # Enforce CIFAR-specific architecture tuning: <bool>, default = False
     gamma      = None, # Override R1 gamma: <float>
     kimg       = None, # Override training duration: <int>
     batch      = None, # Override batch size: <int>
+    cfg_map    = None, # Override config map: <int>, default = depends on cfg
 
     # Discriminator augmentation.
     aug        = None, # Augmentation mode: 'ada' (default), 'noaug', 'fixed'
@@ -153,6 +155,7 @@ def setup_training_loop_kwargs(
 
     cfg_specs = {
         'auto':      dict(ref_gpus=-1, kimg=25000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=0.05, map=2), # Populated dynamically based on resolution and GPU count.
+        'auto_norp': dict(ref_gpus=-1, kimg=25000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=None, map=2),
         'stylegan2': dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # Uses mixed-precision, unlike the original StyleGAN2.
         'paper256':  dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=0.5, lrate=0.0025, gamma=1,    ema=20,  ramp=None, map=8),
         'paper512':  dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=1,   lrate=0.0025, gamma=0.5,  ema=20,  ramp=None, map=8),
@@ -162,7 +165,7 @@ def setup_training_loop_kwargs(
 
     assert cfg in cfg_specs
     spec = dnnlib.EasyDict(cfg_specs[cfg])
-    if cfg == 'auto':
+    if cfg.startswith('auto'):
         desc += f'{gpus:d}'
         spec.ref_gpus = gpus
         res = args.training_set_kwargs.resolution
@@ -192,7 +195,14 @@ def setup_training_loop_kwargs(
     args.ema_kimg = spec.ema
     args.ema_rampup = spec.ramp
 
-    if cfg == 'cifar':
+    if cifar_tune is None:
+        cifar_tune = False
+    else:
+        assert isinstance(cifar_tune, bool)
+        if cifar_tune:
+            desc += '-tuning'
+
+    if cifar_tune or cfg == 'cifar':
         args.loss_kwargs.pl_weight = 0 # disable path length regularization
         args.loss_kwargs.style_mixing_prob = 0 # disable style mixing
         args.D_kwargs.architecture = 'orig' # disable residual skip connections
@@ -219,6 +229,12 @@ def setup_training_loop_kwargs(
         args.batch_size = batch
         args.batch_gpu = batch // gpus
 
+    if cfg_map is not None:
+        assert isinstance(cfg_map, int)
+        if not cfg_map >= 1:
+            raise UserError('--cfg_map must be at least 1')
+        args.G_kwargs.mapping_kwargs.num_layers = cfg_map
+
     # ---------------------------------------------------
     # Discriminator augmentation: aug, p, target, augpipe
     # ---------------------------------------------------
@@ -244,8 +260,8 @@ def setup_training_loop_kwargs(
 
     if p is not None:
         assert isinstance(p, float)
-        if aug != 'fixed':
-            raise UserError('--p can only be specified with --aug=fixed')
+        if resume != 'latest' and aug != 'fixed':
+            raise UserError('--p can only be specified with --resume=latest or --aug=fixed')
         if not 0 <= p <= 1:
             raise UserError('--p must be between 0 and 1')
         desc += f'-p{p:g}'
@@ -413,10 +429,12 @@ class CommaSeparatedList(click.ParamType):
 @click.option('--mirror', help='Enable dataset x-flips [default: false]', type=bool, metavar='BOOL')
 
 # Base config.
-@click.option('--cfg', help='Base config [default: auto]', type=click.Choice(['auto', 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar']))
+@click.option('--cfg', help='Base config [default: auto]', type=click.Choice(['auto', 'auto_norp', 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar']))
+@click.option('--cifar_tune', help='Enforce CIFAR-specific architecture tuning (default: false)', type=bool, metavar='BOOL')
 @click.option('--gamma', help='Override R1 gamma', type=float)
 @click.option('--kimg', help='Override training duration', type=int, metavar='INT')
 @click.option('--batch', help='Override batch size', type=int, metavar='INT')
+@click.option('--cfg_map', help='Override config map', type=int, metavar='INT')
 
 # Discriminator augmentation.
 @click.option('--aug', help='Augmentation mode [default: ada]', type=click.Choice(['noaug', 'ada', 'fixed']))
