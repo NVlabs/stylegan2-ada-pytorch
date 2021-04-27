@@ -260,7 +260,7 @@ def training_loop(
     maintenance_time = tick_start_time - start_time
     batch_idx = 0
     if progress_fn is not None:
-        progress_fn(0, total_kimg)
+        progress_fn(cur_nimg // 1000, total_kimg)
     while True:
 
         # Fetch training data.
