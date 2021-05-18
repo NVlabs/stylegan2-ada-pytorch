@@ -42,7 +42,7 @@ def circular_interpolation(radius: float, latents_persistent: Tuple[np.ndarray, 
 def image_from_latent(G: torch.nn.Module, psi: float, z: npt.ArrayLike, device: torch.device) -> np.ndarray:
     """Helper to genereate numpy array in RGB from numpy Z space vector"""
     z_tensor = torch.from_numpy(z).to(device)
-    img = G(z_tensor, None, truncation_psi = psi)
+    img = G(z_tensor, None, truncation_psi = psi, noise_mode = "const")
     # Convert NCHW to NHWC and cast to uint8
     img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
     return img[0].cpu().numpy()
