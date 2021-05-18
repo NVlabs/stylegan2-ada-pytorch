@@ -7,19 +7,15 @@
 
 # Pytorch port
 
-import math
-import moviepy.editor
-from numpy import linalg
-import numpy as np
-import numpy.typing as npt
-import os
-import pickle
 import argparse
+import math
 from datetime import datetime
-from typing import Tuple, Optional, Union
+from typing import Optional, Tuple, Union
 
+import moviepy.editor
+import numpy as np
 import torch
-
+from numpy import linalg
 
 import dnnlib
 import legacy
@@ -39,7 +35,7 @@ def circular_interpolation(radius: float, latents_persistent: Tuple[np.ndarray, 
     return latents
 
 
-def image_from_latent(G: torch.nn.Module, psi: float, z: npt.ArrayLike, device: torch.device) -> np.ndarray:
+def image_from_latent(G: torch.nn.Module, psi: float, z: np.ndarray, device: torch.device) -> np.ndarray:
     """Helper to genereate numpy array in RGB from numpy Z space vector"""
     z_tensor = torch.from_numpy(z).to(device)
     img = G(z_tensor, None, truncation_psi = psi, noise_mode = "const")
