@@ -14,6 +14,7 @@
 * **Additional Projector Techniques** Thanks to Peter Baylies for his projector code that optionally uses pixel-based loss or CLIP
 * **Interpolate from Projector .npz Files** Use the `combine_npz.py` script to combine multiple .npz files
 * **Convert to Rosinality model structure** Thanks to [Justin Pinkney](https://github.com/justinpinkney) for making this! Converting to Rosinality opens up numerous additional tools for manipulatinng StyleGAN models
+* **Flesh Digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
