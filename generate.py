@@ -87,6 +87,11 @@ def num_range(s: str) -> List[int]:
     vals = s.split(',')
     return [int(x) for x in vals]
 
+def size_range(s: str) -> List[int]:
+    '''Accept a range 'a-c' and return as a list of ints.'''
+    vals = s.split('-')
+    return [int(x) for x in vals]
+
 def line_interpolate(zs, steps, easing):
     out = []
     for i in range(len(zs)-1):
@@ -106,7 +111,7 @@ def line_interpolate(zs, steps, easing):
                     fr = 121 * t * t / 16
                 elif (t < 8/11):
                     fr = (363 / 40.0 * t * t) - (99 / 10.0 * t) + 17 / 5.0
-                elif t < 9/ 0:
+                elif t < 9/10:
                     fr = (4356 / 361.0 * t * t) - (35442 / 1805.0 * t) + 16061 / 1805.0
                 else:
                     fr = (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
@@ -283,6 +288,7 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--process', type=click.Choice(['image', 'interpolation','truncation','interpolation-truncation']), default='image', help='generation method', required=True)
 @click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
+@click.option('--size', type=size_range, help='size of output (in format x-y)')
 @click.option('--seeds', type=num_range, help='List of random seeds')
 @click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
 @click.option('--start', type=float, help='starting truncation value', default=0.0, show_default=True)
@@ -298,6 +304,7 @@ def generate_images(
     process: str,
     random_seed: Optional[int],
     diameter: Optional[float],
+    size: Optional[List[int]],
     seeds: Optional[List[int]],
     space: str,
     fps: Optional[int],
@@ -334,6 +341,8 @@ def generate_images(
     python generate.py --outdir=out --projected_w=projected_w.npz \\
         --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
     """
+
+    print(size)
 
     print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
