@@ -17,8 +17,11 @@ from torch_utils import misc
 
 #----------------------------------------------------------------------------
 
+# !!! custom
 def load_network_pkl(f, force_fp16=False, custom=False, **ex_kwargs):
+# def load_network_pkl(f, force_fp16=False):
     data = _LegacyUnpickler(f).load()
+    # data = pickle.load(f, encoding='latin1')
 
     # Legacy TensorFlow pickle => convert.
     if isinstance(data, tuple) and len(data) == 3 and all(isinstance(net, _TFNetworkStub) for net in data):
@@ -36,6 +39,7 @@ def load_network_pkl(f, force_fp16=False, custom=False, **ex_kwargs):
         data = dict(G_ema=G_ema)
         nets = ['G_ema']
     else:
+# !!! custom
         if custom is True:
             G_ema = custom_generator(data, **ex_kwargs)
             data = dict(G_ema=G_ema)
@@ -45,6 +49,7 @@ def load_network_pkl(f, force_fp16=False, custom=False, **ex_kwargs):
             for name in ['G', 'D', 'G_ema']:
                 if name in data.keys():
                     nets.append(name)
+        # print(nets)
 
     # Add missing fields.
     if 'training_set_kwargs' not in data:
@@ -53,15 +58,13 @@ def load_network_pkl(f, force_fp16=False, custom=False, **ex_kwargs):
         data['augment_pipe'] = None
 
     # Validate contents.
-    assert isinstance(data['G'], torch.nn.Module)
-    assert isinstance(data['D'], torch.nn.Module)
     assert isinstance(data['G_ema'], torch.nn.Module)
     assert isinstance(data['training_set_kwargs'], (dict, type(None)))
     assert isinstance(data['augment_pipe'], (torch.nn.Module, type(None)))
 
     # Force FP16.
     if force_fp16:
-        for key in ['G', 'D', 'G_ema']:
+        for key in nets: # !!! custom
             old = data[key]
             kwargs = copy.deepcopy(old.init_kwargs)
             if key.startswith('G'):
@@ -137,7 +140,7 @@ def custom_generator(data, **ex_kwargs):
         w_dim           = data['G_ema'].w_dim,
         img_resolution  = data['G_ema'].img_resolution,
         img_channels    = data['G_ema'].img_channels,
-        init_res        = data['G_ema'].init_res,
+        init_res        = [4,4], # hacky
         mapping_kwargs  = dnnlib.EasyDict(num_layers = data['G_ema'].mapping.num_layers),
         synthesis_kwargs = dnnlib.EasyDict(channel_base = fmap_base, **ex_kwargs),
     )
@@ -145,7 +148,9 @@ def custom_generator(data, **ex_kwargs):
     misc.copy_params_and_buffers(data['G_ema'], G_out, require_all=False)
     return G_out
 
+# !!! custom
 def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
+# def convert_tf_generator(tf_G):
     if tf_G.version < 4:
         raise ValueError('TensorFlow pickle version too low')
 
@@ -182,7 +187,7 @@ def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
             use_noise           = kwarg('use_noise',            True),
             activation          = kwarg('nonlinearity',         'lrelu'),
         ),
-        # !!! custom
+# !!! custom
         init_res                = kwarg('init_res',            [4,4]),
     )
 
@@ -192,11 +197,15 @@ def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
     kwarg('style_mixing_prob')
     kwarg('structure')
     unknown_kwargs = list(set(tf_kwargs.keys()) - known_kwargs)
-    # !!! custom
+# !!! custom
     if custom:
         kwargs.synthesis_kwargs = dnnlib.EasyDict(**kwargs.synthesis_kwargs, **ex_kwargs)
     if len(unknown_kwargs) > 0:
-        raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
+        raise ValueError('Unknown TensorFlow kwargs:', unknown_kwargs)
+        # raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
+    # try: 
+        # if ex_kwargs['verbose'] is True: print(kwargs.synthesis_kwargs)
+    # except: pass
 
     # Collect params.
     tf_params = _collect_tf_params(tf_G)
@@ -209,7 +218,10 @@ def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
     #for name, value in tf_params.items(): print(f'{name:<50s}{list(value.shape)}')
 
     # Convert params.
-    from training import networks
+    if custom:
+        from training import stylegan2_multi as networks
+    else:
+        from training import networks
     G = networks.Generator(**kwargs).eval().requires_grad_(False)
     # pylint: disable=unnecessary-lambda
     _populate_module_params(G,
@@ -287,7 +299,7 @@ def convert_tf_discriminator(tf_D):
             mbstd_num_channels  = kwarg('mbstd_num_features',   1),
             activation          = kwarg('nonlinearity',         'lrelu'),
         ),
-        # !!! custom
+# !!! custom
         init_res                = kwarg('init_res',            [4,4]),
     )
 

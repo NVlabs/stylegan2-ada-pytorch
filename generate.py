@@ -351,10 +351,35 @@ def generate_images(
         print('render custom size: ',size)
         print('padding method:', scale_type )
         custom = True
+    else:
+        custom = False
 
     G_kwargs = dnnlib.EasyDict()
     G_kwargs.size = size 
     G_kwargs.scale_type = scale_type
+
+    # mask/blend latents with external latmask or by splitting the frame
+    latmask = False #temp
+    if latmask is None:
+        nHW = [int(s) for s in a.nXY.split('-')][::-1]
+        assert len(nHW)==2, ' Wrong count nXY: %d (must be 2)' % len(nHW)
+        n_mult = nHW[0] * nHW[1]
+        # if a.verbose is True and n_mult > 1: print(' Latent blending w/split frame %d x %d' % (nHW[1], nHW[0]))
+        lmask = np.tile(np.asarray([[[[1]]]]), (1,n_mult,1,1))
+        Gs_kwargs.countHW = nHW
+        Gs_kwargs.splitfine = a.splitfine
+        lmask = torch.from_numpy(lmask).to(device)
+    # else:
+        # if a.verbose is True: print(' Latent blending with mask', a.latmask)
+        # n_mult = 2
+        # if os.path.isfile(a.latmask): # single file
+        #     lmask = np.asarray([[img_read(a.latmask)[:,:,0] / 255.]]) # [h,w]
+        # elif os.path.isdir(a.latmask): # directory with frame sequence
+        #     lmask = np.asarray([[img_read(f)[:,:,0] / 255. for f in img_list(a.latmask)]]) # [h,w]
+        # else:
+        #     print(' !! Blending mask not found:', a.latmask); exit(1)
+        # lmask = np.concatenate((lmask, 1 - lmask), 1) # [frm,2,h,w]
+    # lmask = torch.from_numpy(lmask).to(device)
 
     print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
