@@ -122,7 +122,7 @@ def line_interpolate(zs, steps, easing):
             elif (easing == 'circularEaseOut2'):
                 fr = np.sqrt(np.sqrt((2 - t) * t))
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
-            elif(easing == 'backEaseOut')
+            elif(easing == 'backEaseOut'):
                 p = 1 - t
                 fr = 1 - (p * p * p - p * math.sin(p * math.pi))
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
@@ -288,6 +288,9 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--process', type=click.Choice(['image', 'interpolation','truncation','interpolation-truncation']), default='image', help='generation method', required=True)
 @click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
+@click.option('--scale-type',
+                type=click.Choice(['pad', 'padside', 'symm','symmside']),
+                default='pad', help='scaling method for --size', required=False)
 @click.option('--size', type=size_range, help='size of output (in format x-y)')
 @click.option('--seeds', type=num_range, help='List of random seeds')
 @click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
@@ -304,6 +307,7 @@ def generate_images(
     process: str,
     random_seed: Optional[int],
     diameter: Optional[float],
+    scale_type: Optional[str],
     size: Optional[List[int]],
     seeds: Optional[List[int]],
     space: str,
@@ -341,13 +345,22 @@ def generate_images(
     python generate.py --outdir=out --projected_w=projected_w.npz \\
         --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
     """
+    
+    # custom size code from https://github.com/eps696/stylegan2ada/blob/master/src/_genSGAN2.py
+    if(size): 
+        print('render custom size: ',size)
+        print('padding method:', scale_type )
+        custom = True
 
-    print(size)
+    G_kwargs = dnnlib.EasyDict()
+    G_kwargs.size = size 
+    G_kwargs.scale_type = scale_type
 
     print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
     with dnnlib.util.open_url(network_pkl) as f:
-        G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+        # G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+        G = legacy.load_network_pkl(f, custom=custom, **G_kwargs)['G_ema'].to(device) # type: ignore
 
     os.makedirs(outdir, exist_ok=True)
 
