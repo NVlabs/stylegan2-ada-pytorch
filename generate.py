@@ -87,6 +87,10 @@ def num_range(s: str) -> List[int]:
     vals = s.split(',')
     return [int(x) for x in vals]
 
+def size_range(s: str) -> List[int]:
+    '''Accept a range 'a-c' and return as a list of 2 ints.'''
+    return [int(v) for v in s.split('-')][::-1]
+
 def line_interpolate(zs, steps, easing):
     out = []
     for i in range(len(zs)-1):
@@ -106,7 +110,7 @@ def line_interpolate(zs, steps, easing):
                     fr = 121 * t * t / 16
                 elif (t < 8/11):
                     fr = (363 / 40.0 * t * t) - (99 / 10.0 * t) + 17 / 5.0
-                elif t < 9/ 0:
+                elif t < 9/10:
                     fr = (4356 / 361.0 * t * t) - (35442 / 1805.0 * t) + 16061 / 1805.0
                 else:
                     fr = (54 / 5.0 * t * t) - (513 / 25.0 * t) + 268 / 25.0
@@ -116,6 +120,10 @@ def line_interpolate(zs, steps, easing):
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
             elif (easing == 'circularEaseOut2'):
                 fr = np.sqrt(np.sqrt((2 - t) * t))
+                out.append(zs[i+1]*fr + zs[i]*(1-fr))
+            elif(easing == 'backEaseOut'):
+                p = 1 - t
+                fr = 1 - (p * p * p - p * math.sin(p * math.pi))
                 out.append(zs[i+1]*fr + zs[i]*(1-fr))
     return out
 
@@ -264,6 +272,9 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 
 @click.command()
 @click.pass_context
+@click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
+@click.option('--seeds', type=num_range, help='List of random seeds')
+@click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
 @click.option('--diameter', type=float, help='diameter of loops', default=100.0, show_default=True)
 @click.option('--frames', type=int, help='how many frames to produce (with seeds this is frames between each step, with loops this is total length)', default=240, show_default=True)
@@ -279,6 +290,10 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 @click.option('--process', type=click.Choice(['image', 'interpolation','truncation','interpolation-truncation']), default='image', help='generation method', required=True)
 @click.option('--projected-w', help='Projection result file', type=str, metavar='FILE')
 @click.option('--random_seed', type=int, help='random seed value (used in noise and circular loop)', default=0, show_default=True)
+@click.option('--scale-type',
+                type=click.Choice(['pad', 'padside', 'symm','symmside']),
+                default='pad', help='scaling method for --size', required=False)
+@click.option('--size', type=size_range, help='size of output (in format x-y)')
 @click.option('--seeds', type=num_range, help='List of random seeds')
 @click.option('--space', type=click.Choice(['z', 'w']), default='z', help='latent space', required=True)
 @click.option('--start', type=float, help='starting truncation value', default=0.0, show_default=True)
@@ -294,6 +309,8 @@ def generate_images(
     process: str,
     random_seed: Optional[int],
     diameter: Optional[float],
+    scale_type: Optional[str],
+    size: Optional[List[int]],
     seeds: Optional[List[int]],
     space: str,
     fps: Optional[int],
@@ -330,11 +347,47 @@ def generate_images(
     python generate.py --outdir=out --projected_w=projected_w.npz \\
         --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
     """
+    
+    # custom size code from https://github.com/eps696/stylegan2ada/blob/master/src/_genSGAN2.py
+    if(size): 
+        print('render custom size: ',size)
+        print('padding method:', scale_type )
+        custom = True
+    else:
+        custom = False
+
+    G_kwargs = dnnlib.EasyDict()
+    G_kwargs.size = size 
+    G_kwargs.scale_type = scale_type
+
+    # mask/blend latents with external latmask or by splitting the frame
+    latmask = False #temp
+    if latmask is None:
+        nHW = [int(s) for s in a.nXY.split('-')][::-1]
+        assert len(nHW)==2, ' Wrong count nXY: %d (must be 2)' % len(nHW)
+        n_mult = nHW[0] * nHW[1]
+        # if a.verbose is True and n_mult > 1: print(' Latent blending w/split frame %d x %d' % (nHW[1], nHW[0]))
+        lmask = np.tile(np.asarray([[[[1]]]]), (1,n_mult,1,1))
+        Gs_kwargs.countHW = nHW
+        Gs_kwargs.splitfine = a.splitfine
+        lmask = torch.from_numpy(lmask).to(device)
+    # else:
+        # if a.verbose is True: print(' Latent blending with mask', a.latmask)
+        # n_mult = 2
+        # if os.path.isfile(a.latmask): # single file
+        #     lmask = np.asarray([[img_read(a.latmask)[:,:,0] / 255.]]) # [h,w]
+        # elif os.path.isdir(a.latmask): # directory with frame sequence
+        #     lmask = np.asarray([[img_read(f)[:,:,0] / 255. for f in img_list(a.latmask)]]) # [h,w]
+        # else:
+        #     print(' !! Blending mask not found:', a.latmask); exit(1)
+        # lmask = np.concatenate((lmask, 1 - lmask), 1) # [frm,2,h,w]
+    # lmask = torch.from_numpy(lmask).to(device)
 
     print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
     with dnnlib.util.open_url(network_pkl) as f:
-        G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+        # G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+        G = legacy.load_network_pkl(f, custom=custom, **G_kwargs)['G_ema'].to(device) # type: ignore
 
     os.makedirs(outdir, exist_ok=True)
 

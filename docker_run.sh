@@ -17,11 +17,11 @@ set -e
 #
 # Use it like:
 #
-# ./run_docker.sh python generate.py --help
+# ./docker_run.sh python generate.py --help
 #
 # To override the default `stylegan2ada:latest` image, run:
 #
-# IMAGE=my_image:v1.0 ./run_docker.sh python generate.py --help
+# IMAGE=my_image:v1.0 ./docker_run.sh python generate.py --help
 #
 
 rest=$@
@@ -30,7 +30,7 @@ IMAGE="${IMAGE:-sg2ada:latest}"
 
 CONTAINER_ID=$(docker inspect --format="{{.Id}}" ${IMAGE} 2> /dev/null)
 if [[ "${CONTAINER_ID}" ]]; then
-    docker run --gpus all -it --rm -v `pwd`:/scratch --user $(id -u):$(id -g) \
+    docker run --shm-size=2g --gpus all -it --rm -v `pwd`:/scratch --user $(id -u):$(id -g) \
         --workdir=/scratch -e HOME=/scratch $IMAGE $@
 else
     echo "Unknown container image: ${IMAGE}"
