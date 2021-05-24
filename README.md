@@ -14,7 +14,8 @@
 * **Additional Projector Techniques** Thanks to Peter Baylies for his projector code that optionally uses pixel-based loss or CLIP
 * **Interpolate from Projector .npz Files** Use the `combine_npz.py` script to combine multiple .npz files
 * **Convert to Rosinality model structure** Thanks to [Justin Pinkney](https://github.com/justinpinkney) for making this! Converting to Rosinality opens up numerous additional tools for manipulatinng StyleGAN models
-* **Flesh Digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
+* **Output size modification** Thank you to [Vadim Epstein](https://github.com/eps696/stylegan2ada) for allowing me to port his code for modifying output size for image and video generation. See `--size` and `--scale-type` in the generation script for more details.
+* **Flesh digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 

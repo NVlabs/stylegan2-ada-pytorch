@@ -88,9 +88,8 @@ def num_range(s: str) -> List[int]:
     return [int(x) for x in vals]
 
 def size_range(s: str) -> List[int]:
-    '''Accept a range 'a-c' and return as a list of ints.'''
-    vals = s.split('-')
-    return [int(x) for x in vals]
+    '''Accept a range 'a-c' and return as a list of 2 ints.'''
+    return [int(v) for v in s.split('-')][::-1]
 
 def line_interpolate(zs, steps, easing):
     out = []
