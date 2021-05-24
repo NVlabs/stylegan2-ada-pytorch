@@ -65,5 +65,6 @@ Options:
   --fp32 BOOL                     Disable mixed-precision training
   --nhwc BOOL                     Use NHWC memory format with FP16
   --nobench BOOL                  Disable cuDNN benchmarking
+  --allow-tf32 BOOL               Allow PyTorch to use TF32 internally
   --workers INT                   Override number of DataLoader workers
   --help                          Show this message and exit.

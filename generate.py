@@ -272,6 +272,9 @@ def zs_to_ws(G,device,label,truncation_psi,zs):
 
 @click.command()
 @click.pass_context
+@click.option('--network', 'network_pkl', help='Network pickle filename', required=True)
+@click.option('--seeds', type=num_range, help='List of random seeds')
+@click.option('--trunc', 'truncation_psi', type=float, help='Truncation psi', default=1, show_default=True)
 @click.option('--class', 'class_idx', type=int, help='Class label (unconditional if not specified)')
 @click.option('--diameter', type=float, help='diameter of loops', default=100.0, show_default=True)
 @click.option('--frames', type=int, help='how many frames to produce (with seeds this is frames between each step, with loops this is total length)', default=240, show_default=True)
