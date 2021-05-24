@@ -300,7 +300,7 @@ def convert_tf_discriminator(tf_D):
             activation          = kwarg('nonlinearity',         'lrelu'),
         ),
 # !!! custom
-        init_res                = kwarg('init_res',            [4,4]),
+        # init_res                = kwarg('init_res',            [4,4]),
     )
 
     # Check for unknown kwargs.
