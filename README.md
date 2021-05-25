@@ -7,7 +7,7 @@
 * **Fakes .jpg**: save yourself a ton of space with fakes during training saved as .jpg instead of .png
 * **Multiple interpolation options**: use `--process="interpolation"`, see `--help` for more options
 * **Easing options for interpolations**: see `--help` for more (this would be a great place for new coders to build additional feautures/options)
-* ~~**Vertical Mirroring**: use `--mirrory=True` to flip training set top to bottom~~ currently broken
+* **Vertical Mirroring**: use `--mirrory=True` to flip training set top to bottom (fixed, thanks [Diego](https://github.com/PDillis/stylegan2-ada-pytorch))
 * **Set Initial Augmentation Strength**: use `--initstrength={float value}` to set the initialized strength of augmentations (really helpful when restarting training)
 * **Set Initial Kimg count**: use `--nkimg={int value}` to set the initial kimg count (helpful with restarts)
 * **Closed Form Factorization:** converted from Rosinality repo by [Philip Bizimis](https://github.com/pbizimis); additional video creation features
