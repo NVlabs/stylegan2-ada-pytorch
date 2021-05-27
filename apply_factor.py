@@ -95,8 +95,16 @@ if __name__ == "__main__":
     seeds = args.seeds
 
 
+    custom = False
+
+    G_kwargs = dnnlib.EasyDict()
+    G_kwargs.size = None 
+    G_kwargs.scale_type = 'pad'
+    
+    print('Loading networks from "%s"...' % args.ckpt)
+    device = torch.device('cuda')
     with dnnlib.util.open_url(args.ckpt) as f:
-        G = legacy.load_network_pkl(f)['G_ema'].to(device)
+        G = legacy.load_network_pkl(f, custom=custom, **G_kwargs)['G_ema'].to(device) # type: ignore
 
 
     if not os.path.exists(args.output):

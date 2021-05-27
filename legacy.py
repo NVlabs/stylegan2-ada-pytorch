@@ -188,7 +188,7 @@ def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
             activation          = kwarg('nonlinearity',         'lrelu'),
         ),
 # !!! custom
-        init_res                = kwarg('init_res',            [4,4]),
+        # init_res                = kwarg('init_res',            [4,4]),
     )
 
     # Check for unknown kwargs.
@@ -199,6 +199,7 @@ def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
     unknown_kwargs = list(set(tf_kwargs.keys()) - known_kwargs)
 # !!! custom
     if custom:
+        kwargs.init_res = [4,4]
         kwargs.synthesis_kwargs = dnnlib.EasyDict(**kwargs.synthesis_kwargs, **ex_kwargs)
     if len(unknown_kwargs) > 0:
         raise ValueError('Unknown TensorFlow kwargs:', unknown_kwargs)

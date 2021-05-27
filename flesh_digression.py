@@ -108,11 +108,18 @@ def generate_from_generator_adaptive(psi: float, radius_large: float, radius_sma
 
     return output_frames
 
-def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: float, step2: float, seed: Optional[int], video_length: float=1.0):
+def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: float, step2: float, seed: Optional[int], video_length: float=1.0, size: str=None, scale_type: str='pad'):
+    
+    custom = False
+
+    G_kwargs = dnnlib.EasyDict()
+    G_kwargs.size = size 
+    G_kwargs.scale_type = scale_type
+    
     print('Loading networks from "%s"...' % pkl)
     device = torch.device('cuda')
     with dnnlib.util.open_url(pkl) as f:
-        G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
+        G = legacy.load_network_pkl(f, custom=custom, **G_kwargs)['G_ema'].to(device) # type: ignore
 
     frames = generate_from_generator_adaptive(psi,radius_large,radius_small,step1,step2,video_length,seed,G,device)
     frames = moviepy.editor.ImageSequenceClip(frames, fps=30)
@@ -140,8 +147,10 @@ if __name__ == "__main__":
     parser.add_argument('--step1', help='The value of the step/increment for the constant layer interpolation', default=0.005, type=float)
     parser.add_argument('--step2', help='The value of the step/increment for the latent space interpolation', default=0.0025, type=float)
     parser.add_argument('--seed', help='Seed value for random', default=None, type=int)
+    parser.add_argument('--size', help='Size of output (in format x-y)', default=None, type=str)
+    parser.add_argument('--scale_type', help='Options: pad, padside, symm, symmside', default='pad', type=str)
     parser.add_argument('--video_length', help='The length of the video in terms of circular interpolation (recommended to keep at 1.0)', default=1.0, type=float)
 
     args = parser.parse_args()
 
-    main(args.pkl, args.psi, args.radius_large, args.radius_small, args.step1, args.step2, args.seed, args.video_length)
+    main(args.pkl, args.psi, args.radius_large, args.radius_small, args.step1, args.step2, args.seed, args.video_length, args.size, args.scale_type)
