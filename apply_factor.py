@@ -33,22 +33,32 @@ Change output directory by using --output.
 #############################################################################################
 
 def generate_images(z, label, truncation_psi, noise_mode, direction, file_name):
-    img1 = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
-    img2 = G(z + direction, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
-    img3 = G(z - direction, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+    if(args.space == 'w'):
+        ws = zs_to_ws(G,torch.device('cuda'),label,truncation_psi,[z,z + direction,z - direction])
+        img1 = G.synthesis(ws[0], noise_mode=noise_mode, force_fp32=True)
+        img2 = G.synthesis(ws[1], noise_mode=noise_mode, force_fp32=True)
+        img3 = G.synthesis(ws[2], noise_mode=noise_mode, force_fp32=True)
+    else:
+        img1 = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+        img2 = G(z + direction, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+        img3 = G(z - direction, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+
     return torch.cat([img3, img1, img2], 0)
 
-def generate_image(z, label, truncation_psi, noise_mode):
-    img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
+def generate_image(z, label, truncation_psi, noise_mode, space):
+    if(space == 'w'):
+        img = G.synthesis(z, noise_mode=noise_mode, force_fp32=True)
+    else:
+        img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
     return img
 
 def line_interpolate(zs, steps):
-   out = []
-   for i in range(len(zs)-1):
-    for index in range(steps):
-     fraction = index/float(steps) 
-     out.append(zs[i+1]*fraction + zs[i]*(1-fraction))
-   return out
+    out = []
+    for i in range(len(zs)-1):
+        for index in range(steps):
+            t = index/float(steps)
+            out.append(zs[i+1]*t + zs[i]*(1-t))
+    return out
 
 def num_range(s: str) -> List[int]:
     '''Accept either a comma separated list of numbers 'a,b,c', a range 'a-c' and return as a list of ints or a string with "r{number}".'''
@@ -61,6 +71,14 @@ def num_range(s: str) -> List[int]:
         return list(range(int(m.group(1)), int(m.group(2))+1))
     vals = s.split(',')
     return [int(x) for x in vals]
+
+def zs_to_ws(G,device,label,truncation_psi,zs):
+    ws = []
+    for z_idx, z in enumerate(zs):
+        # z = torch.from_numpy(z).to(device)
+        w = G.mapping(z, label, truncation_psi=truncation_psi, truncation_cutoff=8)
+        ws.append(w)
+    return ws
 
 #############################################################################################
 
@@ -78,6 +96,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--output", type=str, default="/cff_output/", help="directory for result samples",)
     parser.add_argument("--ckpt", type=str, required=True, help="stylegan2-ada-pytorch checkpoints")
+    parser.add_argument("--space", type=str, default='w', help="generate images in the w space or z space")
     parser.add_argument("--truncation", type=float, default=0.7, help="truncation factor")
     parser.add_argument("factor", type=str, help="name of the closed form factorization result factor file")
     parser.add_argument("--vid_increment", type=float, default=0.1, help="increment degree for interpolation video")
@@ -94,12 +113,11 @@ if __name__ == "__main__":
     index = args.index
     seeds = args.seeds
 
-
     custom = False
 
     G_kwargs = dnnlib.EasyDict()
     G_kwargs.size = None 
-    G_kwargs.scale_type = 'pad'
+    G_kwargs.scale_type = 'symm'
     
     print('Loading networks from "%s"...' % args.ckpt)
     device = torch.device('cuda')
@@ -110,7 +128,7 @@ if __name__ == "__main__":
     if not os.path.exists(args.output):
       os.makedirs(args.output)
 
-    label = torch.zeros([1, G.c_dim], device=device)
+    label = torch.zeros([1, G.c_dim], device=device) # assume no class label
     noise_mode = "const" # default
     truncation_psi = args.truncation
 
@@ -169,7 +187,7 @@ if __name__ == "__main__":
             os.path.join(args.output, file_name),
             nrow = 3,
             normalize=True, 
-            range=(-1, 1) # change range to value_range for latest torchvision
+            value_range=(-1, 1) # change range to value_range for latest torchvision
         )
         
     if(args.vid):
@@ -204,18 +222,24 @@ if __name__ == "__main__":
                 if not os.path.exists(index_folder_path):
                     os.makedirs(index_folder_path)
 
-                zs = line_interpolate([z-direction, z+direction], int((args.degree*2)/args.vid_increment))
+                if(args.space=='w'):
+                    zs = [z-direction, z+direction]
+                    ws = zs_to_ws(G,device,label,truncation_psi,zs)
+                    pts = line_interpolate(ws, int((args.degree*2)/args.vid_increment))
+                else:
+                    pts = line_interpolate([z-direction, z+direction], int((args.degree*2)/args.vid_increment))
+                
                 fcount = 0
-
-                for video_z in zs:
-                    img = generate_image(video_z, label, truncation_psi, noise_mode)
+                for pt in pts:
+                    img = generate_image(pt, label, truncation_psi, noise_mode, args.space)
                     grid = utils.save_image(
                         img,
                         f"{index_folder_path}/{fcount:04}.png",
                         normalize=True,
-                        range=(-1, 1), # change range to value_range for latest torchvision
+                        value_range=(-1, 1), # change range to value_range for latest torchvision
                         nrow=1,
                     )
                     fcount+=1
                 cmd=f"ffmpeg -y -r 24 -i {index_folder_path}/%04d.png -vcodec libx264 -pix_fmt yuv420p {seed_folder_path}/seed-{str_seed_list}_index-{j}_degree-{args.degree}.mp4"
                 subprocess.call(cmd, shell=True)
+
