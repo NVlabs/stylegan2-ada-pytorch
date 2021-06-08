@@ -161,7 +161,7 @@ def images(G,device,inputs,space,truncation_psi,label,noise_mode,outdir,start=No
             else:
                 img = G(z, label, truncation_psi=truncation_psi, noise_mode=noise_mode)
         else:
-            if i.shape[0] == 18: 
+            if len(i.shape) == 2: 
               i = torch.from_numpy(i).unsqueeze(0).to(device)
             img = G.synthesis(i, noise_mode=noise_mode, force_fp32=True)
         img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
