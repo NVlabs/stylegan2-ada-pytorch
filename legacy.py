@@ -310,7 +310,10 @@ def convert_tf_discriminator(tf_D):
     kwarg('structure')
     unknown_kwargs = list(set(tf_kwargs.keys()) - known_kwargs)
     if len(unknown_kwargs) > 0:
-        raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
+        print('Unknown TensorFlow data! This may result in problems with your converted model.')
+        print(unknown_kwargs)
+        # originally this repo threw errors:
+        # raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
 
     # Collect params.
     tf_params = _collect_tf_params(tf_D)
