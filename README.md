@@ -28,6 +28,7 @@ The initial configuration differs slightly from StyleGAN
 * **Convert to Rosinality model structure** Thanks to [Justin Pinkney](https://github.com/justinpinkney) for making this! Converting to Rosinality opens up numerous additional tools for manipulatinng StyleGAN models
 * **Output size modification** Thank you to [Vadim Epstein](https://github.com/eps696/stylegan2ada) for allowing me to port his code for modifying output size for image and video generation. See `--size` and `--scale-type` in the generation script for more details.
 * **Flesh digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
+* **Custom data in Tensorflow models will no longer error out when converting** Allows for conversion from many of the custom models on the [Awesome Pretrained SG2 repo](https://github.com/justinpinkney/awesome-pretrained-stylegan2) (This has the potential for problems but I’ve yet to find one.)
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
