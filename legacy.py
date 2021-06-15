@@ -202,7 +202,9 @@ def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
         kwargs.init_res = [4,4]
         kwargs.synthesis_kwargs = dnnlib.EasyDict(**kwargs.synthesis_kwargs, **ex_kwargs)
     if len(unknown_kwargs) > 0:
-        raise ValueError('Unknown TensorFlow kwargs:', unknown_kwargs)
+        print('Unknown TensorFlow data! This may result in problems with your converted model.')
+        print(unknown_kwargs)
+        #raise ValueError('Unknown TensorFlow kwargs:', unknown_kwargs)
         # raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
     # try: 
         # if ex_kwargs['verbose'] is True: print(kwargs.synthesis_kwargs)
