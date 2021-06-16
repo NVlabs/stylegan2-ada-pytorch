@@ -191,10 +191,8 @@ def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,labe
         if(interpolation=='linear'):
             points = line_interpolate(points,frames,easing)
         elif(interpolation=='slerp'):
-            if(space=='w'):
-                print(f'Slerp currently isn’t supported in w space. Working on it!')
-            else:
-                points = slerp_interpolate(points,frames)
+            points = slerp_interpolate(points,frames)
+            
     # generate frames
     images(G,device,points,space,truncation_psi,label,noise_mode,outdir,start,stop)
 
@@ -205,32 +203,44 @@ def seeds_to_zs(G,seeds):
         zs.append(z)
     return zs
 
-# very hacky implementation of:
-# https://github.com/soumith/dcgan.torch/issues/14
-def slerp(val, low, high):
-    assert low.shape == high.shape
-
-    # z space
-    if len(low.shape) == 2:
-        out = np.zeros([low.shape[0],low.shape[1]])
-        for i in range(low.shape[0]):
-            omega = np.arccos(np.clip(np.dot(low[i]/np.linalg.norm(low[i]), high[i]/np.linalg.norm(high[i])), -1, 1))
-            so = np.sin(omega)
-            if so == 0:
-                out[i] = (1.0-val) * low[i] + val * high[i] # L'Hopital's rule/LERP
-            out[i] = np.sin((1.0-val)*omega) / so * low[i] + np.sin(val*omega) / so * high[i]
-    # w space
-    else:
-        out = np.zeros([low.shape[0],low.shape[1],low.shape[2]])
-
-        for i in range(low.shape[1]):
-            omega = np.arccos(np.clip(np.dot(low[0][i]/np.linalg.norm(low[0][i]), high[0][i]/np.linalg.norm(high[0][i])), -1, 1))
-            so = np.sin(omega)
-            if so == 0:
-                out[i] = (1.0-val) * low[0][i] + val * high[0][i] # L'Hopital's rule/LERP
-            out[0][i] = np.sin((1.0-val)*omega) / so * low[0][i] + np.sin(val*omega) / so * high[0][i]
-
-    return out
+# slightly modified version of
+# https://github.com/PDillis/stylegan2-fun/blob/master/run_generator.py#L399
+def slerp(t, v0, v1, DOT_THRESHOLD=0.9995):
+    '''
+    Spherical linear interpolation
+    Args:
+        t (float/np.ndarray): Float value between 0.0 and 1.0
+        v0 (np.ndarray): Starting vector
+        v1 (np.ndarray): Final vector
+        DOT_THRESHOLD (float): Threshold for considering the two vectors as
+                               colineal. Not recommended to alter this.
+    Returns:
+        v2 (np.ndarray): Interpolation vector between v0 and v1
+    '''
+    v0 = v0.cpu().detach().numpy()
+    v1 = v1.cpu().detach().numpy()
+    # Copy the vectors to reuse them later
+    v0_copy = np.copy(v0)
+    v1_copy = np.copy(v1)
+    # Normalize the vectors to get the directions and angles
+    v0 = v0 / np.linalg.norm(v0)
+    v1 = v1 / np.linalg.norm(v1)
+    # Dot product with the normalized vectors (can't use np.dot in W)
+    dot = np.sum(v0 * v1)
+    # If absolute value of dot product is almost 1, vectors are ~colineal, so use lerp
+    if np.abs(dot) > DOT_THRESHOLD:
+        return lerp(t, v0_copy, v1_copy)
+    # Calculate initial angle between v0 and v1
+    theta_0 = np.arccos(dot)
+    sin_theta_0 = np.sin(theta_0)
+    # Angle at timestep t
+    theta_t = theta_0 * t
+    sin_theta_t = np.sin(theta_t)
+    # Finish the slerp algorithm
+    s0 = np.sin(theta_0 - theta_t) / sin_theta_0
+    s1 = sin_theta_t / sin_theta_0
+    v2 = s0 * v0_copy + s1 * v1_copy
+    return torch.from_numpy(v2).to("cuda")
 
 def slerp_interpolate(zs, steps):
     out = []
