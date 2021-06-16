@@ -12,7 +12,6 @@
 ### Blending Network Demo/Explainer
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/Network_Blending_ADA_PT.ipynb)
 
-The initial configuration differs slightly from StyleGAN
 ## Need Help?
 * If you’re new to StyleGAN2-ADA and looking to get started, please check out [this video series](https://www.youtube.com/playlist?list=PLWuCzxqIpJs8ViuBIUtAk-dsAtdrApYoy) from a course Lia Coleman and I taught in October 2020.
 * Interested in contributing? Please submit PRs or discuss changes in the [Artificial Images Slack](https://join.slack.com/t/ml-images/shared_invite/zt-9mxoe7va-eBZ9xzAWpx8VRL~Km_PzUQ) channel
@@ -29,9 +28,9 @@ The initial configuration differs slightly from StyleGAN
 * **Additional Projector Techniques** Thanks to Peter Baylies for his projector code that optionally uses pixel-based loss or CLIP
 * **Interpolate from Projector .npz Files** Use the `combine_npz.py` script to combine multiple .npz files
 * **Convert to Rosinality model structure** Thanks to [Justin Pinkney](https://github.com/justinpinkney) for making this! Converting to Rosinality opens up numerous additional tools for manipulatinng StyleGAN models
+* **Custom data in Tensorflow models will no longer error out when converting to Official PyTorch format** Allows for conversion from many of the custom models on the [Awesome Pretrained SG2 repo](https://github.com/justinpinkney/awesome-pretrained-stylegan2) (This has the potential for problems but I’ve yet to find one.)
 * **Output size modification** Thank you to [Vadim Epstein](https://github.com/eps696/stylegan2ada) for allowing me to port his code for modifying output size for image and video generation. See `--size` and `--scale-type` in the generation script for more details.
 * **Flesh digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
-* **Custom data in Tensorflow models will no longer error out when converting** Allows for conversion from many of the custom models on the [Awesome Pretrained SG2 repo](https://github.com/justinpinkney/awesome-pretrained-stylegan2) (This has the potential for problems but I’ve yet to find one.)
 * **Blend Two Models at specific resolution layer** Based on [Justin Pinkney’s Tensorflow version](https://github.com/justinpinkney/stylegan2/blob/master/blend_models.py)
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
