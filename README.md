@@ -29,6 +29,7 @@ The initial configuration differs slightly from StyleGAN
 * **Output size modification** Thank you to [Vadim Epstein](https://github.com/eps696/stylegan2ada) for allowing me to port his code for modifying output size for image and video generation. See `--size` and `--scale-type` in the generation script for more details.
 * **Flesh digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
 * **Custom data in Tensorflow models will no longer error out when converting** Allows for conversion from many of the custom models on the [Awesome Pretrained SG2 repo](https://github.com/justinpinkney/awesome-pretrained-stylegan2) (This has the potential for problems but I’ve yet to find one.)
+* **Blend Two Models at specific resolution layer** Based on [Justin Pinkney’s Tensorflow version](https://github.com/justinpinkney/stylegan2/blob/master/blend_models.py)
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
