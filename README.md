@@ -1,13 +1,16 @@
 ## Add to Colab
 
-### StyleGAN2-ADA PyTorch
+### StyleGAN2-ADA PyTorch (Start Here)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PyTorch.ipynb)
 
-### StyleGAN2-ADA PyTorch to Rosinality
+### StyleGAN2-ADA-PyTorch to Rosinality Convertor
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PT_to_Rosinality.ipynb)
 
 ### StyleGAN2-ADA PyTorch Reactive Audio
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2-ADA-PT_AudioReactive%2BPitch.ipynb)
+
+### Blending Network Demo/Explainer
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/Network_Blending_ADA_PT.ipynb)
 
 The initial configuration differs slightly from StyleGAN
 ## Need Help?
