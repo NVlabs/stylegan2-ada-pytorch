@@ -73,7 +73,9 @@ def convert(network_pkl, output_file):
             state_ros[f"noises.noise_{2*i}"] = state_nv[f"synthesis.b{4*(2**i)}.conv1.noise_const"].unsqueeze(0).unsqueeze(0)
             convert_to_rgb(state_ros, state_nv, "to_rgb1", f"synthesis.b{4*(2**i)}")
 
-    state_dict = {"g_ema": state_ros}
+    # https://github.com/yuval-alaluf/restyle-encoder/issues/1#issuecomment-828354736
+    latent_avg = state_nv['mapping.w_avg']
+    state_dict = {"g_ema": state_ros, "latent_avg": latent_avg}
     torch.save(state_dict, output_file)
 
 if __name__ == "__main__":
