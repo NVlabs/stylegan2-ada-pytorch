@@ -10,7 +10,7 @@
 import argparse
 import math
 from datetime import datetime
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple, Union, List
 
 import moviepy.editor
 import numpy as np
@@ -43,6 +43,9 @@ def image_from_latent(G: torch.nn.Module, psi: float, z: np.ndarray, device: tor
     img = (img.permute(0, 2, 3, 1) * 127.5 + 128).clamp(0, 255).to(torch.uint8)
     return img[0].cpu().numpy()
 
+def size_range(s: str) -> List[int]:
+    '''Accept a range 'a-c' and return as a list of 2 ints.'''
+    return [int(v) for v in s.split('-')][::-1]
 
 def generate_from_generator_adaptive(psi: float, radius_large: float, radius_small: float, step1: float, step2:float, video_length: float, seed: Optional[int], G: torch.nn.Module, device: torch.device):
     # psi = args.psi # 0.7
@@ -108,9 +111,14 @@ def generate_from_generator_adaptive(psi: float, radius_large: float, radius_sma
 
     return output_frames
 
-def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: float, step2: float, seed: Optional[int], video_length: float=1.0, size: str=None, scale_type: str='pad'):
-    
-    custom = False
+def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: float, step2: float, seed: Optional[int], video_length: float=1.0, size: int=None, scale_type: str='pad'):
+
+    if(size): 
+        print('render custom size: ',size)
+        print('padding method:', scale_type )
+        custom = True
+    else:
+        custom = False
 
     G_kwargs = dnnlib.EasyDict()
     G_kwargs.size = size 
@@ -147,7 +155,7 @@ if __name__ == "__main__":
     parser.add_argument('--step1', help='The value of the step/increment for the constant layer interpolation', default=0.005, type=float)
     parser.add_argument('--step2', help='The value of the step/increment for the latent space interpolation', default=0.0025, type=float)
     parser.add_argument('--seed', help='Seed value for random', default=None, type=int)
-    parser.add_argument('--size', help='Size of output (in format x-y)', default=None, type=str)
+    parser.add_argument('--size', help='Size of output (in format x-y)', default=None, type=size_range)
     parser.add_argument('--scale_type', help='Options: pad, padside, symm, symmside', default='pad', type=str)
     parser.add_argument('--video_length', help='The length of the video in terms of circular interpolation (recommended to keep at 1.0)', default=1.0, type=float)
 
