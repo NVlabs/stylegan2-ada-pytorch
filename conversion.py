@@ -192,6 +192,6 @@ def generation(w,G):
 
 if __name__ == '__main__':
     args = parse_command_line_args()
-    network_pkl = args.network
+    network_pkl = args['network']
     device = torch.device('cuda')
     run(**args)
