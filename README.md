@@ -143,10 +143,6 @@ by subtracting `sample_before` from `sample_after`)
 python conversion.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png' --network 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/afhqdog.pkl')
 ```
 
-
-## Below is the readme from [the official repository](https://github.com/NVlabs/stylegan2-ada-pytorch)
----
-
 ## Using networks from Python
 
 You can use pre-trained networks in your own Python code as follows:
