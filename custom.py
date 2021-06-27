@@ -26,10 +26,10 @@ def parse_command_line_args():
     return vars(parser.parse_args())
 
 def run(**kwargs):
-    sample_before = kwargs.sample_before
-    sample_after = kwargs.sample_after
-    target_before = kwargs.target_before
-    target_after = kwargs.target_after
+    sample_before = kwargs['sample_before']
+    sample_after = kwargs['sample_after']
+    target_before = kwargs['target_before']
+    target_after = kwargs['target_after']
     
 
     with dnnlib.util.open_url(network_pkl) as f:
@@ -188,5 +188,4 @@ if __name__ == '__main__':
     
     network_pkl = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/afhqdog.pkl'
     device = torch.device('cuda')
-
     run(**args)
