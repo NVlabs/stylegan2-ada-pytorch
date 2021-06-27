@@ -163,10 +163,10 @@ def projection(img_path, id):
         
         if step==0:
             print('[{}] projection start - Reproducing the image.. '.format(id))
-        elif (step+1)%100 == 0 and (step+1) != num_steps:
-            print(f'step {step+1:>4d}/{num_steps}: dist {dist:<4.2f} loss {float(loss):<5.2f}')
-        elif (step+1) == num_steps:
-            print('projection clear')
+        # elif (step+1)%100 == 0 and (step+1) != num_steps:
+        #     print(f'step {step+1:>4d}/{num_steps}: dist {dist:<4.2f} loss {float(loss):<5.2f}')
+        # elif (step+1) == num_steps:
+        #     print('projection clear')
         
         # Save projected W for each optimization step.
         w_out[step] = w_opt.detach()[0]
