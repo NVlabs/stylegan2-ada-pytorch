@@ -44,17 +44,17 @@ def run(**kwargs):
     before = sample_before
     after = sample_after
 
-    w_b = projection(before, 'Type-SB(Sample|Before)')
-    w_a = projection(after, 'Type-SA(Sample|After)')
+    w_before = projection(before, 'Type-SB(Sample|Before)')
+    w_after = projection(after, 'Type-SA(Sample|After)')
 
-    w = w_b - w_a # age vector
+    w = w_after - w_before # age vector
     torch.save(w, 'get_w.pt')
 
     target = target_before
 
-    w_t_b = projection(target, 'Type-TB(Target|Before)')
-    w_t_a = w_t_b - w # minus-age
-    gen_target_after = generation(w_t_a,G) 
+    w_target_before = projection(target, 'Type-TB(Target|Before)')
+    w_target_after = w_target_before + w
+    gen_target_after = generation(w_target_after,G) 
     img = Image.fromarray(gen_target_after)
     img.save(target_after)
 

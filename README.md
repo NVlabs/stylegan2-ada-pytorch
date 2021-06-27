@@ -131,15 +131,16 @@ python generate.py --outdir=out --projected_w=out/projected_w.npz \
 ## Image Conversion
 To convert image, we need target image that want to convert and `W` that contains style information.
 
-First, We extract `W` from 2 sample images. One is an image expressing a specific style(ex. smile, skin, age etc.), 
-The other image doesn't have that style (the more completely identical other features here, the better).
+First, We extract `W` from 2 sample images. One(`sample_after`) is an image expressing a specific style(ex. smile, skin, age etc.), 
+The other(`sample_before`) doesn't have that style (the more completely identical other features here, the better).
 
-- input image : sample B(Before), sample A(After), target B(Before)
-- output `W` : 'get_w.pt' (extracted Style)
-- output image : target A(After)
+- input image : `sample before`, `sample after`, `target before`
+- output `W` : 'get_w.pt' (extracted Style 
+by subtracting `sample_before` from `sample_after`)
+- output image : `target after`
 
 ```.bash
-python custom.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png' --network 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/afhqdog.pkl')
+python conversion.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png' --network 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/afhqdog.pkl')
 ```
 
 
