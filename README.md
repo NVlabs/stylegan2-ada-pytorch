@@ -8,7 +8,21 @@
 python custom.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png')
 ```
 
+> If you don't have a personal GPU, you can easily use it in colab
+```
+!git clone https://github.com/sw-song/stylegan2-ada-pytorch.git
 
+# wee need this package in colab
+!pip install ninja
+
+# move to the folder that we cloned
+%cd stylegan2-ada-pytorch/ 
+
+# run python command
+!python custom.py --sample_before 'sample_before.png' --sample_after 'sample_after.png' --target_before 'target_before.png' --target_after 'target_after.png'
+```
+
+## Below is the readme from [the official repository](https://github.com/NVlabs/stylegan2-ada-pytorch)
 ---
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
