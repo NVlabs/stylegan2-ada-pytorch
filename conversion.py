@@ -22,7 +22,7 @@ def parse_command_line_args():
     parser.add_argument('--sample_after', required=True, help='image that does not inclue the W')
     parser.add_argument('--target_before', required=True, help='image that you want to apply W')
     parser.add_argument('--target_after', required=True, help='path of saving result')
-
+    parser.add_argument('--network', required=True, help='pkl - url address')
     return vars(parser.parse_args())
 
 def run(**kwargs):
@@ -192,7 +192,6 @@ def generation(w,G):
 
 if __name__ == '__main__':
     args = parse_command_line_args()
-    
-    network_pkl = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/afhqdog.pkl'
+    network_pkl = args.network
     device = torch.device('cuda')
     run(**args)

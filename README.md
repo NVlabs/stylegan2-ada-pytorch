@@ -1,30 +1,3 @@
-## StyleGAN2-ADA Custom implementation
-
-- **INPUT Image : sample B(Before), sample A(After), target B(Before)**
-- **OUTPUT W : 'get_w.pt' (extracted Style)**
-- **OUTPUT Image : target A(After)**
-
-```.bash
-python custom.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png')
-```
-
-> If you don't have a personal GPU, you can easily use it in colab
-```
-!git clone https://github.com/sw-song/stylegan2-ada-pytorch.git
-
-# wee need this package in colab
-!pip install ninja
-
-# move to the folder that we cloned
-%cd stylegan2-ada-pytorch/ 
-
-# run python command
-!python custom.py --sample_before 'sample_before.png' --sample_after 'sample_after.png' --target_before 'target_before.png' --target_after 'target_after.png'
-```
-
-## Below is the readme from [the official repository](https://github.com/NVlabs/stylegan2-ada-pytorch)
----
-
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
@@ -154,6 +127,24 @@ For optimal results, the target image should be cropped and aligned similar to t
 python generate.py --outdir=out --projected_w=out/projected_w.npz \
     --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/ffhq.pkl
 ```
+
+## Image Conversion
+To convert image, we need target image that want to convert and `W` that contains style information.
+
+First, We extract `W` from 2 sample images. One is an image expressing a specific style(ex. smile, skin, age etc.), 
+The other image doesn't have that style (the more completely identical other features here, the better).
+
+- input image : sample B(Before), sample A(After), target B(Before)
+- output `W` : 'get_w.pt' (extracted Style)
+- output image : target A(After)
+
+```.bash
+python custom.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png' --network 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/afhqdog.pkl')
+```
+
+
+## Below is the readme from [the official repository](https://github.com/NVlabs/stylegan2-ada-pytorch)
+---
 
 ## Using networks from Python
 
