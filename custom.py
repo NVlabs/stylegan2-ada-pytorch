@@ -14,7 +14,7 @@ import argparse
 import copy
 import pickle
 import matplotlib.pyplot as plt
-
+from tqdm import tqdm
 
 def parse_command_line_args():
     parser = argparse.ArgumentParser()
@@ -44,22 +44,23 @@ def run(**kwargs):
     before = sample_before
     after = sample_after
 
-    w_b = projection(before)
-    w_a = projection(after)
+    w_b = projection(before, 'Type-SB(Sample|Before)')
+    w_a = projection(after, 'Type-SA(Sample|After)')
 
     w = w_b - w_a # age vector
     torch.save(w, 'get_w.pt')
 
     target = target_before
 
-    w_t_b = projection(target)
+    w_t_b = projection(target, 'Type-TB(Target|Before)')
     w_t_a = w_t_b - w # minus-age
     gen_target_after = generation(w_t_a,G) 
     img = Image.fromarray(gen_target_after)
     img.save(target_after)
 
 
-def projection(img_path):
+def projection(img_path, id):
+    id = id
     img = Image.open(img_path).convert('RGB')
     w, h = img.size
     s = min(w,h)
@@ -118,7 +119,7 @@ def projection(img_path):
     regularize_noise_weight = 1e5
     # ========================================= #
 
-    for step in range(num_steps):
+    for step in tqdm(range(num_steps)):
         # Learning rate schedule.
         t = step / num_steps
         w_noise_scale = w_std * initial_noise_factor * max(0.0, 1.0 - t / noise_ramp_length) ** 2
@@ -159,8 +160,13 @@ def projection(img_path):
         optimizer.zero_grad(set_to_none=True)
         loss.backward()
         optimizer.step()
-        # if (step+1)%100 == 0:
-        #    print(f'step {step+1:>4d}/{num_steps}: dist {dist:<4.2f} loss {float(loss):<5.2f}')
+        
+        if step==0:
+            print('[{}] projection start - Reproducing the image.. '.format(id))
+        elif (step+1)%100 == 0 and (step+1) != num_steps:
+            print(f'step {step+1:>4d}/{num_steps}: dist {dist:<4.2f} loss {float(loss):<5.2f}')
+        elif (step+1) == num_steps:
+            print('projection clear')
         
         # Save projected W for each optimization step.
         w_out[step] = w_opt.detach()[0]
@@ -179,6 +185,7 @@ def generation(w,G):
     synth_image = G.synthesis(w.unsqueeze(0), noise_mode='const')
     synth_image = (synth_image + 1) * (255/2)
     synth_image = synth_image.permute(0, 2, 3, 1).clamp(0, 255).to(torch.uint8)[0].cpu().numpy()    
+    print('Finished creating a new image with the style(W) applied')
     return synth_image
 
 
