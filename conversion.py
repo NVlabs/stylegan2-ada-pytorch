@@ -14,7 +14,7 @@ import argparse
 import copy
 import pickle
 import matplotlib.pyplot as plt
-from tqdm import tqdm
+# from tqdm import tqdm
 
 def parse_command_line_args():
     parser = argparse.ArgumentParser()
@@ -119,7 +119,7 @@ def projection(img_path, id):
     regularize_noise_weight = 1e5
     # ========================================= #
 
-    for step in tqdm(range(num_steps)):
+    for step in range(num_steps):
         # Learning rate schedule.
         t = step / num_steps
         w_noise_scale = w_std * initial_noise_factor * max(0.0, 1.0 - t / noise_ramp_length) ** 2
@@ -163,10 +163,10 @@ def projection(img_path, id):
         
         if step==0:
             print('[{}] projection start - Reproducing the image.. '.format(id))
-        # elif (step+1)%100 == 0 and (step+1) != num_steps:
-        #     print(f'step {step+1:>4d}/{num_steps}: dist {dist:<4.2f} loss {float(loss):<5.2f}')
-        # elif (step+1) == num_steps:
-        #     print('projection clear')
+        elif (step+1)%100 == 0 and (step+1) != num_steps:
+            print(f'step {step+1:>4d}/{num_steps}: dist {dist:<4.2f} loss {float(loss):<5.2f}')
+        elif (step+1) == num_steps:
+            print('projection clear')
         
         # Save projected W for each optimization step.
         w_out[step] = w_opt.detach()[0]
