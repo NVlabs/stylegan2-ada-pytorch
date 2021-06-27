@@ -1,3 +1,16 @@
+## StyleGAN2-ADA Custom implementation
+
+- **INPUT Image : sample B(Before), sample A(After), target B(Before)**
+- **OUTPUT W : 'get_w.pt' (extracted Style)**
+- **OUTPUT Image : target A(After)**
+
+```.bash
+python custom.py(--sample_before 's_b.png' --sample_after 's_a.png' --target_before 't_b.png' --target_after 't_a.png')
+```
+
+
+---
+
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
