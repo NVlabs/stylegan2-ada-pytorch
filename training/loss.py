@@ -80,7 +80,7 @@ class StyleGAN2Loss(Loss):
                     D_fake_scores = gen_logits
                     k_frac = np.maximum(self.G_top_k_gamma ** self.G.epochs, self.G_top_k_frac)
                     print(k_frac)
-                    k = (int) np.ceil(minibatch_size * k_frac)
+                    k = int(np.ceil(minibatch_size * k_frac))
                     print(k)
                     lowest_k_scores, _ = torch.topk(-torch.squeeze(D_fake_scores), k=k) # want smallest probabilities not largest
                     print(lowest_k_scores)
