@@ -684,6 +684,7 @@ class Discriminator(torch.nn.Module):
         block_kwargs        = {},       # Arguments for DiscriminatorBlock.
         mapping_kwargs      = {},       # Arguments for MappingNetwork.
         epilogue_kwargs     = {},       # Arguments for DiscriminatorEpilogue.
+        epochs              = 0.,       # Track epoch count for top-k
     ):
         super().__init__()
         self.c_dim = c_dim
