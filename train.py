@@ -250,9 +250,9 @@ def setup_training_loop_kwargs(
 
     if topk is not None:
         assert isinstance(topk, float)
-        args.loss_args.G_top_k = True
-        args.loss_args.G_top_k_gamma = topk
-        args.loss_args.G_top_k_frac = 0.5
+        args.loss_kwargs.G_top_k = True
+        args.loss_kwargs.G_top_k_gamma = topk
+        args.loss_kwargs.G_top_k_frac = 0.5
 
     # ---------------------------------------------------
     # Discriminator augmentation: aug, p, target, augpipe

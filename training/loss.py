@@ -34,6 +34,10 @@ class StyleGAN2Loss(Loss):
         self.pl_decay = pl_decay
         self.pl_weight = pl_weight
         self.pl_mean = torch.zeros([], device=device)
+        self.G_top_k = G_top_k
+        self.G_top_k_gamma = G_top_k_gamma
+        self.G_top_k_frac = G_top_k_frac
+
 
     def run_G(self, z, c, sync):
         with misc.ddp_sync(self.G_mapping, sync):
@@ -68,6 +72,19 @@ class StyleGAN2Loss(Loss):
                 gen_logits = self.run_D(gen_img, gen_c, sync=False)
                 training_stats.report('Loss/scores/fake', gen_logits)
                 training_stats.report('Loss/signs/fake', gen_logits.sign())
+                
+                # top-k function based on: https://github.com/dvschultz/stylegan2-ada/blob/main/training/loss.py#L102
+                if G_top_k:
+                    D_fake_scores = gen_logits
+                    k_frac = torch.max(self.G_top_k_gamma ** self.G_mapping.epochs, self.G_top_k_frac)
+                    print(k_frac)
+                    k = (torch.ceil(minibatch_size.type(torch.float) * k_frac)).type(torch.int)
+                    print(k)
+                    lowest_k_scores, _ = torch.topk(-torch.squeeze(D_fake_scores), k=k) # want smallest probabilities not largest
+                    print(lowest_k_scores)
+                    gen_logits = torch.expand(-lowest_k_scores, axis=1)
+                    print(gen_logits)
+
                 loss_Gmain = torch.nn.functional.softplus(-gen_logits) # -log(sigmoid(gen_logits))
                 training_stats.report('Loss/G/loss', loss_Gmain)
             with torch.autograd.profiler.record_function('Gmain_backward'):

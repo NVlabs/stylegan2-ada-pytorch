@@ -148,11 +148,11 @@ def training_loop(
     if rank == 0:
         print('Constructing networks...')
     common_kwargs = dict(c_dim=training_set.label_dim, img_resolution=training_set.resolution, img_channels=training_set.num_channels)
-    G = dnnlib.util.construct_class_by_name(**G_kwargs, **common_kwargs, nimg, total_kimg).train().requires_grad_(False).to(device) # subclass of torch.nn.Module
+    G = dnnlib.util.construct_class_by_name(**G_kwargs, **common_kwargs).train().requires_grad_(False).to(device) # subclass of torch.nn.Module
     D = dnnlib.util.construct_class_by_name(**D_kwargs, **common_kwargs).train().requires_grad_(False).to(device) # subclass of torch.nn.Module
     G_ema = copy.deepcopy(G).eval()
 
-    G.epochs = float(100 * nimg / (total_kimg * 1000)) # 100 total top k "epochs" in total_kimg
+    G.update_epochs( float(100 * nimg / (total_kimg * 1000)) ) # 100 total top k "epochs" in total_kimg
     print('starting G epochs: ',G.epochs)
 
     # Resume from existing pickle.
@@ -274,6 +274,8 @@ def training_loop(
         for phase, phase_gen_z, phase_gen_c in zip(phases, all_gen_z, all_gen_c):
             if batch_idx % phase.interval != 0:
                 continue
+
+            G.update_epochs( float(100 * nimg / (total_kimg * 1000)) ) # 100 total top k "epochs" in total_kimg
 
             # Initialize gradient accumulation.
             if phase.start_event is not None:
