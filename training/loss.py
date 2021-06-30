@@ -21,9 +21,10 @@ class Loss:
 #----------------------------------------------------------------------------
 
 class StyleGAN2Loss(Loss):
-    def __init__(self, device, G_mapping, G_synthesis, D, augment_pipe=None, style_mixing_prob=0.9, r1_gamma=10, pl_batch_shrink=2, pl_decay=0.01, pl_weight=2, G_top_k = False, G_top_k_gamma = 0.9, G_top_k_frac = 0.5,):
+    def __init__(self, device, G, G_mapping, G_synthesis, D, augment_pipe=None, style_mixing_prob=0.9, r1_gamma=10, pl_batch_shrink=2, pl_decay=0.01, pl_weight=2, G_top_k = False, G_top_k_gamma = 0.9, G_top_k_frac = 0.5,):
         super().__init__()
         self.device = device
+        self.G = G
         self.G_mapping = G_mapping
         self.G_synthesis = G_synthesis
         self.D = D
@@ -68,17 +69,18 @@ class StyleGAN2Loss(Loss):
         # Gmain: Maximize logits for generated images.
         if do_Gmain:
             with torch.autograd.profiler.record_function('Gmain_forward'):
+                minibatch_size = gen_z.shape[0]
                 gen_img, _gen_ws = self.run_G(gen_z, gen_c, sync=(sync and not do_Gpl)) # May get synced by Gpl.
                 gen_logits = self.run_D(gen_img, gen_c, sync=False)
                 training_stats.report('Loss/scores/fake', gen_logits)
                 training_stats.report('Loss/signs/fake', gen_logits.sign())
                 
                 # top-k function based on: https://github.com/dvschultz/stylegan2-ada/blob/main/training/loss.py#L102
-                if G_top_k:
+                if self.G_top_k:
                     D_fake_scores = gen_logits
-                    k_frac = torch.max(self.G_top_k_gamma ** self.G_mapping.epochs, self.G_top_k_frac)
+                    k_frac = np.maximum(self.G_top_k_gamma ** self.G.epochs, self.G_top_k_frac)
                     print(k_frac)
-                    k = (torch.ceil(minibatch_size.type(torch.float) * k_frac)).type(torch.int)
+                    k = (int) np.ceil(minibatch_size * k_frac)
                     print(k)
                     lowest_k_scores, _ = torch.topk(-torch.squeeze(D_fake_scores), k=k) # want smallest probabilities not largest
                     print(lowest_k_scores)
