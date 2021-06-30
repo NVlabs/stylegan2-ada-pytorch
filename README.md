@@ -32,6 +32,7 @@
 * **Output size modification** Thank you to [Vadim Epstein](https://github.com/eps696/stylegan2ada) for allowing me to port his code for modifying output size for image and video generation. See `--size` and `--scale-type` in the generation script for more details.
 * **Flesh digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
 * **Blend Two Models at specific resolution layer** Based on [Justin Pinkney’s Tensorflow version](https://github.com/justinpinkney/stylegan2/blob/master/blend_models.py)
+* **Experimental Top-K training function** Improve generator training by only propagating gradients from images the discriminator was most unsure of: [Sinha & Zhao](https://arxiv.org/abs/2002.06224). Use `--topk={float value}` to define the decay rate. Ported from code written by [Hans Brouwer](https://github.com/JCBrouwer) from [SG2-ADA Tensorflow version](https://github.com/dvschultz/stylegan2-ada/issues?q=is%3Apr+author%3AJCBrouwer).
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
