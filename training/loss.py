@@ -81,7 +81,7 @@ class StyleGAN2Loss(Loss):
                     k_frac = np.maximum(self.G_top_k_gamma ** self.G.epochs, self.G_top_k_frac)
                     k = int(np.ceil(minibatch_size * k_frac))
                     lowest_k_scores, _ = torch.topk(-torch.squeeze(D_fake_scores), k=k) # want smallest probabilities not largest
-                    gen_logits = torch.expand(-lowest_k_scores, axis=1)
+                    gen_logits = torch.unsqueeze(-lowest_k_scores, axis=1)
 
                 loss_Gmain = torch.nn.functional.softplus(-gen_logits) # -log(sigmoid(gen_logits))
                 training_stats.report('Loss/G/loss', loss_Gmain)
