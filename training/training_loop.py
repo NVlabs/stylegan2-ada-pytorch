@@ -152,7 +152,8 @@ def training_loop(
     D = dnnlib.util.construct_class_by_name(**D_kwargs, **common_kwargs).train().requires_grad_(False).to(device) # subclass of torch.nn.Module
     G_ema = copy.deepcopy(G).eval()
 
-    print(D.epochs)
+    G.epochs = float(100 * nimg / (total_kimg * 1000)) # 100 total top k "epochs" in total_kimg
+    print('starting G epochs: ',G.epochs)
 
     # Resume from existing pickle.
     if (resume_pkl is not None) and (rank == 0):
