@@ -47,7 +47,11 @@ def size_range(s: str) -> List[int]:
     '''Accept a range 'a-c' and return as a list of 2 ints.'''
     return [int(v) for v in s.split('-')][::-1]
 
-def generate_from_generator_adaptive(psi: float, radius_large: float, radius_small: float, step1: float, step2:float, video_length: float, seed: Optional[int], G: torch.nn.Module, device: torch.device):
+def seed_values(s: str) -> List[int]:
+    '''Accept seeds 'a,b,c' and return as a list of 3 ints.'''
+    return [int(v) for v in s.split(',')]
+
+def generate_from_generator_adaptive(psi: float, radius_large: float, radius_small: float, step1: float, step2:float, video_length: float, seed: Optional[int], seeds: Optional[List], G: torch.nn.Module, device: torch.device):
     # psi = args.psi # 0.7
     # radius_large = args.radius_large # 600.0
     # radius_small = args.radius_small # 40.0
@@ -58,11 +62,22 @@ def generate_from_generator_adaptive(psi: float, radius_large: float, radius_sma
     
     # latents for the circular interpolation in latent space
     if seed:
-        np.random.RandomState(seed)
-    rnd = np.random
-    latents_a = rnd.randn(1, G.z_dim)
-    latents_b = rnd.randn(1, G.z_dim)
-    latents_c = rnd.randn(1, G.z_dim)
+      rnd = np.random.RandomState(seed)
+    else:
+      rnd = np.random
+    if seeds is None:
+      latents_a = rnd.randn(1, G.z_dim)
+      latents_b = rnd.randn(1, G.z_dim)
+      latents_c = rnd.randn(1, G.z_dim)
+    else:
+      if(len(seeds) is not 3):
+        print('you must set 3 seed values!')
+
+      print(seeds)
+      latents_a = np.random.RandomState(int(seeds[0])).randn(1, G.z_dim)
+      latents_b = np.random.RandomState(int(seeds[1])).randn(1, G.z_dim)
+      latents_c = np.random.RandomState(int(seeds[2])).randn(1, G.z_dim)
+
     latents_persistent_small = (latents_a, latents_b, latents_c)
 
     # latents for the circular interpolation of the unrolled constant layer
@@ -111,7 +126,7 @@ def generate_from_generator_adaptive(psi: float, radius_large: float, radius_sma
 
     return output_frames
 
-def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: float, step2: float, seed: Optional[int], video_length: float=1.0, size: int=None, scale_type: str='pad'):
+def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: float, step2: float, seed: Optional[int], video_length: float=1.0, size: int=None, seeds: int=None, scale_type: str='pad'):
 
     if(size): 
         print('render custom size: ',size)
@@ -129,7 +144,7 @@ def main(pkl: str, psi: float, radius_large: float, radius_small:float, step1: f
     with dnnlib.util.open_url(pkl) as f:
         G = legacy.load_network_pkl(f, custom=custom, **G_kwargs)['G_ema'].to(device) # type: ignore
 
-    frames = generate_from_generator_adaptive(psi,radius_large,radius_small,step1,step2,video_length,seed,G,device)
+    frames = generate_from_generator_adaptive(psi,radius_large,radius_small,step1,step2,video_length,seed,seeds,G,device)
     frames = moviepy.editor.ImageSequenceClip(frames, fps=30)
 
     # Generate video at the current date and timestamp
@@ -154,11 +169,14 @@ if __name__ == "__main__":
     parser.add_argument('--radius_small', help='The radius for the latent space interpolation', default=40.0, type=float)
     parser.add_argument('--step1', help='The value of the step/increment for the constant layer interpolation', default=0.005, type=float)
     parser.add_argument('--step2', help='The value of the step/increment for the latent space interpolation', default=0.0025, type=float)
-    parser.add_argument('--seed', help='Seed value for random', default=None, type=int)
+    parser.add_argument('--seed', help='Seed value for random state', default=None, type=int)
+    parser.add_argument('--seeds', help='Three comma separated seed values for circluar interpolation', default=None, type=seed_values)
     parser.add_argument('--size', help='Size of output (in format x-y)', default=None, type=size_range)
     parser.add_argument('--scale_type', help='Options: pad, padside, symm, symmside', default='pad', type=str)
     parser.add_argument('--video_length', help='The length of the video in terms of circular interpolation (recommended to keep at 1.0)', default=1.0, type=float)
 
     args = parser.parse_args()
 
-    main(args.pkl, args.psi, args.radius_large, args.radius_small, args.step1, args.step2, args.seed, args.video_length, args.size, args.scale_type)
+    print(args.seeds)
+
+    main(args.pkl, args.psi, args.radius_large, args.radius_small, args.step1, args.step2, args.seed, args.video_length, args.size, args.seeds, args.scale_type)
