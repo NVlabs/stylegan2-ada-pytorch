@@ -42,9 +42,6 @@ class OSN():
         return self.tmp.noise2d(self.xoff,self.yoff)
 
 def circularloop(nf, d, seed, seeds):
-    if seed:
-        rnd = np.random.RandomState(seed)
-
     r = d/2
 
     zs = []
@@ -52,15 +49,19 @@ def circularloop(nf, d, seed, seeds):
     # latents_c = rnd.randn(1, G.input_shape[1])
 
     if(seeds is None):
-      latents_a = rnd.randn(1, 512)
-      latents_b = rnd.randn(1, 512)
-      latents_c = rnd.randn(1, 512)
+        if seed:
+            rnd = np.random.RandomState(seed)
+        else:
+            rnd = np.random
+        latents_a = rnd.randn(1, 512)
+        latents_b = rnd.randn(1, 512)
+        latents_c = rnd.randn(1, 512)
     elif(len(seeds) is not 3):
-      assert('Must choose 3 seeds!')
+        assert('Must choose exactly 3 seeds!')
     else:
-      latents_a = np.random.RandomState(int(seeds[0])).randn(1, 512)
-      latents_b = np.random.RandomState(int(seeds[1])).randn(1, 512)
-      latents_c = np.random.RandomState(int(seeds[2])).randn(1, 512)
+        latents_a = np.random.RandomState(int(seeds[0])).randn(1, 512)
+        latents_b = np.random.RandomState(int(seeds[1])).randn(1, 512)
+        latents_c = np.random.RandomState(int(seeds[2])).randn(1, 512)
 
     latents = (latents_a, latents_b, latents_c)
 
