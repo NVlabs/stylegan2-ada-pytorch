@@ -41,20 +41,27 @@ class OSN():
         self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d)
         return self.tmp.noise2d(self.xoff,self.yoff)
 
-def circularloop(nf, d, seed):
+def circularloop(nf, d, seed, seeds):
     if seed:
-        np.random.RandomState(seed)
+        rnd = np.random.RandomState(seed)
 
     r = d/2
 
     zs = []
-
-    rnd = np.random
     # hardcoding in 512, prob TODO fix needed
     # latents_c = rnd.randn(1, G.input_shape[1])
-    latents_a = rnd.randn(1, 512)
-    latents_b = rnd.randn(1, 512)
-    latents_c = rnd.randn(1, 512)
+
+    if(seeds is None):
+      latents_a = rnd.randn(1, 512)
+      latents_b = rnd.randn(1, 512)
+      latents_c = rnd.randn(1, 512)
+    elif(len(seeds) is not 3):
+      assert('Must choose 3 seeds!')
+    else:
+      latents_a = np.random.RandomState(int(seeds[0])).randn(1, 512)
+      latents_b = np.random.RandomState(int(seeds[1])).randn(1, 512)
+      latents_c = np.random.RandomState(int(seeds[2])).randn(1, 512)
+
     latents = (latents_a, latents_b, latents_c)
 
     current_pos = 0.0
@@ -175,7 +182,7 @@ def interpolate(G,device,projected_w,seeds,random_seed,space,truncation_psi,labe
         if(interpolation=='noiseloop'):
             points = noiseloop(frames, diameter, random_seed)
         elif(interpolation=='circularloop'):
-            points = circularloop(frames, diameter, random_seed)
+            points = circularloop(frames, diameter, random_seed, seeds)
 
     else:
         if projected_w is not None:
