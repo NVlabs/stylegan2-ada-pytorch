@@ -74,7 +74,7 @@ def generate_images(
 
     \b
     # Render an image from projected W
-    python generate.py --outdir=out --projected_w=projected_w.npz \\
+    python generate.py --outdir=out --projected-w=projected_w.npz \\
         --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
     """
 
