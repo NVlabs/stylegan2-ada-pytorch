@@ -235,7 +235,7 @@ def print_module_summary(module, inputs, max_nesting=3, skip_redundant=True):
         name = '<top-level>' if e.mod is module else submodule_names[e.mod]
         param_size = sum(t.numel() for t in e.unique_params)
         buffer_size = sum(t.numel() for t in e.unique_buffers)
-        output_shapes = [str(list(e.outputs[0].shape)) for t in e.outputs]
+        output_shapes = [str(list(t.shape)) for t in e.outputs]
         output_dtypes = [str(t.dtype).split('.')[-1] for t in e.outputs]
         rows += [[
             name + (':0' if len(e.outputs) >= 2 else ''),
