@@ -14,19 +14,17 @@ import json
 import tempfile
 import copy
 import torch
-import dnnlib
 
-import legacy
-from metrics import metric_main
-from metrics import metric_utils
-from torch_utils import training_stats
-from torch_utils import custom_ops
-from torch_utils import misc
+from stylegan2_ada_pytorch import legacy, dnnlib
+from stylegan2_ada_pytorch.metrics import metric_main, metric_utils
+from stylegan2_ada_pytorch.torch_utils import training_stats
+from stylegan2_ada_pytorch.torch_utils import custom_ops, misc
+
 
 #----------------------------------------------------------------------------
 
 def subprocess_fn(rank, args, temp_dir):
-    dnnlib.util.Logger(should_flush=True)
+    stylegan2_ada_pytorch.dnnlib.util.Logger(should_flush=True)
 
     # Init torch.distributed.
     if args.num_gpus > 1:
@@ -61,7 +59,7 @@ def subprocess_fn(rank, args, temp_dir):
             print(f'Calculating {metric}...')
         progress = metric_utils.ProgressMonitor(verbose=args.verbose)
         result_dict = metric_main.calc_metric(metric=metric, G=G, dataset_kwargs=args.dataset_kwargs,
-            num_gpus=args.num_gpus, rank=rank, device=device, progress=progress)
+                                              num_gpus=args.num_gpus, rank=rank, device=device, progress=progress)
         if rank == 0:
             metric_main.report_metric(result_dict, run_dir=args.run_dir, snapshot_pkl=args.network_pkl)
         if rank == 0 and args.verbose:
@@ -128,7 +126,7 @@ def calc_metrics(ctx, network_pkl, metrics, data, mirror, gpus, verbose):
         ppl_zend     Perceptual path length in Z at path endpoints against cropped image.
         ppl_wend     Perceptual path length in W at path endpoints against cropped image.
     """
-    dnnlib.util.Logger(should_flush=True)
+    stylegan2_ada_pytorch.dnnlib.util.Logger(should_flush=True)
 
     # Validate arguments.
     args = dnnlib.EasyDict(metrics=metrics, num_gpus=gpus, network_pkl=network_pkl, verbose=verbose)
@@ -138,11 +136,11 @@ def calc_metrics(ctx, network_pkl, metrics, data, mirror, gpus, verbose):
         ctx.fail('--gpus must be at least 1')
 
     # Load network.
-    if not dnnlib.util.is_url(network_pkl, allow_file_urls=True) and not os.path.isfile(network_pkl):
+    if not stylegan2_ada_pytorch.dnnlib.util.is_url(network_pkl, allow_file_urls=True) and not os.path.isfile(network_pkl):
         ctx.fail('--network must point to a file or URL')
     if args.verbose:
         print(f'Loading network from "{network_pkl}"...')
-    with dnnlib.util.open_url(network_pkl, verbose=args.verbose) as f:
+    with stylegan2_ada_pytorch.dnnlib.util.open_url(network_pkl, verbose=args.verbose) as f:
         network_dict = legacy.load_network_pkl(f)
         args.G = network_dict['G_ema'] # subclass of torch.nn.Module
 

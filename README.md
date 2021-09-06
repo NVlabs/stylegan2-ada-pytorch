@@ -151,7 +151,7 @@ w = G.mapping(z, c, truncation_psi=0.5, truncation_cutoff=8)
 img = G.synthesis(w, noise_mode='const', force_fp32=True)
 ```
 
-Please refer to [`generate.py`](./generate.py), [`style_mixing.py`](./style_mixing.py), and [`projector.py`](./projector.py) for further examples.
+Please refer to [`generate.py`](stylegan2_ada_pytorch/generate.py), [`style_mixing.py`](stylegan2_ada_pytorch/style_mixing.py), and [`projector.py`](stylegan2_ada_pytorch/projector.py) for further examples.
 
 ## Preparing datasets
 

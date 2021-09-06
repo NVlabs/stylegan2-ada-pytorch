@@ -19,8 +19,8 @@ import PIL.Image
 import torch
 import torch.nn.functional as F
 
-import dnnlib
-import legacy
+from stylegan2_ada_pytorch import legacy, dnnlib
+
 
 def project(
     G,
@@ -58,7 +58,7 @@ def project(
 
     # Load VGG16 feature detector.
     url = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/vgg16.pt'
-    with dnnlib.util.open_url(url) as f:
+    with stylegan2_ada_pytorch.dnnlib.util.open_url(url) as f:
         vgg16 = torch.jit.load(f).eval().to(device)
 
     # Features for target image.
@@ -161,7 +161,7 @@ def run_projection(
     # Load networks.
     print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
-    with dnnlib.util.open_url(network_pkl) as fp:
+    with stylegan2_ada_pytorch.dnnlib.util.open_url(network_pkl) as fp:
         G = legacy.load_network_pkl(fp)['G_ema'].requires_grad_(False).to(device) # type: ignore
 
     # Load target image.

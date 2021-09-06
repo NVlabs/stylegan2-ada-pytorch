@@ -13,12 +13,12 @@ import re
 from typing import List, Optional
 
 import click
-import dnnlib
 import numpy as np
 import PIL.Image
 import torch
 
-import legacy
+from stylegan2_ada_pytorch import legacy, dnnlib
+
 
 #----------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ def generate_images(
 
     print('Loading networks from "%s"...' % network_pkl)
     device = torch.device('cuda')
-    with dnnlib.util.open_url(network_pkl) as f:
+    with stylegan2_ada_pytorch.dnnlib.util.open_url(network_pkl) as f:
         G = legacy.load_network_pkl(f)['G_ema'].to(device) # type: ignore
 
     os.makedirs(outdir, exist_ok=True)

@@ -15,12 +15,13 @@ import re
 import json
 import tempfile
 import torch
-import dnnlib
+from stylegan2_ada_pytorch import dnnlib
 
-from training import training_loop
-from metrics import metric_main
-from torch_utils import training_stats
-from torch_utils import custom_ops
+from stylegan2_ada_pytorch.training import training_loop
+from stylegan2_ada_pytorch.metrics import metric_main
+from stylegan2_ada_pytorch.torch_utils import training_stats
+from stylegan2_ada_pytorch.torch_utils import custom_ops
+
 
 #----------------------------------------------------------------------------
 
@@ -107,7 +108,7 @@ def setup_training_loop_kwargs(
     args.training_set_kwargs = dnnlib.EasyDict(class_name='training.dataset.ImageFolderDataset', path=data, use_labels=True, max_size=None, xflip=False)
     args.data_loader_kwargs = dnnlib.EasyDict(pin_memory=True, num_workers=3, prefetch_factor=2)
     try:
-        training_set = dnnlib.util.construct_class_by_name(**args.training_set_kwargs) # subclass of training.dataset.Dataset
+        training_set = stylegan2_ada_pytorch.dnnlib.util.construct_class_by_name(**args.training_set_kwargs) # subclass of training.dataset.Dataset
         args.training_set_kwargs.resolution = training_set.resolution # be explicit about resolution
         args.training_set_kwargs.use_labels = training_set.has_labels # be explicit about labels
         args.training_set_kwargs.max_size = len(training_set) # be explicit about dataset size
@@ -182,8 +183,8 @@ def setup_training_loop_kwargs(
     args.G_kwargs.synthesis_kwargs.conv_clamp = args.D_kwargs.conv_clamp = 256 # clamp activations to avoid float16 overflow
     args.D_kwargs.epilogue_kwargs.mbstd_group_size = spec.mbstd
 
-    args.G_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)
-    args.D_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)
+    args.G_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0, 0.99], eps=1e-8)
+    args.D_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0, 0.99], eps=1e-8)
     args.loss_kwargs = dnnlib.EasyDict(class_name='training.loss.StyleGAN2Loss', r1_gamma=spec.gamma)
 
     args.total_kimg = spec.kimg
@@ -361,7 +362,7 @@ def setup_training_loop_kwargs(
 #----------------------------------------------------------------------------
 
 def subprocess_fn(rank, args, temp_dir):
-    dnnlib.util.Logger(file_name=os.path.join(args.run_dir, 'log.txt'), file_mode='a', should_flush=True)
+    stylegan2_ada_pytorch.dnnlib.util.Logger(file_name=os.path.join(args.run_dir, 'log.txt'), file_mode='a', should_flush=True)
 
     # Init torch.distributed.
     if args.num_gpus > 1:
@@ -479,7 +480,7 @@ def main(ctx, outdir, dry_run, **config_kwargs):
       lsundog256     LSUN Dog trained at 256x256 resolution.
       <PATH or URL>  Custom network pickle.
     """
-    dnnlib.util.Logger(should_flush=True)
+    stylegan2_ada_pytorch.dnnlib.util.Logger(should_flush=True)
 
     # Setup training options.
     try:

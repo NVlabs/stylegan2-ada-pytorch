@@ -14,7 +14,8 @@ import copy
 import uuid
 import numpy as np
 import torch
-import dnnlib
+from stylegan2_ada_pytorch import dnnlib
+
 
 #----------------------------------------------------------------------------
 
@@ -44,7 +45,7 @@ def get_feature_detector(url, device=torch.device('cpu'), num_gpus=1, rank=0, ve
         is_leader = (rank == 0)
         if not is_leader and num_gpus > 1:
             torch.distributed.barrier() # leader goes first
-        with dnnlib.util.open_url(url, verbose=(verbose and is_leader)) as f:
+        with stylegan2_ada_pytorch.dnnlib.util.open_url(url, verbose=(verbose and is_leader)) as f:
             _feature_detector_cache[key] = torch.jit.load(f).eval().to(device)
         if is_leader and num_gpus > 1:
             torch.distributed.barrier() # others follow
@@ -156,7 +157,7 @@ class ProgressMonitor:
         total_time = cur_time - self.start_time
         time_per_item = (cur_time - self.batch_time) / max(cur_items - self.batch_items, 1)
         if (self.verbose) and (self.tag is not None):
-            print(f'{self.tag:<19s} items {cur_items:<7d} time {dnnlib.util.format_time(total_time):<12s} ms/item {time_per_item*1e3:.2f}')
+            print(f'{self.tag:<19s} items {cur_items:<7d} time {stylegan2_ada_pytorch.dnnlib.util.format_time(total_time):<12s} ms/item {time_per_item * 1e3:.2f}')
         self.batch_time = cur_time
         self.batch_items = cur_items
 
@@ -178,7 +179,7 @@ class ProgressMonitor:
 #----------------------------------------------------------------------------
 
 def compute_feature_stats_for_dataset(opts, detector_url, detector_kwargs, rel_lo=0, rel_hi=1, batch_size=64, data_loader_kwargs=None, max_items=None, **stats_kwargs):
-    dataset = dnnlib.util.construct_class_by_name(**opts.dataset_kwargs)
+    dataset = stylegan2_ada_pytorch.dnnlib.util.construct_class_by_name(**opts.dataset_kwargs)
     if data_loader_kwargs is None:
         data_loader_kwargs = dict(pin_memory=True, num_workers=3, prefetch_factor=2)
 
@@ -236,7 +237,7 @@ def compute_feature_stats_for_generator(opts, detector_url, detector_kwargs, rel
 
     # Setup generator and load labels.
     G = copy.deepcopy(opts.G).eval().requires_grad_(False).to(opts.device)
-    dataset = dnnlib.util.construct_class_by_name(**opts.dataset_kwargs)
+    dataset = stylegan2_ada_pytorch.dnnlib.util.construct_class_by_name(**opts.dataset_kwargs)
 
     # Image generation func.
     def run_generator(z, c):
