@@ -12,7 +12,7 @@ import os
 import warnings
 import numpy as np
 import torch
-from ... import dnnlib
+from stylegan2_ada_pytorch import dnnlib
 import traceback
 
 from .. import custom_ops

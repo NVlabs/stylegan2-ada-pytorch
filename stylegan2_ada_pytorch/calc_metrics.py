@@ -24,7 +24,7 @@ from stylegan2_ada_pytorch.torch_utils import custom_ops, misc
 #----------------------------------------------------------------------------
 
 def subprocess_fn(rank, args, temp_dir):
-    stylegan2_ada_pytorch.dnnlib.util.Logger(should_flush=True)
+    dnnlib.util.Logger(should_flush=True)
 
     # Init torch.distributed.
     if args.num_gpus > 1:
@@ -126,7 +126,7 @@ def calc_metrics(ctx, network_pkl, metrics, data, mirror, gpus, verbose):
         ppl_zend     Perceptual path length in Z at path endpoints against cropped image.
         ppl_wend     Perceptual path length in W at path endpoints against cropped image.
     """
-    stylegan2_ada_pytorch.dnnlib.util.Logger(should_flush=True)
+    dnnlib.util.Logger(should_flush=True)
 
     # Validate arguments.
     args = dnnlib.EasyDict(metrics=metrics, num_gpus=gpus, network_pkl=network_pkl, verbose=verbose)
@@ -136,11 +136,11 @@ def calc_metrics(ctx, network_pkl, metrics, data, mirror, gpus, verbose):
         ctx.fail('--gpus must be at least 1')
 
     # Load network.
-    if not stylegan2_ada_pytorch.dnnlib.util.is_url(network_pkl, allow_file_urls=True) and not os.path.isfile(network_pkl):
+    if not dnnlib.util.is_url(network_pkl, allow_file_urls=True) and not os.path.isfile(network_pkl):
         ctx.fail('--network must point to a file or URL')
     if args.verbose:
         print(f'Loading network from "{network_pkl}"...')
-    with stylegan2_ada_pytorch.dnnlib.util.open_url(network_pkl, verbose=args.verbose) as f:
+    with dnnlib.util.open_url(network_pkl, verbose=args.verbose) as f:
         network_dict = legacy.load_network_pkl(f)
         args.G = network_dict['G_ema'] # subclass of torch.nn.Module
 

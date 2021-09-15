@@ -58,7 +58,7 @@ def calc_metric(metric, **kwargs): # See metric_utils.MetricOptions for the full
         results         = dnnlib.EasyDict(results),
         metric          = metric,
         total_time      = total_time,
-        total_time_str  = stylegan2_ada_pytorch.dnnlib.util.format_time(total_time),
+        total_time_str  = dnnlib.util.format_time(total_time),
         num_gpus        = opts.num_gpus,
     )
 

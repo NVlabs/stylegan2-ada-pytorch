@@ -93,7 +93,7 @@ class PPLSampler(torch.nn.Module):
 #----------------------------------------------------------------------------
 
 def compute_ppl(opts, num_samples, epsilon, space, sampling, crop, batch_size, jit=False):
-    dataset = stylegan2_ada_pytorch.dnnlib.util.construct_class_by_name(**opts.dataset_kwargs)
+    dataset = dnnlib.util.construct_class_by_name(**opts.dataset_kwargs)
     vgg16_url = 'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/vgg16.pt'
     vgg16 = metric_utils.get_feature_detector(vgg16_url, num_gpus=opts.num_gpus, rank=opts.rank, verbose=opts.progress.verbose)
 

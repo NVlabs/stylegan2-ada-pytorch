@@ -108,7 +108,7 @@ def setup_training_loop_kwargs(
     args.training_set_kwargs = dnnlib.EasyDict(class_name='training.dataset.ImageFolderDataset', path=data, use_labels=True, max_size=None, xflip=False)
     args.data_loader_kwargs = dnnlib.EasyDict(pin_memory=True, num_workers=3, prefetch_factor=2)
     try:
-        training_set = stylegan2_ada_pytorch.dnnlib.util.construct_class_by_name(**args.training_set_kwargs) # subclass of training.dataset.Dataset
+        training_set = dnnlib.util.construct_class_by_name(**args.training_set_kwargs) # subclass of training.dataset.Dataset
         args.training_set_kwargs.resolution = training_set.resolution # be explicit about resolution
         args.training_set_kwargs.use_labels = training_set.has_labels # be explicit about labels
         args.training_set_kwargs.max_size = len(training_set) # be explicit about dataset size
@@ -362,7 +362,7 @@ def setup_training_loop_kwargs(
 #----------------------------------------------------------------------------
 
 def subprocess_fn(rank, args, temp_dir):
-    stylegan2_ada_pytorch.dnnlib.util.Logger(file_name=os.path.join(args.run_dir, 'log.txt'), file_mode='a', should_flush=True)
+    dnnlib.util.Logger(file_name=os.path.join(args.run_dir, 'log.txt'), file_mode='a', should_flush=True)
 
     # Init torch.distributed.
     if args.num_gpus > 1:
@@ -480,7 +480,7 @@ def main(ctx, outdir, dry_run, **config_kwargs):
       lsundog256     LSUN Dog trained at 256x256 resolution.
       <PATH or URL>  Custom network pickle.
     """
-    stylegan2_ada_pytorch.dnnlib.util.Logger(should_flush=True)
+    dnnlib.util.Logger(should_flush=True)
 
     # Setup training options.
     try:
