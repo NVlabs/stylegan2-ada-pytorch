@@ -12,6 +12,7 @@ arbitrarily high order gradients with zero performance penalty."""
 import warnings
 import contextlib
 import torch
+from distutils.version import LooseVersion
 
 # pylint: disable=redefined-builtin
 # pylint: disable=arguments-differ
@@ -50,7 +51,7 @@ def _should_use_custom_op(input):
         return False
     if input.device.type != 'cuda':
         return False
-    if any(torch.__version__.startswith(x) for x in ['1.7.', '1.8.', '1.9']):
+    if LooseVersion(torch.__version__) >= LooseVersion('1.7.0'):
         return True
     warnings.warn(f'conv2d_gradfix not supported on PyTorch {torch.__version__}. Falling back to torch.nn.functional.conv2d().')
     return False
