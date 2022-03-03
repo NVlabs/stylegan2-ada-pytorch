@@ -39,7 +39,7 @@ class OSN():
     def get_val(self, angle):
         self.xoff = valmap(np.cos(angle), -1, 1, self.x, self.x + self.d)
         self.yoff = valmap(np.sin(angle), -1, 1, self.y, self.y + self.d)
-        return self.tmp.noise2d(self.xoff,self.yoff)
+        return self.tmp.noise2(self.xoff,self.yoff)
 
 def circularloop(nf, d, seed, seeds):
     r = d/2
