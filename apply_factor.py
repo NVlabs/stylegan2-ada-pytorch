@@ -187,7 +187,7 @@ if __name__ == "__main__":
             os.path.join(args.output, file_name),
             nrow = 3,
             normalize=True, 
-            value_range=(-1, 1) # change range to value_range for latest torchvision
+            range=(-1, 1) # change range to value_range for latest torchvision
         )
         
     if(args.vid):
@@ -236,7 +236,7 @@ if __name__ == "__main__":
                         img,
                         f"{index_folder_path}/{fcount:04}.png",
                         normalize=True,
-                        value_range=(-1, 1), # change range to value_range for latest torchvision
+                        range=(-1, 1), # change range to value_range for latest torchvision
                         nrow=1,
                     )
                     fcount+=1
