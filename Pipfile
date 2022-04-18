@@ -13,6 +13,8 @@ torch = "*"
 scipy = "*"
 jupyter = "*"
 pillow = "*"
+ipympl = "*"
+matplotlib = "*"
 
 [dev-packages]
 
