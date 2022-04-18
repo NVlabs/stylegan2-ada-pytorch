@@ -16,7 +16,7 @@ RUN pip install imageio-ffmpeg==0.4.3 pyspng==0.1.0 pipenv
 WORKDIR /workspace
 
 COPY Pipfile .
-COPY Pipfile.lock
+COPY Pipfile.lock .
 
 RUN python -m pipenv install
 
