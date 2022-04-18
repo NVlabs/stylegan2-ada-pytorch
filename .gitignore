@@ -1,2 +1,11 @@
 __pycache__/
 .cache/
+
+.vscode/
+**.png
+**.pkl
+
+training-runs/**
+cifar-10-python.tar.gz
+datasets/**
+minotaur
