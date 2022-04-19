@@ -481,7 +481,7 @@ class SynthesisNetwork(torch.nn.Module):
             block = getattr(self, f'b{res}')
             if extract_features:
                 x, img, feature = block(x, img, cur_ws, extract_features=extract_features, **block_kwargs)
-                features.append(*feature)
+                features.extend(feature)
             else:
                 x, img = block(x, img, cur_ws, extract_features=extract_features, **block_kwargs)
         
