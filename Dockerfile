@@ -10,13 +10,14 @@ FROM nvcr.io/nvidia/pytorch:20.12-py3
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
-RUN pip install imageio-ffmpeg==0.4.3 pyspng==0.1.0 pipenv
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update -y && apt-get install libgl1 ffmpeg libsm6 libxext6 -y
+RUN pip install imageio-ffmpeg==0.4.3 pyspng==0.1.0 pipenv ipympl
 
 WORKDIR /workspace
 
 COPY Pipfile .
-COPY Pipfile.lock
+COPY Pipfile.lock .
 
 RUN python -m pipenv install
 
