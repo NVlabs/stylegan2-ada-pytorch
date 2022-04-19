@@ -513,9 +513,11 @@ class Generator(torch.nn.Module):
         self.num_ws = self.synthesis.num_ws
         self.mapping = MappingNetwork(z_dim=z_dim, c_dim=c_dim, w_dim=w_dim, num_ws=self.num_ws, **mapping_kwargs)
 
-    def forward(self, z, c, truncation_psi=1, truncation_cutoff=None, **synthesis_kwargs):
+    def forward(self, z, c, extract_features=False, truncation_psi=1, truncation_cutoff=None, **synthesis_kwargs):
         ws = self.mapping(z, c, truncation_psi=truncation_psi, truncation_cutoff=truncation_cutoff)
-        img, features = self.synthesis(ws, extract_features=True, **synthesis_kwargs)
+        img, features = self.synthesis(ws, extract_features=extract_features, **synthesis_kwargs)
+        if extract_features:
+            return img, features
         return img
 
 #----------------------------------------------------------------------------
