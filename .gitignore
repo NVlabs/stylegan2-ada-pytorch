@@ -9,3 +9,6 @@ training-runs/**
 cifar-10-python.tar.gz
 datasets/**
 minotaur
+.local
+.ipython
+.jupyter

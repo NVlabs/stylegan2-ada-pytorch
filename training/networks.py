@@ -424,7 +424,7 @@ class SynthesisBlock(torch.nn.Module):
         assert img is None or img.dtype == torch.float32
 
         if extract_features:
-            return x, img, out
+            return x, img, torch.stack(out)
 
         return x, img
 
@@ -486,7 +486,7 @@ class SynthesisNetwork(torch.nn.Module):
                 x, img = block(x, img, cur_ws, extract_features=extract_features, **block_kwargs)
         
         if extract_features:
-            return img, features
+            return img, np.array(features)
 
         return img
 
@@ -513,11 +513,16 @@ class Generator(torch.nn.Module):
         self.num_ws = self.synthesis.num_ws
         self.mapping = MappingNetwork(z_dim=z_dim, c_dim=c_dim, w_dim=w_dim, num_ws=self.num_ws, **mapping_kwargs)
 
+
+    def get_latent(self, input, label, truncation_psi=1, truncation_cutoff=None):
+        return self.mapping(input, label, truncation_psi=truncation_psi, truncation_cutoff=truncation_cutoff)
+
     def forward(self, z, c, extract_features=False, truncation_psi=1, truncation_cutoff=None, **synthesis_kwargs):
         ws = self.mapping(z, c, truncation_psi=truncation_psi, truncation_cutoff=truncation_cutoff)
         img, features = self.synthesis(ws, extract_features=extract_features, **synthesis_kwargs)
         if extract_features:
             return img, features
+
         return img
 
 #----------------------------------------------------------------------------
