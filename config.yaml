@@ -1,0 +1,17 @@
+svm_model_path: None
+
+beasts:
+  pegasus:
+    few_shot:
+        in_channels: 256  # Double check this?
+        num_classes: 5
+        size: S
+        model_path: ./trained/few-show.pt
+
+    gan_model_path: ./trained/network-snapshot-000806.pkl
+    classes:
+      - background
+      - wing
+      - tail
+      - horse_leg
+      - horse_head

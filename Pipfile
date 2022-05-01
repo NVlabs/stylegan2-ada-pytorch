@@ -15,6 +15,10 @@ jupyter = "*"
 pillow = "*"
 ipympl = "*"
 matplotlib = "*"
+selectivesearch = "*"
+scikit-image = "*"
+sklearn = "*"
+"ruamel.yaml" = "*"
 
 [dev-packages]
 
