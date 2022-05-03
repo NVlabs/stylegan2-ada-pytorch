@@ -8,8 +8,10 @@ import ruamel.yaml as yaml
 import selectivesearch
 from skimage import io, color
 import numpy as np
+import matplotlib.pyplot as plt
+import PIL
 
-from predict_beast import BoundingBox, Predictor
+from predict_beast import BoundingBox, Predictor, RegionProposal, PartSegmentor
 
 def convert_to_rgb(image: np.array) -> np.array:
             
@@ -51,23 +53,12 @@ def calculate_iou(ground_truth: BoundingBox, predicted: BoundingBox) -> float:
 
     return iou
 
-def convert_to_boxes(predicted_boxes) -> List[BoundingBox]:
-    new_boxes = []
-    for predicted_box in predicted_boxes:
-        # (minx, miny, width, height)
-        top_left = (predicted_box[0], predicted_box[1] +  predicted_box[3])
-        bottom_right = (predicted_box[0] + predicted_box[2], predicted_box[1])
-        new_boxes.append(tuple([*top_left, *bottom_right]))
-    return new_boxes
-
 def region_proposal(image_data: Dict[AnyStr, AnyStr]) -> Tuple[AnyStr, List[Tuple[float, BoundingBox]]]:
     image = io.imread(str(Path("segmented_images") / image_data.get("file-path")))
             
     image = convert_to_rgb(image)
-    
-    _, results = selectivesearch.selective_search(image, scale=900, sigma=1.2, min_size=300)
-    predicted_boxes = [tuple(result["rect"]) for result in results]
-    predicted_boxes = convert_to_boxes(predicted_boxes)
+
+    predicted_boxes = RegionProposal.get_region_proposals(image, scale=900, sigma=1.2, min_size=300)
 
     ground_truths = image_data.get("bounding-boxes", [])
     iou_values = [(0, None)] * len(ground_truths)
@@ -97,57 +88,64 @@ def evaluate_region_proposal(images: List[Dict[AnyStr, AnyStr]]) -> Dict[AnyStr,
 
     return iou_results
 
-def part_segmentation_map_fun(image_data: Dict[AnyStr, AnyStr], predictor: Predictor) -> Tuple[AnyStr, List[int]]:
-    return part_segmentation(image_data, predictor)
-
-def part_segmentation(image_data: Dict[AnyStr, AnyStr], predictor: Predictor) -> Tuple[AnyStr, List[List[int]]]:
+def part_segmentation(image_data: Dict[AnyStr, AnyStr], part_segmentors: Dict[AnyStr, Any]) -> Tuple[AnyStr, List[List[int]]]:
     # Load in image
-    image = io.imread(str(Path("segmented_images") / image_data.get("file-path")))
-            
-    image = convert_to_rgb(image)
-    
+    image = PIL.Image.open(str(Path("segmented_images") / image_data.get("file-path"))).convert('RGB')
+
     # Crop beast region
     region_suggestions = image_data.get("bounding-boxes", [])
     
-    processed_regions = predictor.process_regions(region_suggestions, image)
+    processed_regions = []
+    for region in region_suggestions:
+        _, height = image.size
 
-    projected_images = predictor.project_to_latent(processed_regions)
-
-    features: List[predictor._feature_vector] = []
-    for projected_image in projected_images:
-        features.append(predictor.get_features(projected_image))
-
-    print(features)
-    return tuple(image_data.get("image-id"), features)
-
-def evaluate_part_segmentation(images: List[Dict[AnyStr, AnyStr]]) -> Dict[AnyStr, Dict[AnyStr, int]]:
-
-    config_file = Path("./config.yaml")
+        # Reverse Y - Coord for PIL Crop
+        region[1] = height - region[1]
+        region[3] = height - region[3]
+        cropped = image.crop(region)
+        processed_regions.append(cropped)
     
-    loaded: Dict[AnyStr, Any] = yaml.load(config_file.read_text())
+    region_vectors = []
+    for processed_region in processed_regions:
+        feature_vectors = {}
+        for beast, part_segmentor in part_segmentors.items():
+            feature_vectors[beast] = part_segmentor.segment_parts(processed_region)
 
-    predictor_configs: Dict[AnyStr, Any] = loaded.get("beasts", {})
+        region_vectors.append(feature_vectors)
 
-    predictor_config = predictor_configs["pegasus"]
+    return tuple([image_data["image-id"], region_vectors])
 
-    segmentation_results = {}
+def evaluate_part_segmentation(images: List[Dict[AnyStr, AnyStr]], segmentor_configs: Dict[AnyStr, Dict[AnyStr, Any]]) -> Dict[AnyStr, Dict[AnyStr, int]]:
 
-    with Pool(processes=4) as pool:
-        predictor = Predictor("pegasus", predictor_config["gan_model_path"], predictor_config["few_shot"], predictor_configs["svm_model_path"])
-        part_result_generation = pool.imap_unordered(functools.partial(part_segmentation_map_fun, image_data, predictor), images, chunksize=2)
+    part_segmentors = {}
 
-        for index, part_segmentation_result in enumerate(part_result_generation):
-            segmentation_results[part_segmentation_result[0]] = part_segmentation_result[1]
+    for beast, segmentor_config in segmentor_configs.items():
+        part_segmentors[beast] = PartSegmentor(**segmentor_config)
 
-            if index % 50 == 0:
-                print("Completed: ", index)
+    segmentation_results = {} # ImageID: [{beast: feature-vector}]
+
+    for index, image_data in enumerate(images, start=1):
+        import time
+        start = time.perf_counter()
+        part_segmentation_result = part_segmentation(image_data, part_segmentors)
+        print(f"Took: {(time.perf_counter() - start)} seconds")
+
+        segmentation_results[part_segmentation_result[0]] = part_segmentation_result[1]
+
+        if index % 10 == 0:
+            print("Completed: ", index)
 
     return segmentation_results
 
 if __name__=="__main__":
     metadata_file = Path("./segmented_images/dump.yaml")
     data = yaml.load(metadata_file.read_text(), Loader=yaml.RoundTripLoader)
+    config_file_path = Path("./config.yaml")
     
+    config_file: Dict[AnyStr, Any] = yaml.load(config_file_path.read_text(), Loader=yaml.RoundTripLoader)
+
+    segmentor_configs = config_file["predictor_config"]["part_segmentor_configs"]
+
     images = []
     for image_data in data.values():
         if image_data.get("beast") != "pegasus":
@@ -157,9 +155,10 @@ if __name__=="__main__":
 
     import time
     start = time.perf_counter()
-    results = evaluate_region_proposal(images)
+    results = evaluate_part_segmentation(images, segmentor_configs)
     print(f"Took: {(time.perf_counter() - start)/60} minutes")
-    for image_key, best_iou in results.items():
-        data[image_key]["iou"] = best_iou
+    print(results)
+    for image_key, feature_vectors in results.items():
+        data[image_key]["feature-vectors"] = feature_vectors
 
-    Path("./evaluate_region_proposal.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))
+    Path("./evaluate_part_segmentation.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))

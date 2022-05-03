@@ -5,10 +5,19 @@ from typing import AnyStr, Tuple, List
 from PIL import Image
 import ruamel.yaml as yaml
 
-BoundingBox = Tuple[int, int, int, int]
+BoundingBox = Tuple[float, float, float, float]
 
+# yolo structure center_x, center_y, width, height
 def convert_yolo_to_pixels(width: int, height: int, bounding_box: BoundingBox) -> BoundingBox:
-    converted = (width * bounding_box[0], height*bounding_box[1], width*bounding_box[2], height*bounding_box[3])
+    center_x = width * bounding_box[0]
+    center_y = height * bounding_box[1]
+    half_width = 0.5 * width * bounding_box[2]
+    half_height = 0.5 * height * bounding_box[3]
+    top_left_x = center_x - half_width
+    top_left_y = center_y + half_height
+    bottom_right_x = top_left_x + width
+    bottom_right_y = top_left_y - height
+    converted = (top_left_x, top_left_y, bottom_right_x, bottom_right_y)
     return tuple(int(item) for item in converted)
 
 def get_bounding_boxes(file_path: Path) -> List[BoundingBox]:

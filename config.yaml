@@ -1,17 +1,34 @@
-svm_model_path: None
 
-beasts:
-  pegasus:
-    few_shot:
-        in_channels: 256  # Double check this?
-        num_classes: 5
-        size: S
-        model_path: ./trained/few-show.pt
+predictor_config:
+  region_proposal_config:
+    scale: 900
+    sigma: 1.2
+    min_size: 300
 
-    gan_model_path: ./trained/network-snapshot-000806.pkl
-    classes:
-      - background
-      - wing
-      - tail
-      - horse_leg
-      - horse_head
+  part_segmentor_configs:
+    pegasus:
+      image_size: 256
+      device: cuda
+
+      stylegan2ada_config:
+        model_path: ./trained/network-snapshot-002419.pkl
+
+      fewshot_config:
+        in_channels: 4480
+        num_classes: 6
+        size: L
+        model_path: ./trained/fewshot_pegasus.pt
+
+      classes:
+        - background
+        - wing
+        - tail
+        - horse_leg
+        - horse_head
+        - horse_body
+
+test_beasts:
+  - pegasus
+
+images_path: ./segmented_images/dump.yaml
+

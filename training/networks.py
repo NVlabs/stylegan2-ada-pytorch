@@ -377,6 +377,9 @@ class SynthesisBlock(torch.nn.Module):
                 resample_filter=resample_filter, channels_last=self.channels_last)
 
     def forward(self, x, img, ws, extract_features=False, force_fp32=False, fused_modconv=None, **layer_kwargs):
+        def feature_format(feature) -> torch.Tensor:
+            return feature.float().cpu().detach()
+
         misc.assert_shape(ws, [None, self.num_conv + self.num_torgb, self.w_dim])
         w_iter = iter(ws.unbind(dim=1))
         dtype = torch.float16 if self.use_fp16 and not force_fp32 else torch.float32
@@ -397,19 +400,19 @@ class SynthesisBlock(torch.nn.Module):
         out = []
         if self.in_channels == 0:
             x = self.conv1(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
-            out.append(x)
+            out.append(feature_format(x))
         elif self.architecture == 'resnet':
             y = self.skip(x, gain=np.sqrt(0.5))
             x = self.conv0(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
-            out.append(x)
+            out.append(feature_format(x))
             x = self.conv1(x, next(w_iter), fused_modconv=fused_modconv, gain=np.sqrt(0.5), **layer_kwargs)
-            out.append(x)
+            out.append(feature_format(x))
             x = y.add_(x)
         else:
             x = self.conv0(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
-            out.append(x)
+            out.append(feature_format(x))
             x = self.conv1(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
-            out.append(x)
+            out.append(feature_format(x))
 
         # ToRGB.
         if img is not None:
@@ -486,7 +489,7 @@ class SynthesisNetwork(torch.nn.Module):
                 x, img = block(x, img, cur_ws, extract_features=extract_features, **block_kwargs)
         
         if extract_features:
-            return img, np.array(features)
+            return img, np.array(features, dtype=object)
 
         return img
 
