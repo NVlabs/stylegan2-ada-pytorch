@@ -16,7 +16,7 @@ class RegionProposal:
     def get_region_proposals(self, image: np.ndarray) -> List[BoundingBox]:
         _, result = selectivesearch.selective_search(image, scale=self.scale, sigma=self.sigma, min_size=self.min_size)
 
-        proposed_regions: List[Tuple[int, int, int, int]] = [tuple(*region["rect"]) for region in result.values()]
+        proposed_regions: List[Tuple[int, int, int, int]] = [tuple(region["rect"]) for region in result]
 
         boxes = [self._format_box(proposed_region) for proposed_region in proposed_regions]
 

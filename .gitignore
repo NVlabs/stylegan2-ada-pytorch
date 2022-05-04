@@ -12,3 +12,7 @@ minotaur
 .local
 .ipython
 .jupyter
+
+segmented_images/harpy
+segmented_images/minotaur
+segmented_images/pegasus

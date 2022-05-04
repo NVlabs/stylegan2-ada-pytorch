@@ -2988,6 +2988,12 @@
   image-id: 172bc2967c2ae4f663f2639a787c3886
   link: https://netrinoimages.s3.eu-west-2.amazonaws.com/2016/02/17/405014/122077/animated_minotaur_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_1474299_o.jpg
   search-term: minotaur cartoon
+  ground-truth-features:
+  - - 0
+    - 2
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 272
     - 1129
@@ -4638,6 +4644,13 @@
   image-id: 23ceb898918eda105ed95bb896372474
   link: https://i.pinimg.com/originals/c4/27/c9/c427c9a5b574712d5b9773234cae5d8c.jpg
   search-term: pegasus painting
+  ground-truth-features:
+  - - 0
+    - 2
+    - 1
+    - 4
+    - 1
+    - 1
   bounding-boxes:
   - - 0
     - 2127
@@ -11419,6 +11432,12 @@
   image-id: 5a0cf154b7804472573d1148e27f374c
   link: https://i.pinimg.com/originals/76/33/1f/76331f92879816305f849c830e693ee9.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 52
     - 475
@@ -20545,6 +20564,12 @@ a001a7ca475e3fcfb3725628acb088dd:
   image-id: a001a7ca475e3fcfb3725628acb088dd
   link: https://i.pinimg.com/originals/06/6e/6c/066e6c60431b5447e47943bea6fb7b9c.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 13
     - 773
@@ -28116,6 +28141,12 @@ e07bd4de1d8824e9c88df1b1b4f092d9:
   image-id: e07bd4de1d8824e9c88df1b1b4f092d9
   link: https://i.pinimg.com/736x/38/dc/ba/38dcba3f6bc9670a86a4480b2743d9e5--greek-mythical-creatures-mythological-creatures.jpg
   search-term: minotaur cgi art classical greek beast
+  ground-truth-features:
+  - - 0
+    - 2
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 172
     - 675
@@ -29407,6 +29438,12 @@ ec9f134668906cb1bba9058b5530986f:
   image-id: ec9f134668906cb1bba9058b5530986f
   link: https://orig00.deviantart.net/d79c/f/2008/109/b/7/minotaur_by_jayodjick.jpg
   search-term: minotaur painting greek beast
+  ground-truth-features:
+  - - 0
+    - 2
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 34
     - 584
@@ -30348,6 +30385,13 @@ f6ce754a519782a7e11e3486d99310c5:
   image-id: f6ce754a519782a7e11e3486d99310c5
   link: https://i.pinimg.com/originals/12/27/e6/1227e68a5af113ffb78ea6821338c3c9.jpg
   search-term: pegasus painting mythical
+  ground-truth-features:
+  - - 0
+    - 2
+    - 1
+    - 4
+    - 1
+    - 1
   bounding-boxes:
   - - 20
     - 867

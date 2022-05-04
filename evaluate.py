@@ -1,14 +1,11 @@
 from typing import AnyStr, List, Dict, Tuple, Any
 from pathlib import Path
-import functools
 from multiprocessing import Pool, current_process
-from unittest import result
+import time
 
 import ruamel.yaml as yaml
-import selectivesearch
 from skimage import io, color
 import numpy as np
-import matplotlib.pyplot as plt
 import PIL
 
 from predict_beast import BoundingBox, Predictor, RegionProposal, PartSegmentor
@@ -58,10 +55,10 @@ def region_proposal(image_data: Dict[AnyStr, AnyStr]) -> Tuple[AnyStr, List[Tupl
             
     image = convert_to_rgb(image)
 
-    predicted_boxes = RegionProposal.get_region_proposals(image, scale=900, sigma=1.2, min_size=300)
+    predicted_boxes = RegionProposal(scale=900, sigma=1.2, min_size=6000).get_region_proposals(image)
 
     ground_truths = image_data.get("bounding-boxes", [])
-    iou_values = [(0, None)] * len(ground_truths)
+    iou_values = []
 
     for box in predicted_boxes:
         for index, ground_truth in enumerate(ground_truths):
@@ -70,15 +67,15 @@ def region_proposal(image_data: Dict[AnyStr, AnyStr]) -> Tuple[AnyStr, List[Tupl
             except Exception as e:
                 continue
             
-            if iou > iou_values[index][0]:
-                iou_values[index] = (iou, box)
+            # if iou > iou_values[index][0]:
+            iou_values.append((iou, tuple(box)))
 
     return image_data.get("image-id"), iou_values
 
 def evaluate_region_proposal(images: List[Dict[AnyStr, AnyStr]]) -> Dict[AnyStr, List[Tuple[float, BoundingBox]]]:
     iou_results = {}
-    with Pool(processes=16) as pool:
-        iou_results_generator = pool.imap_unordered(region_proposal, images, chunksize=16)
+    with Pool(processes=8) as pool:
+        iou_results_generator = pool.imap(region_proposal, images, chunksize=1)
 
         for index, iou_result in enumerate(iou_results_generator):
             iou_results[iou_result[0]] = iou_result[1]
@@ -137,8 +134,12 @@ def evaluate_part_segmentation(images: List[Dict[AnyStr, AnyStr]], segmentor_con
 
     return segmentation_results
 
+
 if __name__=="__main__":
-    metadata_file = Path("./segmented_images/dump.yaml")
+    EVALUATE_REGIONS = True
+    EVALUATE_PART_SEGMENTATION = False
+    EVALUATE_CLASSIFICATION = False
+    metadata_file = Path("./segmented_images/image-data.yaml")
     data = yaml.load(metadata_file.read_text(), Loader=yaml.RoundTripLoader)
     config_file_path = Path("./config.yaml")
     
@@ -148,17 +149,26 @@ if __name__=="__main__":
 
     images = []
     for image_data in data.values():
-        if image_data.get("beast") != "pegasus":
-            continue
+        # if image_data.get("beast") not in ["harpy"]: #"pegasus", "minotaur"]:
+        #     continue
 
         images.append(image_data)
 
-    import time
-    start = time.perf_counter()
-    results = evaluate_part_segmentation(images, segmentor_configs)
-    print(f"Took: {(time.perf_counter() - start)/60} minutes")
-    print(results)
-    for image_key, feature_vectors in results.items():
-        data[image_key]["feature-vectors"] = feature_vectors
+    if EVALUATE_REGIONS:
+        start = time.perf_counter()
+        results = evaluate_region_proposal(images)
+        print(f"Took: {(time.perf_counter() - start)/60} minutes")
+        # print(results)
+        for image_key, result in results.items():
+            data[image_key]["iou"] = result
 
-    Path("./evaluate_part_segmentation.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))
+        Path(f"./evaluate_region_proposal_all_6000.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))
+
+    if EVALUATE_PART_SEGMENTATION:
+        start = time.perf_counter()
+        results = evaluate_part_segmentation(images, segmentor_configs)
+        print(f"Took: {(time.perf_counter() - start)/60} minutes")
+        for image_key, feature_vectors in results.items():
+            data[image_key]["feature-vectors"] = feature_vectors
+
+        Path("./evaluate_part_segmentation.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))

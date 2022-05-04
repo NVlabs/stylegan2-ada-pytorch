@@ -1,4 +1,3 @@
-
 predictor_config:
   region_proposal_config:
     scale: 900
@@ -26,6 +25,46 @@ predictor_config:
         - horse_leg
         - horse_head
         - horse_body
+
+    minotaur:
+      image_size: 256
+      device: cuda
+
+      stylegan2ada_config:
+        model_path: ./trained/network-snapshot-002419.pkl
+
+      fewshot_config:
+        in_channels: 4480
+        num_classes: 5
+        size: L
+        model_path: ./trained/fewshot_minotaur.pt
+
+      classes:
+        - background
+        - horns
+        - bull_head
+        - human_torso
+        - human_legs
+
+    harpy:
+      image_size: 256
+      device: cuda
+
+      stylegan2ada_config:
+        model_path: ./trained/network-snapshot-002419.pkl
+
+      fewshot_config:
+        in_channels: 4480
+        num_classes: 5
+        size: L
+        model_path: ./trained/fewshot_harpy.pt
+
+      classes:
+        - background
+        - human_head
+        - feathered_body
+        - wing
+        - talon
 
 test_beasts:
   - pegasus
