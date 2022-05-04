@@ -62,6 +62,12 @@
   image-id: 00a08c0829f20036af822b917897fbfd
   link: https://i.pinimg.com/originals/b3/51/06/b351069c1de26887ea7c5219db90c720.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 0
+    - 2
+    - 2
   bounding-boxes:
   - - 54
     - 738
@@ -74,6 +80,12 @@
   image-id: 00b9c0cb60ca92494c9bce07a7ffb596
   link: https://images6.fanpop.com/image/photos/40400000/Playful-snow-harpy-sakimichan-40497936-1280-1683.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 0
     - 1680
@@ -162,6 +174,12 @@
   image-id: 01d363c51803aba6817a8bef2bed7c12
   link: http://orig13.deviantart.net/e672/f/2010/296/3/c/harpy_by_isthar_art-d31c1nz.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 6
     - 606
@@ -210,6 +228,12 @@
   image-id: 0219ed1097681901fe76342e8416c1b0
   link: https://i.pinimg.com/736x/22/0d/cd/220dcdff77b4a573c2edb6f925ba48bc--fantasy-creatures-mythical-creatures.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 941
@@ -575,6 +599,12 @@
   image-id: 04f211df109a960ca117a453e5e686e8
   link: https://orig00.deviantart.net/2d57/f/2017/103/d/4/vain_harpy_2_by_sandara-db5ihy3.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 815
@@ -605,6 +635,12 @@
   image-id: 05ddc3d691877d848d07aa4c69d07190
   link: https://live.staticflickr.com/2431/3981889604_2d0cbc206d.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 10
     - 479
@@ -617,6 +653,22 @@
   image-id: 06113c7102f6dd08c939c681127096f8
   link: https://i.ebayimg.com/images/g/SxcAAOSwF~ZhSfSq/s-l300.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 23
     - 244
@@ -713,6 +765,12 @@
   image-id: 06fbb8614e87301e03a1aaaf4d1ac6cd
   link: https://i.pinimg.com/originals/1f/ca/6f/1fca6fff283f82f89e9bffbe9cc527da.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 27
     - 608
@@ -725,6 +783,12 @@
   image-id: 0703bd5cd7a5cc59d502dc0bc9189a45
   link: https://i.pinimg.com/originals/eb/c7/ca/ebc7ca112738fec9d9d50f3bfe889b5b.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 1016
@@ -737,6 +801,12 @@
   image-id: 071444a20a83c53e5ca548160837a8c7
   link: https://i.pinimg.com/originals/42/94/c8/4294c8931e937e906c49c49d33ef33ab.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 42
     - 1363
@@ -805,6 +875,17 @@
   image-id: 078157c30a723e19d71a8f61e7ea4eeb
   link: https://i.pinimg.com/originals/4b/f7/54/4bf75471edf59e1a323551baa7708d61.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 434
@@ -840,6 +921,12 @@
   image-id: 0829c61f4a0742e5148723229cab2c18
   link: http://img02.deviantart.net/3d04/i/2013/269/2/5/harpy_colored_by_axlborg16-d6nzx0i.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 35
     - 1555
@@ -870,6 +957,12 @@
   image-id: 083c9a648a2168a8277a4e417afe0882
   link: https://s-media-cache-ak0.pinimg.com/736x/68/ea/ac/68eaacde9c0b73e9583a4f92ffa50408--disney-gargoyles-animated-cartoons.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 23
     - 808
@@ -976,6 +1069,12 @@
   image-id: 088794181b78e9bab3e3fc8e99bdacbe
   link: https://vignette.wikia.nocookie.net/kylarsroleplay/images/c/c1/H7_harpy_artwork.jpg/revision/latest?cb=20180114204950
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 466
     - 964
@@ -1063,6 +1162,12 @@
   image-id: 08c0a38b24a2464d7fd670445ef04f45
   link: https://i.pinimg.com/736x/17/30/3f/17303fc190fcbcd47756d2b5c80579f3.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 29
     - 1003
@@ -1149,6 +1254,12 @@
   image-id: 095807826d2a2690cef85ac43cf1fd69
   link: https://vignette.wikia.nocookie.net/dragons-crown/images/d/d4/Art29.jpg/revision/latest/scale-to-width-down/2000?cb=20140515040842
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 0
+    - 2
+    - 2
   bounding-boxes:
   - - 385
     - 996
@@ -1235,6 +1346,12 @@
   image-id: 09df138215964d58ca2dba46431ef7e8
   link: https://i.pinimg.com/originals/01/e3/7e/01e37ea0525f156eeac2bf91a80dd3d2.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 639
@@ -1266,6 +1383,12 @@
   image-id: 0a5af64b50ea3e922a24cd7f677cfe37
   link: https://orig00.deviantart.net/8c51/f/2015/253/1/d/woodland_harpy_by_risachantag-d99541t.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 100
     - 775
@@ -1278,6 +1401,12 @@
   image-id: 0a614049c44b7eef0d802e7138a758cc
   link: https://pre00.deviantart.net/a880/th/pre/f/2017/320/1/a/harpy_by_julaxart-dag496s.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 84
     - 851
@@ -1308,6 +1437,12 @@
   image-id: 0b4a920125963549228d6f6162daa834
   link: https://i.pinimg.com/originals/8f/fd/b5/8ffdb51019858fde273a4d970807be89.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 29
     - 849
@@ -1356,6 +1491,12 @@
   image-id: 0c4a74fbf90efa9bd4300596f51ed1af
   link: https://i.pinimg.com/236x/10/24/b9/1024b98d01b9cf419daf30fff60dbc74.jpg?nii=t
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 31
     - 291
@@ -1464,6 +1605,12 @@
   image-id: 0d0d81bc382ffa76e2a0ab8cba5b433d
   link: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/53d3e594-5a21-499b-9f48-9984d6034ffd/d8pxf0j-558e1e6d-2d8e-4d11-bdb1-880e3582ee7a.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzUzZDNlNTk0LTVhMjEtNDk5Yi05ZjQ4LTk5ODRkNjAzNGZmZFwvZDhweGYwai01NThlMWU2ZC0yZDhlLTRkMTEtYmRiMS04ODBlMzU4MmVlN2EuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.M30bOGLw9kSLCguOJc3UMZqsHNz30IUoZSnHXpALDb4
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 139
     - 913
@@ -1476,6 +1623,12 @@
   image-id: 0d674601aea7f470fba5d9634707ca47
   link: https://i.pinimg.com/originals/f5/43/26/f54326449681b79821e48236bcc1ca0e.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 269
     - 1455
@@ -1488,6 +1641,12 @@
   image-id: 0d7b024a0d0c07de3902694afc669461
   link: https://i.pinimg.com/originals/5e/db/60/5edb6018b64aa2b931562874fe26b29f.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 46
     - 740
@@ -1518,6 +1677,12 @@
   image-id: 0de688ae1c1c92fd8af37bcf698715d9
   link: https://i.pinimg.com/originals/8f/1d/88/8f1d883c02ff478fee634d81e3baa29c.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 12
     - 735
@@ -1530,6 +1695,12 @@
   image-id: 0dfcfc2260941638eaa14b1b7e57c2b7
   link: https://i.pinimg.com/originals/ea/98/58/ea9858fb8582212dded1d4203242cf0e.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 124
     - 721
@@ -1560,6 +1731,12 @@
   image-id: 0e4bf11ef19243bed1f1292d1ab1999b
   link: https://i.pinimg.com/originals/22/b6/a5/22b6a553874199fcd08c023a49f6990f.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 66
     - 774
@@ -1572,6 +1749,12 @@
   image-id: 0e63df956141b57ae992936510121882
   link: https://s-media-cache-ak0.pinimg.com/originals/15/04/19/150419c327d863418b4ae302a2771e1c.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 915
@@ -1584,6 +1767,12 @@
   image-id: 0e74c34d40825cb6597db697bb77afaa
   link: https://i.pinimg.com/originals/28/76/d0/2876d08c1e0450b4ee39390966efe2cf.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 166
@@ -1596,6 +1785,12 @@
   image-id: 0ef93ab330ef2b1854ddc6a57c3de5d3
   link: https://i.pinimg.com/736x/96/f5/ff/96f5ff5cff6666831b264fed077fceb0.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 65
     - 376
@@ -1608,6 +1803,27 @@
   image-id: 0f18518d634236d1a55c855debcf3826
   link: https://pm1.narvii.com/6133/04eabbb7efcb3aeb0473c87f876f5c4685f20786_hq.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
+  - - 0
+    - 1
+    - 1
+    - 0
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 0
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 0
+    - 2
   bounding-boxes:
   - - 387
     - 323
@@ -1761,6 +1977,12 @@
   image-id: 1120c3ee612aa5d1d4dac95a6d87eb31
   link: https://i.pinimg.com/474x/19/e7/38/19e738ab64c9e98dc7184b6136d19582--harpy-eagle-harpy-mythology.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 25
     - 336
@@ -1920,6 +2142,12 @@
   image-id: 1216667842b46d001a83ed1a11c672d9
   link: https://cdna.artstation.com/p/assets/images/images/006/262/120/large/kenneth-solis-ks-harpyprincess1v1.jpg?1497232651
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 0
+    - 2
   bounding-boxes:
   - - 191
     - 1289
@@ -2024,6 +2252,12 @@
   image-id: 12a3fdda81b572042e0cf5f0a93615d1
   link: https://i.pinimg.com/originals/a7/38/c8/a738c8aa17710dcc637e4637924f3e9d.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 118
     - 630
@@ -2036,6 +2270,12 @@
   image-id: 12bc869aa258a041f81201abc4ae7cf8
   link: http://orig07.deviantart.net/7636/f/2013/154/b/1/ice_harpy_by_openanewworld-d67oaud.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 5
     - 1126
@@ -2048,6 +2288,17 @@
   image-id: 12d709e8a21dcb825e33b89bd21d99c3
   link: https://i.pinimg.com/originals/db/05/55/db0555fd8803907fd81e9e4aa550e782.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 567
@@ -2119,6 +2370,17 @@
   image-id: 130806ed872a0f11163e29c697c221c4
   link: https://i.pinimg.com/originals/8f/0a/86/8f0a867813142823e111ec94a0c10a7e.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 6
     - 645
@@ -2172,6 +2434,12 @@
   image-id: 13caf8a9b5845443aab03147d1acc425
   link: https://pre12.deviantart.net/d129/th/pre/i/2010/148/b/6/harpy_by_lucreziac.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 49
     - 804
@@ -2363,6 +2631,12 @@
   image-id: 14be99209980f8cb3662d01870f2d1f9
   link: https://i.pinimg.com/originals/bb/ac/71/bbac71f59dc6fbf77770615be1df931f.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 8
     - 523
@@ -2375,6 +2649,12 @@
   image-id: 152c25e137aa5e72e26fc023aaa06e5e
   link: https://i.pinimg.com/originals/95/f2/ca/95f2ca7e143874887a2a1eed51313434.jpg
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 8
     - 729
@@ -2496,6 +2776,12 @@
   image-id: 162251fc5477d10986320faced54b40d
   link: https://steamuserimages-a.akamaihd.net/ugc/929306232372007009/71982D2FE0584690F6D2E4E8712F4AA689CCD1F6/?imw=268&amp;imh=268&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 0
     - 409
@@ -2527,6 +2813,12 @@
   image-id: 1679aca3c6871c7154fd32e57e702b37
   link: http://www.theoi.com/image/fantastic-harpy.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 0
     - 145
@@ -2539,6 +2831,12 @@
   image-id: 169c30cae0b515e022b23d30248ae219
   link: https://i.pinimg.com/originals/c8/e5/32/c8e53275d2a74e0c2cc3cb871ccfe647.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 25
     - 1068
@@ -2608,6 +2906,12 @@
   image-id: 17020770c946b985ecca81577a441b7f
   link: http://t00.deviantart.net/PwRTJ2uFES04BNFkgxAwf5wWOtw=/fit-in/300x900/filters:no_upscale():origin()/pre12/894e/th/pre/i/2015/091/1/8/harpy_by_chandrahabein-d8ntjsq.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 227
@@ -2846,6 +3150,12 @@
   image-id: 18eebf53d5a22ad9c9c1a9be1fcc1e53
   link: https://vignette.wikia.nocookie.net/evoker/images/2/28/Harpy.jpg/revision/latest?cb=20151104203450
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 43
     - 826
@@ -2858,6 +3168,12 @@
   image-id: 18f04a7c7588f6a3b7bcdf2c0ebeac70
   link: https://images.metmuseum.org/CRDImages/is/original/DT262161.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 138
     - 1700
@@ -2870,6 +3186,12 @@
   image-id: 190f18ec4c9af20057fac87f796c18c5
   link: https://live.staticflickr.com/2431/3981889604_2d0cbc206d_b.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 24
     - 1003
@@ -2939,6 +3261,12 @@
   image-id: 19f918c8f9826a0fd0d4af03ee6b820c
   link: https://i.pinimg.com/originals/e9/d3/69/e9d3694c9b2d0cc34fd858a49a0e9f06.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 104
     - 982
@@ -3045,6 +3373,12 @@
   image-id: 1a8a20cb55090e5973a9ca4ba885ade2
   link: https://www.gamermaps.net/images/wow/npcs/58142-windfury-harpy.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 10
     - 421
@@ -3076,6 +3410,12 @@
   image-id: 1ad70302c32e0f64723de251efd9a1ce
   link: https://i.pinimg.com/originals/8b/92/e2/8b92e2f400547f07b82b2bc74faceb99.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 0
     - 409
@@ -3106,6 +3446,17 @@
   image-id: 1b165752cd1c06210e5f9d63b3b277b3
   link: https://s-media-cache-ak0.pinimg.com/736x/ce/78/51/ce78513de6c9b18cef010fc9908c93c8.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 393
@@ -3140,6 +3491,12 @@
   image-id: 1b32324369e270be00f7fa66f3989a23
   link: http://img07.deviantart.net/b21f/i/2016/096/7/e/harpy_by_rokudo_aurora-d9xzoff.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 44
     - 782
@@ -3237,6 +3594,12 @@
   image-id: 1be6b02d331c5223dd089ff49a0f21d6
   link: https://s-media-cache-ak0.pinimg.com/736x/f6/86/71/f686718e8b3fb5d5f8dc12c412f0db5f.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 9
     - 845
@@ -3249,6 +3612,12 @@
   image-id: 1c08346352fe6446508a0bffc1a58738
   link: https://cdnb.artstation.com/p/assets/images/images/012/852/081/large/tmiracle-nonda-harpy.jpg?1536835902
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 759
@@ -3279,6 +3648,12 @@
   image-id: 1c46d73518c6488ea518b8070ebc9e71
   link: http://4.bp.blogspot.com/-b07S_UYoatc/VOrR5EfC5nI/AAAAAAAAB_8/lKI2d8hrm10/s1600/harpy_by_seraph777-d7b3lou.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 881
@@ -3291,6 +3666,12 @@
   image-id: 1c4da07963304ce3505806527e3c1466
   link: https://i.pinimg.com/originals/7e/78/bb/7e78bb2655f7a22ab578aff95e18efc1.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 175
     - 1375
@@ -3340,6 +3721,12 @@
   image-id: 1c76cee9be7d714ccce3d9ca8b4da11b
   link: https://pre10.deviantart.net/f728/th/pre/i/2010/344/0/e/harpy_by_six_dragons-d34myhh.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 15
     - 897
@@ -3371,6 +3758,17 @@
   image-id: 1ce2957309aaf69444e3d210b682d701
   link: http://img.cadnav.com/allimg/170114/cadnav-1F114004F2.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 49
     - 460
@@ -3504,6 +3902,12 @@
   image-id: 1dcebc3167a22ecdb4cdf89c211f4ae4
   link: https://i.pinimg.com/originals/e9/12/82/e912824c531157951cdc6ba675496356.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 1466
@@ -3516,6 +3920,12 @@
   image-id: 1ddbc5afe2fde87c0ed0cff5ca0f8f65
   link: https://i.pinimg.com/originals/2a/f5/39/2af539baf59722b206ed9c43983186be.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 101
     - 488
@@ -3528,6 +3938,17 @@
   image-id: 1debeb830cc5e2360cac1c42556e1b0c
   link: https://i.pinimg.com/originals/6d/d2/22/6dd2227381651a02c012bcb1ceb04f1a.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 360
     - 589
@@ -3563,6 +3984,12 @@
   image-id: 1e1350be3880cba9dca77768607bf8e9
   link: http://img2.wikia.nocookie.net/__cb20100914040023/berserk/images/2/28/Harpy.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 10
     - 263
@@ -3752,6 +4179,12 @@
   image-id: 1fda9d440adaa86be9f2d705e492db32
   link: http://pre06.deviantart.net/94a7/th/pre/i/2011/290/7/0/harpy___october_16_by_emeraldfury-d4d3fwl.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 10
     - 1058
@@ -3875,6 +4308,12 @@
   image-id: 2189b647a974a4576ec5d73ed7d58ca7
   link: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/742d6769-a794-495b-82fb-25f4c796b806/d1nwu5r-af2afe24-e423-4fe8-8794-0777f866fa20.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzc0MmQ2NzY5LWE3OTQtNDk1Yi04MmZiLTI1ZjRjNzk2YjgwNlwvZDFud3U1ci1hZjJhZmUyNC1lNDIzLTRmZTgtODc5NC0wNzc3Zjg2NmZhMjAuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.UFRFO9dgPtCz0tfVGL6WyVpS0N64AYucViJ9VZsl9vY
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 52
     - 785
@@ -3887,6 +4326,12 @@
   image-id: 21acae3e41c8b7cb15c361eec440f268
   link: https://i.pinimg.com/474x/e6/3a/3b/e63a3b567a817a94a403bd98b7168a90--yuko-shimizu-mythical-creatures.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 82
     - 458
@@ -3917,6 +4362,12 @@
   image-id: 21f479662129178612c6678c4674ced7
   link: https://vignette.wikia.nocookie.net/creatures-of-past-present-and-mythology/images/2/28/Harpy.jpg/revision/latest/scale-to-width-down/349?cb=20141106173758
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 15
     - 399
@@ -4003,6 +4454,12 @@
   image-id: 2259dc9208d1e1ff844f3096a6713211
   link: https://s-media-cache-ak0.pinimg.com/564x/6d/19/7d/6d197de805d3432156a5c58754de816e.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 53
     - 388
@@ -4033,6 +4490,12 @@
   image-id: 2303de49f583cdf2dc1310be3e3ca26e
   link: https://3.bp.blogspot.com/-9kmLJAWkORA/WRlm53sB6KI/AAAAAAAABNE/lsejMmpDoBEK1ouyHRH3cKYyY1o3T-ScgCLcB/s1600/harpy.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 21
     - 1255
@@ -4063,6 +4526,17 @@
   image-id: 2387af36592ebb3d645fdbcfc67dd9df
   link: https://vignette.wikia.nocookie.net/powerlisting/images/2/28/Harpy.jpg/revision/latest?cb=20120609232218
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 35
     - 531
@@ -4127,6 +4601,12 @@
   image-id: 23afc2b15467dd53176322c39ca32148
   link: https://i.pinimg.com/originals/8a/dc/d3/8adcd3b4e95175ef891d8a604ea52d1a.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 48
     - 644
@@ -4243,6 +4723,12 @@
   image-id: 24880d8d08dcdb250adb4568e0f5708d
   link: http://clipartmag.com/image/harpy-eagle-drawing-25.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 140
     - 1864
@@ -4310,6 +4796,12 @@
   image-id: 2527698c60a508057293f2d33ea4288c
   link: https://i.pinimg.com/originals/ee/64/77/ee6477b8e38369f562b18703c6fc3731.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1257
     - 2118
@@ -4459,6 +4951,12 @@
   image-id: 26d3ada1a5966b6c66af5265e20e75a6
   link: https://orig00.deviantart.net/0c27/f/2013/110/1/7/harpy_by_miradge-d62dz23.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 290
     - 2746
@@ -4471,6 +4969,12 @@
   image-id: 26d4e6caa5583815b9b0a24eebefa54a
   link: https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/harpy.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 96
     - 328
@@ -4483,6 +4987,12 @@
   image-id: 26d68c8db7b0377e1370850fa0069a96
   link: https://www.ancientgreecereloaded.com/files/ancient_greece_reloaded_website/images/pictures/creatures/harpies.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 635
@@ -4532,6 +5042,12 @@
   image-id: 27664318a7d065344c5b01f66c8f6737
   link: https://orig00.deviantart.net/6e75/f/2013/118/6/3/harpy_monet_by_luisovo-d58jgnr.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 11
     - 1145
@@ -4674,6 +5190,12 @@
   image-id: 28800911fa29f88941d224e872667433
   link: https://i.pinimg.com/236x/2f/f3/da/2ff3dacd873f8d4dd39773263efac064--ancient-greek-art-ancient-greece.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 2
     - 125
@@ -4723,6 +5245,12 @@
   image-id: 28c4e1bb566c28edaa50a3a519759a35
   link: https://s-media-cache-ak0.pinimg.com/736x/b4/66/98/b46698e5978eae724bc2ae26e5c3b0f7.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 8
     - 800
@@ -4772,6 +5300,12 @@
   image-id: 2914cea185ea4323e663c12082dd550c
   link: https://i.pinimg.com/originals/ff/f4/ca/fff4ca2f07ad3ddaa244b55f96ef44c7.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 21
     - 1265
@@ -4841,6 +5375,12 @@
   image-id: 2a3206646795a3858f04e118130ac2c2
   link: https://s-media-cache-ak0.pinimg.com/736x/bb/25/85/bb25852c2c449c390a296782127a55dd.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 87
     - 958
@@ -4872,6 +5412,12 @@
   image-id: 2a5dac1ad5342ec1844f5a48979b76df
   link: https://pm1.narvii.com/7255/a1d088bfbb2a0593ab1e85d5859947bd4a3d8c16r1-750-995v2_hq.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 52
     - 733
@@ -4903,6 +5449,12 @@
   image-id: 2a72c6b89b0338b9dd8c3fa03676f215
   link: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/3efb8f97-9a26-4634-8f96-24361ec8149e/d5fel1t-92ee7604-ca51-4681-9cde-c7ec9da8ec68.png/v1/fill/w_600,h_844,q_80,strp/harpy_woman_by_dragoart_d5fel1t-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODQ0IiwicGF0aCI6IlwvZlwvM2VmYjhmOTctOWEyNi00NjM0LThmOTYtMjQzNjFlYzgxNDllXC9kNWZlbDF0LTkyZWU3NjA0LWNhNTEtNDY4MS05Y2RlLWM3ZWM5ZGE4ZWM2OC5wbmciLCJ3aWR0aCI6Ijw9NjAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.d5VHSkuKQOK9AivTKnQ-wvH53RoN38_q_QauJT8gaFU
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 39
     - 836
@@ -4953,6 +5505,12 @@
   image-id: 2adf6d4e9cb0c4a5e881b366ff3ba51f
   link: https://pm1.narvii.com/6297/da84fb6cfd973be5872756fe6b5f13e8a4dcdd24_hq.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 38
     - 822
@@ -4984,6 +5542,12 @@
   image-id: 2b29b6ba02183f152221928737c92ea0
   link: http://pds.exblog.jp/pds/1/201205/17/81/d0160581_22393184.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 202
     - 388
@@ -5033,6 +5597,12 @@
   image-id: 2b634ef6b036b1153b1a300b19a8adb9
   link: http://orig13.deviantart.net/e0e1/f/2011/364/1/b/1b2b1af76c4cd48dd9166cf18c79b306-d4kqm92.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 13
     - 393
@@ -5119,6 +5689,12 @@
   image-id: 2bf20a98dfa77e6230e864686f819138
   link: https://i.pinimg.com/736x/66/65/19/666519afbae7ad0052478a404e8c1fd7.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 65
     - 885
@@ -5316,6 +5892,12 @@
   image-id: 2d37d79512c3720f600edc45289a1926
   link: http://4.bp.blogspot.com/_qwfu0mb9g2Y/TOwTnHfR4tI/AAAAAAAAAbQ/Spk3mW8L88I/w1200-h630-p-k-no-nu/11.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 14
     - 609
@@ -5478,6 +6060,12 @@
   image-id: 2ec8219a5c59639a4cbe94b6d67eb7a6
   link: http://images.cdn2.stockunlimited.net/clipart450/harpy-cartoon_1420096.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 37
     - 401
@@ -5490,6 +6078,12 @@
   image-id: 2edadca3e88ca24a40209e0f60c8ca93
   link: https://static.wixstatic.com/media/cf32fd_6920b0f2fb3f4a8d9465ab352d6a0bce~mv2_d_1920_1920_s_2.jpg/v1/fill/w_996,h_996,al_c,q_85,usm_0.66_1.00_0.01/cf32fd_6920b0f2fb3f4a8d9465ab352d6a0bce~mv2_d_1920_1920_s_2.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 238
     - 623
@@ -5538,6 +6132,12 @@
   image-id: 2f0ef1c2bf9c74a92e0a7da4817484fc
   link: http://resources.jsmo.xin/templates/upload/2611/201906/156024482388.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 28
     - 1200
@@ -5568,6 +6168,12 @@
   image-id: 2f22018c4f8d5a28d0dc35507f76c086
   link: http://1.bp.blogspot.com/-kKyIUTwTm_Y/T-oqdDqlERI/AAAAAAAAA1Q/FG7dUdEAH9U/s1600/gwn-monster-harpy.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 694
@@ -5710,6 +6316,12 @@
   image-id: 3021cae3bfb18e01cfbbff2a792067bd
   link: https://vignette.wikia.nocookie.net/monster/images/2/28/Harpy.jpg/revision/latest?cb=20110129191316
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 73
     - 619
@@ -5982,6 +6594,12 @@
   image-id: 31f61b6f253059fa72262b11fc66897d
   link: https://i.pinimg.com/originals/5f/26/44/5f2644a8dad8ccfd1ba53c4b69966973.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 845
@@ -6179,6 +6797,12 @@
   image-id: 336bef5c1f2e6c0272c0ee3b02b9ec7b
   link: https://i.pinimg.com/originals/f0/5e/a8/f05ea83217d58d35bd5975ff55fbf637.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 1434
@@ -6292,6 +6916,12 @@
   image-id: 3426095ed9458b7f5dbbf2553022ec45
   link: https://i.pinimg.com/originals/2f/61/5b/2f615bfd60c2c216103c6675aee749bc.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 595
@@ -6341,6 +6971,12 @@
   image-id: 348f0f57bfec1d0a44a6a58c60d29565
   link: https://i.pinimg.com/originals/f3/3d/60/f33d60cd7204acb3c191540a98c95b61.jpg
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 36
     - 958
@@ -6499,6 +7135,12 @@
   image-id: 35f24e528ded07348d76b4c03d9abd16
   link: https://orig07.deviantart.net/334e/f/2012/072/8/3/832ea26245c43b7e773355a603b0a383-d4smf0y.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 66
     - 686
@@ -6547,6 +7189,12 @@
   image-id: 36910ae47b8c7d383b73ddf99d90c8b5
   link: https://i.pinimg.com/originals/1c/75/0e/1c750e3733c52c1e0dad2b9a3db4f5f4.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 393
     - 2111
@@ -6577,6 +7225,12 @@
   image-id: 36dc838c41aaebb63fb24ddb356b704e
   link: https://i.pinimg.com/originals/2c/90/2a/2c902a98700323e590f44df36686d6db.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 4
     - 1078
@@ -6662,6 +7316,12 @@
   image-id: 37d18e682692591d6a2e79f6455c2620
   link: https://sites.psu.edu/mythologicalcreatures/wp-content/uploads/sites/22242/2015/03/hps11_13_harpy-603x815.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 14
     - 753
@@ -6674,6 +7334,12 @@
   image-id: 37fe9fdb40785a1e024bc01e6897f239
   link: https://i.pinimg.com/originals/ee/0a/9f/ee0a9fe978482d5307fb5d26fd347740.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 57
     - 871
@@ -6742,6 +7408,12 @@
   image-id: 38480094ac6c0a89defd92f234b8af2f
   link: https://cdnb.artstation.com/p/assets/images/images/028/571/057/large/cristina-charneco-harpyconceptb-charneco.jpg?1594844344
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 37
     - 1147
@@ -6884,6 +7556,12 @@
   image-id: 39a4b0a91079c95472a88e26a941d2c9
   link: http://orig11.deviantart.net/963f/f/2007/064/c/4/harpy_colored_by_blindspirit.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 66
     - 770
@@ -7063,6 +7741,12 @@
   image-id: 3aee4af5fe1c79fcfdca31eb3b67298a
   link: https://live.staticflickr.com/5190/5780267363_147f62ff25_n.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 6
     - 319
@@ -7104,6 +7788,12 @@
   image-id: 3b5910194f09d88a6684ced629a8a0d8
   link: https://img00.deviantart.net/97dc/i/2006/100/b/f/9_4_2006_harpy_by_horrormove.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 69
     - 951
@@ -7135,6 +7825,12 @@
   image-id: 3be167de5d581d2e87fd5e6363a8503d
   link: https://i.pinimg.com/originals/5f/44/30/5f4430a493662b474857fa8fca104bc0.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 675
@@ -7185,6 +7881,12 @@
   image-id: 3cb58e1dfa4e22ed4b8f270138009439
   link: https://imagery.trubox.ca/wp-content/uploads/sites/67/2015/11/8437394163_aaccee6349_b.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 61
     - 948
@@ -7253,6 +7955,12 @@
   image-id: 3d89dd2134c94e07b512bb36900938e2
   link: http://img05.deviantart.net/1d91/i/2012/123/a/e/harpy_celeno_by_verreaux-d122zpq.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 135
     - 1114
@@ -7378,6 +8086,12 @@
   image-id: 3e94cf426f271d3129a179a04fe9b95b
   link: https://art.ngfiles.com/medium_views/42000/42950_archir_dark-harpy.jpg?f1252361409
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 51
     - 617
@@ -7520,6 +8234,12 @@
   image-id: 3fea364b7009e61d533944255ba4fe3c
   link: https://vignette.wikia.nocookie.net/four-elements-university-4eu/images/2/28/Harpy.jpg/revision/latest/scale-to-width-down/220?cb=20151024181007
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 56
     - 299
@@ -7532,6 +8252,12 @@
   image-id: 4000f5cc10fbc3e348dca6605a128a66
   link: https://www.dolldivine.com/users/s/sk/242008/2019-10-01_1-01-42--76_24_207_214--Member-Submitted.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 563
@@ -7728,6 +8454,12 @@
   image-id: 416214079e462070c900202fbb844a71
   link: https://orig15.deviantart.net/28cd/f/2011/309/1/6/harpy_by_torrentpelt-d4f8nsg.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 93
     - 472
@@ -7758,6 +8490,12 @@
   image-id: 41d50447d3855c0c3d541687c3fbdd31
   link: https://media.gettyimages.com/photos/in-greek-mythology-a-harpy-was-a-winged-spirit-best-known-for-all-picture-id152188014?s=594x594
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 22
     - 567
@@ -7825,6 +8563,12 @@
   image-id: 4298208971876a6c56133a242ac7c932
   link: https://img.cadnav.com/allimg/170323/cadnav-1F323003030.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 134
     - 463
@@ -7929,6 +8673,12 @@
   image-id: 43c2e0f3483582dc2295729b87322083
   link: https://i.pinimg.com/originals/e7/6d/c9/e76dc9e3a8e76a7a5c7668e0afe66be0.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 650
     - 2150
@@ -7978,6 +8728,12 @@
   image-id: 43f1ad0690ba9ac5fadcdbc20a690b1b
   link: https://img.cadnav.com/allimg/170306/cadnav-1F306162F8.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 49
     - 460
@@ -7990,6 +8746,12 @@
   image-id: 43f2898a4ac6794a4c31ea7508719b06
   link: https://vignette.wikia.nocookie.net/monster-girl-encyclopedia-brasil/images/3/3c/Harpy_0.jpg/revision/latest?cb=20140922202526
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 6
     - 600
@@ -8131,6 +8893,12 @@
   image-id: 44e08496f6da950d3c05b84c6d1342dd
   link: https://i.pinimg.com/736x/6b/a7/58/6ba758bc187176ecf027120968408b74.jpg
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 12
     - 415
@@ -8247,6 +9015,17 @@
   image-id: 4668f9eaeac6c24296de89ca972fe3f5
   link: http://www.bajrfed.co.uk/bajrpress/wp-content/uploads/2015/04/harpy1.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 86
     - 617
@@ -8299,6 +9078,12 @@
   image-id: 46e88283edd5cd276cb3119d2dc239a7
   link: http://www.bajrfed.co.uk/bajrpress/wp-content/uploads/2015/04/harpie.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 531
@@ -8311,6 +9096,12 @@
   image-id: 46e99d1d7aee1e464c70e35f6a75b077
   link: https://i.pinimg.com/originals/08/a0/18/08a01887149d8794c6506b4ec46c034a.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 91
     - 823
@@ -8464,6 +9255,12 @@
   image-id: 483ee20947a5774a00f79eba7b0267a2
   link: http://4.bp.blogspot.com/-51AKLhrqeCY/ToxUuBj6uxI/AAAAAAAAACk/_NmplOPnDGA/s1600/WhiteHarpyWB.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 58
     - 428
@@ -8476,6 +9273,12 @@
   image-id: 4842b8934036d684ceb55e9737c96b26
   link: https://i.pinimg.com/originals/67/7b/16/677b16c7ea119f56ceec91e16e6bd5f8.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 58
     - 780
@@ -8662,6 +9465,12 @@
   image-id: 4917e4a98c1af46af7a2e9c04d2111bd
   link: https://i.pinimg.com/originals/c4/a6/74/c4a6746659950d9382ad08503c5aa802.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 14
     - 801
@@ -8693,6 +9502,12 @@
   image-id: 495bc903771ca0bfca2c6295361067b5
   link: https://i.pinimg.com/236x/4e/10/1e/4e101e10fc6b472b3f8b54d6ce7da33e.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 3
     - 289
@@ -8854,6 +9669,12 @@
   image-id: 4b5e6956a33761e446f18a4d05617bb7
   link: https://images.uesp.net/thumb/9/98/ON-creature-Harpy_Elsweyr.jpg/300px-ON-creature-Harpy_Elsweyr.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 35
     - 260
@@ -8944,6 +9765,12 @@
   image-id: 4c43d10d7b1f9696e0d152d652dba06e
   link: https://s-media-cache-ak0.pinimg.com/736x/c8/e5/32/c8e53275d2a74e0c2cc3cb871ccfe647.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 16
     - 835
@@ -9031,6 +9858,12 @@
   image-id: 4cd1bdc440c69a1f8ab9ac49fb472d9f
   link: https://i.pinimg.com/originals/8f/0d/2a/8f0d2a8486baabedf3c75f1ff2c59f41.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 174
     - 923
@@ -9248,6 +10081,12 @@
   image-id: 4f29b6b080543d11052f8d1f7f2bc502
   link: https://1.bp.blogspot.com/_ZD4tAroxiUA/S9txmSUuIHI/AAAAAAAAAGk/NuGXT_XgFbc/s1600/painting_harpy_v07.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 57
     - 798
@@ -9278,6 +10117,12 @@
   image-id: 4fc1796261d93caea72132c3a063da5c
   link: https://i.pinimg.com/736x/f4/50/1e/f4501e860cf35f3fd0b556a88e9484aa--the-barbarians.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 50
     - 432
@@ -9382,6 +10227,12 @@
   image-id: 5036b99f74267003e909faee5839bec7
   link: https://cdnb.artstation.com/p/assets/images/images/000/137/877/large/du-showwhy-.jpg?1443930228
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 31
     - 1726
@@ -9412,6 +10263,12 @@
   image-id: 50af947c9cbc28f661234fcdd2f6d41c
   link: https://2.bp.blogspot.com/-4W6PWHd2lJU/TVXLr63LcrI/AAAAAAAAAQY/zjJaiSOTWLE/s1600/Harpyweb.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 0
+    - 1
+    - 0
   bounding-boxes:
   - - 265
     - 1289
@@ -9498,6 +10355,12 @@
   image-id: 51c12f769d13a327b592114b19f94436
   link: https://i.pinimg.com/236x/26/b6/e8/26b6e8dbcd092f9f9832c1acfdf3b479.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 41
     - 296
@@ -9772,6 +10635,12 @@
   image-id: 53e2c6f1dc428ad5268b6d708ec69014
   link: https://www.kaitlundzupanic.com/wp-content/uploads/2019/10/The-Harpy-Covered-1024x2048-512x1024.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 6
     - 590
@@ -9858,6 +10727,12 @@
   image-id: 543d4e0a4cfbe71d4687920156931a7b
   link: https://thumbs.dreamstime.com/z/angel-playing-harp-4713735.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 114
     - 1001
@@ -9936,6 +10811,12 @@
   image-id: 54cad576b1248ae72a16e77d0b76b281
   link: https://i.etsystatic.com/6287105/r/il/d74a8d/2155094224/il_794xN.2155094224_n4p7.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 0
   bounding-boxes:
   - - 2
     - 1057
@@ -10041,6 +10922,12 @@
   image-id: 5593ac8fac4b295847adf4e9da327766
   link: https://i.pinimg.com/736x/5b/d8/53/5bd85375d974448815bcf22f7db240de.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 71
     - 336
@@ -10275,6 +11162,12 @@
   image-id: 5705a3b119fa3be82a42ae487cd98181
   link: https://i.pinimg.com/originals/55/74/59/557459631d8ff862c997c63b8685b804.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 13
     - 1184
@@ -10325,6 +11218,12 @@
   image-id: 5828c79f923cabe61804b86b834233cd
   link: https://thumbs.dreamstime.com/z/harpy-gegraveerde-fantasieillustratie-82906829.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 78
     - 857
@@ -10337,6 +11236,12 @@
   image-id: 5830ed23be1dfbb2a433e3c7c68fd402
   link: https://i.pinimg.com/736x/a6/53/75/a653751975b2a88ace87458cf0669236--character-concept-concept-art.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 75
     - 1006
@@ -10367,6 +11272,12 @@
   image-id: 587fc0993edd173d6f3798af6d04a9db
   link: https://i.pinimg.com/originals/62/1a/43/621a43acef13c08c3c0298e635068946.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 314
     - 450
@@ -10379,6 +11290,12 @@
   image-id: 5889ad1bfa039507f2d380c352a7667e
   link: https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/1-harpy-from-the-island-of-the-dead-victor-molev.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 103
     - 425
@@ -10446,6 +11363,12 @@
   image-id: 595ed2cd424c6270dceaae0ee59fcf21
   link: http://orig08.deviantart.net/eb35/f/2009/167/6/a/harpy_from_ragnarok_online_by_therealsneakers.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 18
     - 625
@@ -10580,6 +11503,12 @@
   image-id: 5a3e00b5b246d18007b5567aa211dd74
   link: https://i.pinimg.com/736x/f3/c5/6a/f3c56a5068614a9ac767182f620f84c8.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 6
     - 982
@@ -10592,6 +11521,12 @@
   image-id: 5a7e8fdd192ffcea13753fa7f7626fab
   link: https://i.pinimg.com/originals/07/0c/43/070c432ced6ca81e69457c816cd436d2.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 7
     - 879
@@ -10623,6 +11558,12 @@
   image-id: 5ab86888f04fd42e203291561cb7caed
   link: https://i.pinimg.com/originals/21/89/b6/2189b647a974a4576ec5d73ed7d58ca7.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 58
     - 807
@@ -10635,6 +11576,12 @@
   image-id: 5ac370992391bc638b6b5d1e4f6c1da0
   link: https://s-media-cache-ak0.pinimg.com/736x/18/d6/cb/18d6cb089deaaff63bc6101a87dbadb6.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 9
     - 511
@@ -10703,6 +11650,12 @@
   image-id: 5bae1f39384c540916e913c83c9b2a5b
   link: https://pre10.deviantart.net/e5cd/th/pre/f/2012/124/6/5/harpy_by_nightcrawlerguardian-d4yiaik.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 19
     - 845
@@ -10753,6 +11706,12 @@
   image-id: 5bf58e1a9e127bd07cd50bbac346d1bf
   link: https://s-media-cache-ak0.pinimg.com/736x/34/c0/0d/34c00d3b74ddd018c9b984b93b150dff.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 34
     - 291
@@ -10961,6 +11920,12 @@
   image-id: 5cf5e25e4c10e6970525fd3a3e040b4f
   link: https://www.northwesternflipside.net/wp-content/uploads/2017/01/Harpy.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 24
     - 604
@@ -11155,6 +12120,12 @@
   image-id: 5e2c84fa6da76da5873425132fde8b02
   link: https://cdna.artstation.com/p/assets/images/images/003/133/530/large/aleksandr-shukin-06-harpy-final.jpg?1470115049
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 12
     - 1128
@@ -11167,6 +12138,12 @@
   image-id: 5e33f6eaa48ba63440cfedb4454b8986
   link: http://questioncopyright.org/cm/images/minute-memes/all-creative-work-is-derivative/DSC00813_harpy_gryphon.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 1
     - 614
@@ -11365,6 +12342,12 @@
   image-id: 5f034039d26c0d58c920dafe67dbdb54
   link: https://img00.deviantart.net/40e1/i/2012/223/e/3/monster_girls___1_harpy_by_dragonmanx-d5aqo1m.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 61
     - 875
@@ -11431,6 +12414,12 @@
   image-id: 5f99080ca8efc554e83397616bc10141
   link: https://i.pinimg.com/736x/65/f4/f1/65f4f1ce36e9dc7e6ac8ccd368daff64.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 10
     - 309
@@ -11555,6 +12544,12 @@
   image-id: 60b7a42afd09371de27f1065260470cb
   link: https://img00.deviantart.net/435a/i/2014/001/8/3/design_comish___harpy_by_twilightsaint-d4r86bc.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 101
     - 705
@@ -11660,6 +12655,12 @@
   image-id: 61851639a216b7d7ee98669b883c5a2a
   link: http://static1.squarespace.com/static/5005dceae4b0d534734ee52a/50d38bf7e4b0084858f0156e/50d38bf8e4b0084858f01943/1356041214565/venetian-harpy-464wb.jpg?format=1000w
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 33
     - 612
@@ -11728,6 +12729,12 @@
   image-id: 61c34db04e1fb741234568d7b22fdf07
   link: https://pre00.deviantart.net/5735/th/pre/i/2005/197/4/c/harpy___wow_by_netraptor.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 104
     - 660
@@ -11758,6 +12765,27 @@
   image-id: 61da5ede4575906745aef59ca3abb5e2
   link: https://vignette.wikia.nocookie.net/winx/images/1/18/SS_S3_1.png/revision/latest?cb=20190207230337
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 265
     - 1042
@@ -11827,6 +12855,12 @@
   image-id: 62da4b1f29d5d3e9ed838b514d6c5d18
   link: https://img.wallpapersafari.com/tablet/768/1024/30/83/MhyPFm.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 470
     - 355
@@ -11920,6 +12954,12 @@
   image-id: 63891b921aa208851e1e7e35c62e762b
   link: https://i.ytimg.com/vi/Ng7KCyYTBUg/maxresdefault.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 27
     - 694
@@ -12305,6 +13345,12 @@
   image-id: 6689523bd567adb2a14a339776e48103
   link: https://orig00.deviantart.net/1c60/f/2015/216/9/5/the_angry_harpy_by_yemayema-d8lrij0.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 181
     - 816
@@ -12317,6 +13363,12 @@
   image-id: 66a30a8374c32bef393a1245c97c7ebd
   link: http://lowres-picturecabinet.com.s3-eu-west-1.amazonaws.com/43/main/36/114810.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 48
     - 347
@@ -12895,6 +13947,12 @@
   image-id: 6bbcbf7c7e6927f969c913f94d1cb499
   link: https://i.pinimg.com/736x/3c/99/c5/3c99c551a26ccafc2a5f4aa485565ae4.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 21
     - 698
@@ -12945,6 +14003,12 @@
   image-id: 6c1191adbdc40a5e243b793fb26c125c
   link: https://i.pinimg.com/736x/60/59/e5/6059e563a56c63914e8358a40f0bccb7.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 16
     - 1040
@@ -12995,6 +14059,12 @@
   image-id: 6c4e0301e6f045b8a0d067d33d1fedf6
   link: https://orig00.deviantart.net/944f/f/2012/144/e/e/harpies_by_rafaelgallur-d510j1x.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 40
     - 555
@@ -13025,6 +14095,12 @@
   image-id: 6cbe245ba4adf475fdc4427237989594
   link: https://i.pinimg.com/originals/1d/8d/bb/1d8dbbf20dec739b84f5bd8836ae3d9e.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 53
     - 751
@@ -13092,6 +14168,12 @@
   image-id: 6d704fb6efe4d6cd443f6443c8842311
   link: http://c8.alamy.com/compde/j648g7/tattoo-stil-illustration-einer-harpyie-in-griechischen-und-romischen-mythologie-ein-weiblicher-vogel-mit-gesicht-einer-frau-die-auf-der-suche-nach-unten-herab-von-eingestellten-seite-betrachtet-j648g7.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 144
     - 1164
@@ -13161,6 +14243,12 @@
   image-id: 6e0935bbda9cb6d982106de3e4aabcab
   link: https://i.pinimg.com/originals/4d/ed/ce/4dedcef30c3f145be4dcf182adad00f1.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 0
     - 1005
@@ -13173,6 +14261,12 @@
   image-id: 6e2a0d129ca112e28e49134d3281d910
   link: https://vignette.wikia.nocookie.net/unisonleague/images/5/51/Gear-Harpy_Render.png/revision/latest/scale-to-width-down/350?cb=20150713152906
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 53
     - 331
@@ -13334,6 +14428,12 @@
   image-id: 6f8104fd76c800005b092a96b74eca82
   link: https://s-media-cache-ak0.pinimg.com/736x/15/69/99/156999bb10d59d85deb64e291bb38c09.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 126
     - 671
@@ -13401,6 +14501,12 @@
   image-id: 6fad8a5b94967d34e85e582f9dd8608b
   link: https://i.pinimg.com/originals/77/f5/c2/77f5c2350d9dc2365b3be489463fbbcf.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 78
     - 2551
@@ -13488,6 +14594,12 @@
   image-id: 7005c4269d3e6b9f7b498a1438dbb311
   link: https://i.pinimg.com/originals/4c/43/09/4c4309eba9167f9aa1c19456153dcfe8.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 93
     - 1125
@@ -13566,6 +14678,12 @@
   image-id: 70b63108e3325f9b3b3ad9f0300fb776
   link: https://4.bp.blogspot.com/-eimGWcwiDcI/TWfuWYapccI/AAAAAAAAAHQ/FRjPLd_iupM/s1600/Harpy****6.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 4
     - 682
@@ -13947,6 +15065,12 @@
   image-id: 73ce6e7003edc086957175de6308c6e4
   link: http://fc08.deviantart.net/fs15/f/2007/049/d/7/harpy_concept_W_I_P__by_chrislazzer.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 984
@@ -14050,6 +15174,12 @@
   image-id: 751a676c7a92d76131269e2865496825
   link: https://thumbs.dreamstime.com/b/harpies-flock-attack-ferocious-cartoon-attacking-you-135778100.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 20
     - 827
@@ -14154,6 +15284,12 @@
   image-id: 76ae5f42a19d97e89a0fcc32ec64c370
   link: https://i.pinimg.com/originals/02/78/92/027892e710a1a27006389e0144750e0a.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 132
     - 697
@@ -14223,6 +15359,12 @@
   image-id: 7776e4fb438cab2916eeaea20c4df797
   link: https://pre00.deviantart.net/d4a7/th/pre/f/2015/106/3/3/harpy_by_windmaker-d8pxf0j.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 108
     - 730
@@ -14347,6 +15489,12 @@
   image-id: 786706cc4e147dd308e76cd94f476d03
   link: http://c8.alamy.com/comp/G16AR1/ancient-greece-harpy-from-an-amphora-6th-century-bc-in-earlier-versions-G16AR1.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 214
     - 1243
@@ -14377,6 +15525,12 @@
   image-id: 78793e59c481ad59626d94ad493eff33
   link: https://i.pinimg.com/736x/08/04/67/080467f962486861ae29ea7e2f03e2b9.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 76
     - 455
@@ -14518,6 +15672,12 @@
   image-id: 799c9c3c12405e79fa95d91dee6ce10a
   link: https://i.pinimg.com/originals/60/ca/44/60ca44e768d7ccee4737b9ecac025394.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 25
     - 1134
@@ -14578,6 +15738,12 @@
   image-id: 79d4d644a873195c8a0591b5f9d7ff63
   link: https://i.pinimg.com/originals/2e/93/ec/2e93ec855b18307e49e1739957d9c147.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 105
     - 379
@@ -14823,6 +15989,12 @@
   image-id: 7a6bd027a7920b32a6a2b1fc45c350e5
   link: https://i.pinimg.com/originals/1c/51/3a/1c513a8ab9674b7041bb4bd37275c8ac.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 152
     - 721
@@ -14944,6 +16116,12 @@
   image-id: 7c0b805d9216eabf1fe938fe40ee4dff
   link: http://img2.wikia.nocookie.net/__cb20131016232043/descent2e/images/archive/2/28/20140711001506%21Harpy.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 36
     - 530
@@ -15087,6 +16265,12 @@
   image-id: 7d58d95008153c701c2c122bfb56af49
   link: https://media.proprofs.com/images/QM/user_images/2169923/1517071609.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 64
     - 367
@@ -15287,6 +16471,12 @@
   image-id: 7f02b65e5c9c67930af035c604866729
   link: https://i.pinimg.com/736x/c0/7b/21/c07b21f141842bc6359205f007b4414b--notable-fountain.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 22
     - 424
@@ -15317,6 +16507,12 @@
   image-id: 7f09ed821455da1669f2bce88e379862
   link: https://i.pinimg.com/236x/b1/c8/6c/b1c86c37f923ffa024079ab737444a47.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 6
     - 297
@@ -15348,6 +16544,12 @@
   image-id: 7f9f744e1a7e40a4bb043715c5418c22
   link: https://i.pinimg.com/originals/85/a6/f3/85a6f390813cac2bf52080a98c75e517.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 296
     - 1005
@@ -15426,6 +16628,12 @@
   image-id: 80278b882fb48c360c35459c40e683a9
   link: https://img00.deviantart.net/6a85/i/2015/062/1/b/harpy_reading_by_gamera1985-d8kahsn.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 102
     - 848
@@ -16097,6 +17305,12 @@
   image-id: 84a2a67476abed7b81b03a1acae595e8
   link: https://vignette.wikia.nocookie.net/elminage-gothic/images/1/1b/Harpy.png/revision/latest?cb=20160219182348
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 18
     - 754
@@ -16147,6 +17361,12 @@
   image-id: 84cb96a831b86eef7063445ec4285252
   link: https://i.pinimg.com/736x/76/1c/b2/761cb297e5009d2371eed880d0627aad.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 76
     - 890
@@ -16159,6 +17379,12 @@
   image-id: 84d34259c0bf74539da279beb724d188
   link: http://images5.fanpop.com/image/photos/30200000/Harpy-Monet-one-piece-30201081-900-1357.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 12
     - 1341
@@ -16171,6 +17397,12 @@
   image-id: 84e2e282a867b72bb63bb932393f1c82
   link: https://s-media-cache-ak0.pinimg.com/236x/53/71/bc/5371bc2acb73f30542b315845a42098e.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 29
     - 298
@@ -16443,6 +17675,12 @@
   image-id: 87781762f06d29856913dfb1a38004e6
   link: https://i.pinimg.com/736x/ac/de/a9/acdea98f68d051c4edd76bed3f4159d8--kato-polyclay-sculpture-garden.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 88
     - 715
@@ -16492,6 +17730,12 @@
   image-id: 87984111d07845a65f057e9ad7cdbacb
   link: http://uploads.kidzworld.com/article/18730/a1970i0_harpy-185.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 16
     - 135
@@ -16673,6 +17917,12 @@
   image-id: 885e961519acea9e75373710691d5500
   link: https://thumbs.dreamstime.com/b/imprimir-188974259.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 46
     - 434
@@ -16740,6 +17990,12 @@
   image-id: 892228679a873e2ec6ce31dfaf8d7f71
   link: https://pre06.deviantart.net/1acf/th/pre/i/2013/117/9/a/harpy_by_bagada-d637r01.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 86
     - 936
@@ -16921,6 +18177,22 @@
   image-id: 8acfeda64014f0527dc7806743c3b09e
   link: https://www.unearthlytales.com/images/harpies-1.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 5
     - 209
@@ -17108,6 +18380,12 @@
   image-id: 8c4c477ec92eb848ce4db2079fe29b45
   link: https://i.pinimg.com/originals/85/37/61/8537618652866844485e28de0c43100e.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 21
     - 519
@@ -17120,6 +18398,17 @@
   image-id: 8c56af593a27d27c2f8a2b848f7e30b7
   link: https://i.pinimg.com/736x/36/37/86/363786bb563ff290b74ba189ba2b5f6e--cartoon-monsters-character-design-references.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 0
+    - 2
+    - 2
   bounding-boxes:
   - - 171
     - 588
@@ -17484,6 +18773,12 @@
   image-id: 8ec83920a589dc5ecac3e83aac0b149c
   link: https://p7.hiclipart.com/preview/781/517/270/demon-incubus-harpy-art-succubus-demon.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 45
     - 439
@@ -17532,6 +18827,12 @@
   image-id: 8f3992f79f6cedff74d1a1ccfff22a1b
   link: https://cdnb.artstation.com/p/assets/images/images/019/413/359/large/bo-ri-.jpg?1563374680
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 4
+    - 2
   bounding-boxes:
   - - 54
     - 1270
@@ -17729,6 +19030,12 @@
   image-id: 91e4e7c131f9ffe050290d46d7514c79
   link: http://orig12.deviantart.net/32c0/f/2009/223/d/0/d0c204ce5472e1fbc297caa1041686ce.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 147
     - 733
@@ -17852,6 +19159,12 @@
   image-id: 929799874b645058806fc14e01438fe7
   link: https://i.pinimg.com/originals/c2/93/b7/c293b74c95cfa27f2b7fbaa684b190b5.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 30
     - 808
@@ -17864,6 +19177,12 @@
   image-id: 92d4a8d08c486c6e67fc309629cdeba2
   link: https://pre01.deviantart.net/46f8/th/pre/i/2007/288/3/7/the_harpy_by_phoenix901.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 88
     - 892
@@ -17894,6 +19213,17 @@
   image-id: 9318a71d66f543eff06174bc8fa18f6b
   link: https://i.etsystatic.com/12949606/r/il/66fca4/1665153208/il_794xN.1665153208_n2y2.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 51
     - 489
@@ -17910,6 +19240,12 @@
   image-id: 9322bb8db19195a459e1c1941038fbc9
   link: https://i.pinimg.com/originals/a2/be/20/a2be20eba504ca4cc3c5a7658a7d2bfe.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 26
     - 339
@@ -17978,6 +19314,12 @@
   image-id: 9414c9afb2deb65178716676593896c0
   link: https://i.pinimg.com/originals/0b/37/91/0b379132c9046e1cb2937e431b6a854e.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 566
@@ -18046,6 +19388,12 @@
   image-id: 951e8bdca73771faa2d9208882598a8c
   link: https://i.pinimg.com/originals/21/59/c6/2159c656211d5ad9bf6fac0c5ea1c98f.jpg
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 41
     - 1468
@@ -18077,6 +19425,12 @@
   image-id: 954bfa8f9f30a484c3a6ce34eff93159
   link: https://i.pinimg.com/originals/f2/23/1e/f2231e9c3519500d0eeff287dea0f998.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 0
+    - 2
+    - 0
   bounding-boxes:
   - - 47
     - 875
@@ -18107,6 +19461,12 @@
   image-id: 95946573fba6ef33cbf2af742aa76413
   link: https://i.pinimg.com/736x/de/f7/94/def794dfae6ae9ddc14d571fc6b56faa--monster-girl-harpy-fantasy.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 72
     - 1223
@@ -18138,6 +19498,12 @@
   image-id: 9612852245c6380aa0bdd9184240f86e
   link: https://i.pinimg.com/originals/71/32/4c/71324c8def4b6c083be84b99aa6c0e72.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 52
     - 830
@@ -18187,6 +19553,12 @@
   image-id: 961e200ab912975b4c033a487a651dbe
   link: https://pre00.deviantart.net/3c44/th/pre/f/2012/169/0/5/my_little_mages__gilda_the_harpy_by_didj-d53z714.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 136
     - 913
@@ -18199,6 +19571,12 @@
   image-id: 9642927e393cca1f78c13e487070d19c
   link: http://fc02.deviantart.net/fs70/i/2014/032/3/f/01__harpy_by_ayayue-d74q76p.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 67
     - 968
@@ -18377,6 +19755,12 @@
   image-id: 97f592d9772791d6d57ca25df8423b02
   link: http://c8.alamy.com/comp/BHDEG2/harpies-greek-mythical-creatures-half-woman-half-bird-woodcut-circa-BHDEG2.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 48
     - 1171
@@ -18389,6 +19773,12 @@
   image-id: 98994c4da2980de614e2bd63a884b2eb
   link: https://i.pinimg.com/originals/82/75/07/827507f7a2d30b722e342b7ee6351c85.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 8
     - 964
@@ -18438,6 +19828,12 @@
   image-id: 98e92e8fb963b7aea696847631c7b65d
   link: https://s-media-cache-ak0.pinimg.com/originals/1b/e0/d6/1be0d630d52509a87220117973a13dfb.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 13
     - 1582
@@ -18468,6 +19864,12 @@
   image-id: 9982ca4d4ea598db6b452b873563b9ec
   link: https://s-media-cache-ak0.pinimg.com/originals/ae/93/28/ae9328eafd48e48ed754ab058b2dcab3.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 67
     - 1544
@@ -18480,6 +19882,12 @@
   image-id: 99848a23a9f7f3eafbfbcb4a832d9b52
   link: https://pre08.deviantart.net/1eb0/th/pre/i/2012/344/0/0/harpy_by_whiteshinigami-d5nlhfd.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 84
     - 950
@@ -18547,6 +19955,12 @@
   image-id: 99e9e7e9410d2e543ac8884e7fcf8e1c
   link: http://media.gettyimages.com/vectors/harpy-vector-id181273161?s=612x612
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 403
@@ -18653,6 +20067,12 @@
   image-id: 9afb93b5d7a4322bd3e7b74ca48bcab2
   link: https://i.pinimg.com/originals/43/37/75/433775ee4354d4860c1c7c81c7cdd4b4.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 54
     - 1072
@@ -18665,6 +20085,17 @@
   image-id: 9b0fa43078e1b8f39750f691112bce92
   link: https://i.pinimg.com/736x/86/9c/b5/869cb5def28738c0d5a31f8f5fd96a41--mythological-monsters-mythological-creatures.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 112
     - 1272
@@ -18794,6 +20225,12 @@
   image-id: 9cb8bc6d1b29ee34f0a30857c35dd0a7
   link: http://room11.patstuam.ie/blog/wp-content/uploads/2017/01/Harpy-e1485798166335.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 63
     - 633
@@ -18917,6 +20354,12 @@
   image-id: 9e54f1f094014760face9fd56d0f90ad
   link: https://i.pinimg.com/736x/fe/27/4d/fe274d68fd5a9cf7f266ce48a5633adb.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 100
     - 634
@@ -18929,6 +20372,17 @@
   image-id: 9e66184683fdd375c106efeaf55d75a7
   link: https://ih1.redbubble.net/image.1612731872.6174/ur,mask_flatlay_front,tall_portrait,750x1000.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 197
     - 608
@@ -18964,6 +20418,12 @@
   image-id: 9ecf98a33d513a4bbb171b48d45b03d0
   link: https://i.pinimg.com/736x/f8/2c/bc/f82cbc8b6b61ec3757a0ffc27a8b8e08.jpg
   search-term: harpy painting greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 107
     - 981
@@ -18976,6 +20436,12 @@
   image-id: 9edd2d2539814e381bffac9dca6aa54c
   link: https://i.pinimg.com/originals/62/ff/e3/62ffe3518ae7d8b0e53d6fab83692f26.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 60
     - 1626
@@ -18988,6 +20454,12 @@
   image-id: 9efe996004a3ead95d55401842f1ff5b
   link: https://img00.deviantart.net/c4aa/i/2012/343/7/c/day_01__harpy_by_jillybean200x-d5nko2a.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 8
     - 1248
@@ -19000,6 +20472,12 @@
   image-id: 9f26cff782920e74d9ef29daf6529921
   link: https://vignette.wikia.nocookie.net/dragon-calling/images/f/f6/Profile_Harpy.jpg/revision/latest/scale-to-width-down/2000?cb=20191125033238
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 2545
@@ -19049,6 +20527,12 @@
   image-id: 9fa7135f4e691bd8bc4da614722aa537
   link: https://i.pinimg.com/originals/b5/5c/63/b55c639ed3f3301e8d8d77b255c82034.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 27
     - 585
@@ -19073,6 +20557,12 @@ a02f41a6a9ea43b401773310cfff8f89:
   image-id: a02f41a6a9ea43b401773310cfff8f89
   link: https://img00.deviantart.net/0e89/i/2015/116/8/0/harpy_by_highdarktemplar-d4jvb9d.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 133
     - 811
@@ -19085,6 +20575,12 @@ a04046b4c47c4c277b7349409ad67ceb:
   image-id: a04046b4c47c4c277b7349409ad67ceb
   link: https://thumbs.dreamstime.com/b/antique-harpy-hand-drawn-mythical-greek-monster-vector-illustration-harpy-hand-drawn-illustration-152260396.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 88
     - 744
@@ -19115,6 +20611,12 @@ a09153320c8b155423e73c5fe1832d85:
   image-id: a09153320c8b155423e73c5fe1832d85
   link: https://i.pinimg.com/236x/ee/0a/9f/ee0a9fe978482d5307fb5d26fd347740.jpg?nii=t
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 15
     - 202
@@ -19313,6 +20815,12 @@ a287495a9577dea4281a147d864c2fea:
   image-id: a287495a9577dea4281a147d864c2fea
   link: http://orig03.deviantart.net/3366/f/2008/097/9/b/harpy_by_thegryph.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 667
@@ -19363,6 +20871,12 @@ a2a74cdbe456cc6965f9a1b65618f77a:
   image-id: a2a74cdbe456cc6965f9a1b65618f77a
   link: https://pm1.narvii.com/5739/5e147a1bf001392f6b307ac3d4e8c541e7f37886_hq.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 491
@@ -19736,6 +21250,12 @@ a47dabf0da5c4442fdb87de39c3e6876:
   image-id: a47dabf0da5c4442fdb87de39c3e6876
   link: https://i.pinimg.com/736x/30/5f/ea/305fea1f38cb6487b6f4d6e51f679af9--cg-art-art-of-animation.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 25
     - 733
@@ -19748,6 +21268,12 @@ a491de4f31d5359dbad1ead4f9da0ca3:
   image-id: a491de4f31d5359dbad1ead4f9da0ca3
   link: https://thumbs.dreamstime.com/b/harpy-flat-vector-illustration-half-woman-half-bird-creature-fantastical-monster-storm-wind-personification-greek-mythology-fairy-180268252.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 209
     - 729
@@ -19760,6 +21286,27 @@ a494b7117dda4287506339370d3c2510:
   image-id: a494b7117dda4287506339370d3c2510
   link: http://img04.deviantart.net/39d4/i/2015/046/5/e/your_harpy_here_by_aerophoinix-d8i3kc2.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 34
     - 491
@@ -19857,6 +21404,17 @@ a528296f77627170862baddc2fe5052a:
   image-id: a528296f77627170862baddc2fe5052a
   link: https://i.pinimg.com/originals/1b/72/03/1b720314dc8c5bb4d123d00191857320.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 334
     - 185
@@ -19873,6 +21431,12 @@ a52ca8b39a7160fc452a91e4ed128085:
   image-id: a52ca8b39a7160fc452a91e4ed128085
   link: https://cdn4.vectorstock.com/i/thumb-large/95/93/cartoon-harpy-woman-bird-mythological-animal-vector-29389593.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 62
     - 217
@@ -20072,6 +21636,12 @@ a71367e4100ac65f94034549814087ad:
   image-id: a71367e4100ac65f94034549814087ad
   link: https://i.pinimg.com/originals/ab/e4/77/abe477566037e27146e90e9a0622b4f5.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 59
     - 585
@@ -20121,6 +21691,12 @@ a7597086f88b17be2a0cbbf646acd80c:
   image-id: a7597086f88b17be2a0cbbf646acd80c
   link: https://i.pinimg.com/originals/bb/77/ba/bb77ba4eed9448f01db0333a1785da0a.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 215
     - 850
@@ -20393,6 +21969,12 @@ a9d9e88db0e0a6b17c96178fa5030cb8:
   image-id: a9d9e88db0e0a6b17c96178fa5030cb8
   link: http://about-mythical-creatures.weebly.com/uploads/9/3/4/7/9347709/6456419.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 12
     - 202
@@ -20459,6 +22041,12 @@ aa3d19e10b0740bf265fc232c1115230:
   image-id: aa3d19e10b0740bf265fc232c1115230
   link: https://live.staticflickr.com/3308/4565921045_88d5fb3b80.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 162
     - 320
@@ -20545,6 +22133,12 @@ ab30e54eb6c4747186da9877d075636b:
   image-id: ab30e54eb6c4747186da9877d075636b
   link: https://i.pinimg.com/originals/20/a7/1f/20a71fa896bd7583542f7cd419f3d670.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 68
     - 755
@@ -20575,6 +22169,12 @@ abc9a1d80982a3e64c88775f46e51f48:
   image-id: abc9a1d80982a3e64c88775f46e51f48
   link: https://img00.deviantart.net/72b3/i/2018/061/c/b/harpy_by_carlossneak-dc4q7l3.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 41
     - 720
@@ -20922,6 +22522,17 @@ af15f5f51da55cf0c04df8dec884b362:
   image-id: af15f5f51da55cf0c04df8dec884b362
   link: https://i.pinimg.com/originals/11/9d/8b/119d8b313cf82ef72f96a0958c2e4999.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 30
     - 1179
@@ -21086,6 +22697,12 @@ b08343d707a4bc379a775bc246fea4ed:
   image-id: b08343d707a4bc379a775bc246fea4ed
   link: https://i.pinimg.com/originals/3d/06/20/3d062092e5f3f8f23a14b3f9bd7a9cbd.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 109
     - 904
@@ -21378,6 +22995,12 @@ b376daab04d67f1812d0c649525a6613:
   image-id: b376daab04d67f1812d0c649525a6613
   link: https://cdnb.artstation.com/p/assets/images/images/028/571/057/large/cristina-charneco-harpyconceptb-charneco.jpg?1594844344
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 52
     - 1147
@@ -21557,6 +23180,12 @@ b4ed56667b376eb0f0bad73a587e4cef:
   image-id: b4ed56667b376eb0f0bad73a587e4cef
   link: http://img09.deviantart.net/63f6/i/2012/276/b/9/harpy_by_loomic-d5gos4i.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 102
     - 574
@@ -21729,6 +23358,12 @@ b6028fde9250fd071f998d82d43b61fa:
   image-id: b6028fde9250fd071f998d82d43b61fa
   link: https://img13.deviantart.net/dce9/i/2015/132/9/5/commission__windcaller_harpy_by_bobgreyvenstein-d8t3512.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 87
     - 748
@@ -21899,6 +23534,12 @@ b7c142ee04a6293beedc8b9f52c37137:
   image-id: b7c142ee04a6293beedc8b9f52c37137
   link: https://img00.deviantart.net/3b47/i/2013/232/3/d/harpy_wip__3_by_axlborg16-d6izez6.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 51
     - 1552
@@ -21911,6 +23552,12 @@ b7d34ff0504c29d7f3c7c54fbc2758df:
   image-id: b7d34ff0504c29d7f3c7c54fbc2758df
   link: https://thewitcher3.wiki.fextralife.com/file/The-Witcher-3/harpy.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 4
     - 329
@@ -21960,6 +23607,12 @@ b820c21a8a04ea9f451914d97f54a9f3:
   image-id: b820c21a8a04ea9f451914d97f54a9f3
   link: https://i.pinimg.com/originals/d1/c2/91/d1c2918780421a626a347398a3904380.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 39
     - 622
@@ -21991,6 +23644,12 @@ b86dcafe8408c20f54d7a411fe10cf67:
   image-id: b86dcafe8408c20f54d7a411fe10cf67
   link: https://i.pinimg.com/originals/46/98/ed/4698edc468c167611a70e5dbe439987e.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 47
     - 716
@@ -22003,6 +23662,12 @@ b875ed602bead57ead7d28653fdced94:
   image-id: b875ed602bead57ead7d28653fdced94
   link: https://i.pinimg.com/736x/a1/e9/45/a1e945c4231861de703ed67697bff1aa--good-food-food-networktrisha.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 81
     - 688
@@ -22162,6 +23827,12 @@ babe1376b62969dfcd23123e0e86bb7a:
   image-id: babe1376b62969dfcd23123e0e86bb7a
   link: http://t15.deviantart.net/NwZHljCe0_SrnVPHb7PYV_Kai_s=/fit-in/300x900/filters:no_upscale():origin()/pre03/b6a9/th/pre/f/2011/235/3/1/strafing_harpy_by_ticklemecthulhu-d47k9to.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 12
     - 215
@@ -22326,6 +23997,12 @@ bbc61be7005346a153e2fa4abedd145b:
   image-id: bbc61be7005346a153e2fa4abedd145b
   link: https://s-media-cache-ak0.pinimg.com/736x/20/2b/b7/202bb72b6986b29b841e7903774aff88.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 33
     - 972
@@ -22394,6 +24071,12 @@ bc08c8b2232ac31c43f72d0dbe1cee46:
   image-id: bc08c8b2232ac31c43f72d0dbe1cee46
   link: https://mttstorage.s3.amazonaws.com/printables/images/2_d35118c8-3ae8-4d1e-9652-6e7373f23786_0.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 146
     - 684
@@ -22482,6 +24165,12 @@ bca5798b7108249aba645fd70b61dd0d:
   image-id: bca5798b7108249aba645fd70b61dd0d
   link: https://assets.pinshape.com/uploads/image/file/228604/container_harpy-3d-printing-228604.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 111
     - 495
@@ -22513,6 +24202,12 @@ bcdd915183929ad79d33f5014f7dfe21:
   image-id: bcdd915183929ad79d33f5014f7dfe21
   link: https://i.pinimg.com/originals/62/55/36/6255361539a879e852f151e95c79e37e.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 98
     - 441
@@ -22562,6 +24257,12 @@ bd312b7e1ee2edbc7eca2a6cd4c20b98:
   image-id: bd312b7e1ee2edbc7eca2a6cd4c20b98
   link: http://206.189.210.184/wp-content/uploads/2020/06/Harpy-Hybrid-Review-LOGO_monogram-1.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 327
     - 1196
@@ -22815,6 +24516,17 @@ be8c87215dcff0cdb1f4d07fec934607:
   image-id: be8c87215dcff0cdb1f4d07fec934607
   link: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/64169c09-1a5c-454d-b9f3-ec291073e12c/d3g6vvz-2a2b2c5a-85f7-4ae6-a5c7-298d23caaf07.jpg/v1/fill/w_1166,h_686,q_70,strp/harpies_by_davesrightmind_d3g6vvz-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzA2IiwicGF0aCI6IlwvZlwvNjQxNjljMDktMWE1Yy00NTRkLWI5ZjMtZWMyOTEwNzNlMTJjXC9kM2c2dnZ6LTJhMmIyYzVhLTg1ZjctNGFlNi1hNWM3LTI5OGQyM2NhYWYwNy5qcGciLCJ3aWR0aCI6Ijw9MTIwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.jN1uc5reGyP_82Nj0VL-TBDyNlU1n8NxK6xeOjXzFQ4
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 21
     - 670
@@ -23011,6 +24723,12 @@ c11e91fe5f1392b9d6b3ea1a03f71ed6:
   image-id: c11e91fe5f1392b9d6b3ea1a03f71ed6
   link: http://vignette2.wikia.nocookie.net/mythology/images/f/f6/HarpySSU.png/revision/latest/scale-to-width-down/182?cb=20161106105556
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 3
     - 182
@@ -23117,6 +24835,32 @@ c1bd57e1bb452ed7ab3c3322ed4011cd:
   image-id: c1bd57e1bb452ed7ab3c3322ed4011cd
   link: http://t11.deviantart.net/MKmiPg6-vrMGZEO1bBfPxpHNVyA=/fit-in/300x900/filters:no_upscale():origin()/pre07/ad6d/th/pre/f/2011/031/0/5/ssu_bios__harpies_by_emperornortonii-d38gdte.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 34
     - 126
@@ -23213,6 +24957,12 @@ c22ad30788a30df81122885ddcb23ad5:
   image-id: c22ad30788a30df81122885ddcb23ad5
   link: http://pre01.deviantart.net/3ed9/th/pre/i/2015/114/5/8/30_monster_girls___01___harpy_by_chaos__child-d5dddsg.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 1
     - 1121
@@ -23356,6 +25106,17 @@ c35c751eafa37d9b5c24f5e3502b3c18:
   image-id: c35c751eafa37d9b5c24f5e3502b3c18
   link: https://i.pinimg.com/originals/3a/0b/19/3a0b195d77a022a28d3ca22a807fbc54.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 0
     - 306
@@ -23528,6 +25289,12 @@ c5839e19abe8be4134312319c7566617:
   image-id: c5839e19abe8be4134312319c7566617
   link: https://img00.deviantart.net/c416/i/2016/331/4/0/harpy___sketch_by_lorenzolivrieri-daprymb.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 332
     - 1168
@@ -24093,6 +25860,12 @@ cb4a14dc3d79447c1a24f7ddb4557748:
   image-id: cb4a14dc3d79447c1a24f7ddb4557748
   link: https://mttstorage.s3.amazonaws.com/__processed__/128/1_fd0bed8b-d359-4e4a-be20-5dd7b3828d04_0-7f7f529cee22.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 0
+    - 2
   bounding-boxes:
   - - 21
     - 168
@@ -24511,6 +26284,12 @@ cf71d9fee294c7e03f66d8d337759e0e:
   image-id: cf71d9fee294c7e03f66d8d337759e0e
   link: https://p7.hiclipart.com/preview/942/307/820/harpy-monster-musume-everyday-life-with-monster-girls-online-garuda-drawing-nichijou.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 8
     - 604
@@ -24644,6 +26423,12 @@ d07c6d9c2a37f41c18f9cd43e94ebe06:
   image-id: d07c6d9c2a37f41c18f9cd43e94ebe06
   link: http://4.bp.blogspot.com/-wYA-beHI4CE/T1iFVcNTnJI/AAAAAAAAAZ4/NuWjhd0qixI/s1600/StarShard_HarpyAttack.jpg
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 13
     - 555
@@ -24785,6 +26570,12 @@ d1dd12b46f70e19ad598f37c9b235685:
   image-id: d1dd12b46f70e19ad598f37c9b235685
   link: https://i.pinimg.com/236x/06/6e/6c/066e6c60431b5447e47943bea6fb7b9c--monster.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 5
     - 364
@@ -24891,6 +26682,12 @@ d36207e42964e1add84ef39b97012b59:
   image-id: d36207e42964e1add84ef39b97012b59
   link: https://img00.deviantart.net/10e0/i/2005/271/d/4/the_harpi_by_mannycartoon.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 17
     - 768
@@ -24978,6 +26775,22 @@ d43ad6fdb3151c640658d0e1690e856f:
   image-id: d43ad6fdb3151c640658d0e1690e856f
   link: https://s-media-cache-ak0.pinimg.com/originals/8e/38/5b/8e385b681f1cc32fdabd5c68b26d7213.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 64
     - 580
@@ -24998,6 +26811,12 @@ d451967ce1e95a26093bdcfde2f03d8a:
   image-id: d451967ce1e95a26093bdcfde2f03d8a
   link: http://www.greekmythology.com/images/mythology/harpies_473.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 8
     - 157
@@ -25141,6 +26960,12 @@ d5e84e106828bd46cb046bbacef4325c:
   image-id: d5e84e106828bd46cb046bbacef4325c
   link: http://drawdoo.com/wp-content/themes/blogfolio/themify/img.php?src=http://drawdoo.com/wp-content/uploads/tutorials/Monsters/lesson11/step_00.png&amp;w=665&amp;h=&amp;zc=1&amp;q=60&amp;a=t
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 98
@@ -25153,6 +26978,12 @@ d5f2fdac33a636a2195c13187c5de3cd:
   image-id: d5f2fdac33a636a2195c13187c5de3cd
   link: http://worldofalturas.com/wp-content/uploads/2019/07/19725-Harpy-576x1024.jpg
   search-term: harpy cgi classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 14
     - 901
@@ -25165,6 +26996,12 @@ d624628096fe59e6b6b54f70bdb77d6f:
   image-id: d624628096fe59e6b6b54f70bdb77d6f
   link: https://orig00.deviantart.net/b517/f/2013/059/8/b/1__harpy_by_skasha-d5wk0qa.jpg
   search-term: harpy cartoon
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 14
     - 718
@@ -25309,6 +27146,12 @@ d7a593d711e9e40332e59863e7aeb450:
   image-id: d7a593d711e9e40332e59863e7aeb450
   link: https://media.proprofs.com/images/QM/user_images/2169923/1517071764.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 7
     - 435
@@ -25340,6 +27183,12 @@ d7d4ea97b7d40b107a19487305fdd807:
   image-id: d7d4ea97b7d40b107a19487305fdd807
   link: https://cdna.artstation.com/p/assets/images/images/006/295/714/large/serena-the-red-bonamigo-harpy.jpg?1497477001
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 106
     - 1618
@@ -25427,6 +27276,17 @@ d801d547088aa997cdbe5f93ecf85497:
   image-id: d801d547088aa997cdbe5f93ecf85497
   link: https://www.johnnymagic.jp/data/johnny/product/TOKEN_MARBLE_ED/045.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 34
     - 237
@@ -25461,6 +27321,12 @@ d88b63e14103bec451cce0edf4d6a759:
   image-id: d88b63e14103bec451cce0edf4d6a759
   link: http://pre14.deviantart.net/87fc/th/pre/i/2013/102/9/e/harpies_by_turnermohan-d61ih74.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 22
     - 674
@@ -25547,6 +27413,12 @@ d928f2686e7d27b2946d1f1d6f207909:
   image-id: d928f2686e7d27b2946d1f1d6f207909
   link: https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/600001c3-7f2c-4f7e-88ba-50856e624266/dd4kain-a6870b3b-de8a-49fa-b424-4e245833ac9e.jpg/v1/fill/w_1600,h_1209,q_75,strp/crimsonquill_harpy_by_artdeepmind_dd4kain-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTIwOSIsInBhdGgiOiJcL2ZcLzYwMDAwMWMzLTdmMmMtNGY3ZS04OGJhLTUwODU2ZTYyNDI2NlwvZGQ0a2Fpbi1hNjg3MGIzYi1kZThhLTQ5ZmEtYjQyNC00ZTI0NTgzM2FjOWUuanBnIiwid2lkdGgiOiI8PTE2MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Kz23pxExyUHzS-6WYe9VS0RBp_xmGlRKiB6smZP61l0
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 129
     - 1202
@@ -25634,6 +27506,12 @@ d9ef5c15711c605ca85cd0b6207e03be:
   image-id: d9ef5c15711c605ca85cd0b6207e03be
   link: https://rune-nifelheim.com/db/items/cartas/4325.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 6
     - 307
@@ -25646,6 +27524,12 @@ da1c1e52e166c5fc5662af585a2159d1:
   image-id: da1c1e52e166c5fc5662af585a2159d1
   link: https://i.pinimg.com/736x/a4/c4/21/a4c4219ef91fcb45b348060d48feb784--romani-british-museum.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 65
     - 525
@@ -25658,6 +27542,12 @@ da6379f34f6516fe71d36e6cedc17445:
   image-id: da6379f34f6516fe71d36e6cedc17445
   link: https://www.drawingforall.net/wp-content/uploads/2018/03/How-to-draw-a-harpy.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 19
     - 791
@@ -25781,6 +27671,12 @@ db04ce5047b78c434cea88c3335bf375:
   image-id: db04ce5047b78c434cea88c3335bf375
   link: https://i.pinimg.com/originals/2a/c0/d7/2ac0d727c9b7bf01538c8ac86f25dc16.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 68
     - 677
@@ -25793,6 +27689,12 @@ db1194505d784292d60bddfb5456f21f:
   image-id: db1194505d784292d60bddfb5456f21f
   link: https://i.pinimg.com/originals/bb/a0/6e/bba06e769ed4be0eac815036cf0de1cf.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 0
     - 644
@@ -25862,6 +27764,12 @@ dc2e44d19a3d984f8a24ef6a7bf82e48:
   image-id: dc2e44d19a3d984f8a24ef6a7bf82e48
   link: https://orig00.deviantart.net/86cf/f/2007/243/5/8/the_harpy_by_azurylipfe.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 123
     - 696
@@ -26042,6 +27950,12 @@ deab277729ab8cf87f127608a71f33ff:
   image-id: deab277729ab8cf87f127608a71f33ff
   link: http://img04.deviantart.net/4cd6/i/2010/265/4/3/harpy_by_sphinx_69-d2z986u.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 38
     - 877
@@ -26147,6 +28061,12 @@ dfe0cd68b1ce62d3aaa0af1b390871e3:
   image-id: dfe0cd68b1ce62d3aaa0af1b390871e3
   link: https://fscomps.fotosearch.com/compc/CSP/CSP189/harpy-pattern-silhouette-ancient-clip-art__k57137696.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
   bounding-boxes:
   - - 26
     - 381
@@ -26226,6 +28146,12 @@ e09cda99dd1670818a4bf4d4c1eac4d5:
   image-id: e09cda99dd1670818a4bf4d4c1eac4d5
   link: http://pre06.deviantart.net/71ce/th/pre/i/2015/116/8/0/harpy_by_highdarktemplar-d4jvb9d.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 127
     - 812
@@ -26501,6 +28427,12 @@ e2d3d1c0ce8f8aeb09277ca8eb38b40d:
   image-id: e2d3d1c0ce8f8aeb09277ca8eb38b40d
   link: http://img15.deviantart.net/1fd1/i/2012/245/5/f/harpy_color_by_spottedalienmonster-d5ddhrt.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 26
     - 1144
@@ -26660,6 +28592,17 @@ e4ce886f86c3f98b908507bf2a943cd4:
   image-id: e4ce886f86c3f98b908507bf2a943cd4
   link: http://fc09.deviantart.net/fs70/i/2015/053/4/0/harpy_color2_by_alexandrescupaul-d8j34t3.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 38
     - 594
@@ -26695,6 +28638,12 @@ e56b003b996b551b776e57ce1861aff6:
   image-id: e56b003b996b551b776e57ce1861aff6
   link: https://media.istockphoto.com/vectors/harpy-winged-spirit-vector-id148781665
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 97
     - 977
@@ -26781,6 +28730,12 @@ e64c9ee21c7ef8182ea7bb4aeb5bdd5f:
   image-id: e64c9ee21c7ef8182ea7bb4aeb5bdd5f
   link: https://s-media-cache-ak0.pinimg.com/736x/ce/4c/d4/ce4cd459f05bf608e72939b298355482--greek-mythology-esther.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 9
     - 785
@@ -26923,6 +28878,12 @@ e7020add12064844232e7e4c963c3726:
   image-id: e7020add12064844232e7e4c963c3726
   link: https://s-media-cache-ak0.pinimg.com/736x/42/f2/5e/42f25e4b8c5fa7a9cf22b7bd7cd6b982.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 21
     - 836
@@ -26982,6 +28943,12 @@ e852da9e11eaf53480de72e3cad1612c:
   image-id: e852da9e11eaf53480de72e3cad1612c
   link: https://i.pinimg.com/originals/26/b6/e8/26b6e8dbcd092f9f9832c1acfdf3b479.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 456
     - 3692
@@ -27012,6 +28979,22 @@ e8b8af80f1baec0e073ab35dbc988c68:
   image-id: e8b8af80f1baec0e073ab35dbc988c68
   link: https://i.pinimg.com/originals/88/5a/47/885a4799aa4eb7cc49611ed1f2eccf58.jpg
   search-term: harpy cgi classical art greek beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 0
   bounding-boxes:
   - - 63
     - 1108
@@ -27221,6 +29204,12 @@ ea86355d98392610a7741d35c9c9ff80:
   image-id: ea86355d98392610a7741d35c9c9ff80
   link: http://pre07.deviantart.net/4377/th/pre/i/2014/032/3/f/01__harpy_by_ayayue-d74q76p.jpg
   search-term: harpy painting greek mythical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 46
     - 778
@@ -27345,6 +29334,12 @@ ec4f1c255c12b4bd87fde9b1482ad371:
   image-id: ec4f1c255c12b4bd87fde9b1482ad371
   link: https://i.pinimg.com/originals/40/bf/62/40bf62d7babfa3c1b71b3f434a3e0971.jpg
   search-term: harpy cgi
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 46
     - 135
@@ -27376,6 +29371,12 @@ ec940fed3954620d28d40e97244157e6:
   image-id: ec940fed3954620d28d40e97244157e6
   link: https://thumbs.dreamstime.com/z/harpy-perch-branch-retro-style-illustration-half-human-bird-personification-storm-winds-depicted-as-head-maiden-178018000.jpg
   search-term: harpy cartoon classical mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 167
     - 1255
@@ -27388,6 +29389,12 @@ ec9bf42d747f43bd8de73d6754b8267d:
   image-id: ec9bf42d747f43bd8de73d6754b8267d
   link: http://img13.deviantart.net/c82e/i/2016/244/e/9/ocean_harpy_queen_by_gutsberserk-dag3kwx.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 154
     - 490
@@ -27616,6 +29623,12 @@ ee46a2b17ee809338eeb5724d01f89fa:
   image-id: ee46a2b17ee809338eeb5724d01f89fa
   link: https://i.redd.it/ekbxk9gsuvb21.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 110
     - 2950
@@ -27647,6 +29660,12 @@ ee91cd26363e6f0cd8234d8ad056636e:
   image-id: ee91cd26363e6f0cd8234d8ad056636e
   link: https://i.pinimg.com/736x/c6/ee/26/c6ee26a7494702f8188524f072238e47--harpy-eagle-how-to-draw.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 73
     - 991
@@ -27659,6 +29678,12 @@ eec8e05467fe4c920bec48bb050211a2:
   image-id: eec8e05467fe4c920bec48bb050211a2
   link: https://i.pinimg.com/736x/a5/b3/94/a5b394da16907461fdf51fd1f696b997.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 106
     - 987
@@ -27671,6 +29696,12 @@ eecd4bd0684de1e53830ff01ab73d757:
   image-id: eecd4bd0684de1e53830ff01ab73d757
   link: https://orig02.deviantart.net/6662/f/2014/301/0/2/_31daysofmonsters_day_24__harpy_by_franciscomoxi-d84i0ot.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 24
     - 565
@@ -27739,6 +29770,12 @@ efc89919e9ad737601991fec5d662edb:
   image-id: efc89919e9ad737601991fec5d662edb
   link: https://i.pinimg.com/originals/1a/c0/91/1ac091187cffd2c4b1e0c6ede5b9eb95.jpg
   search-term: harpy cartoon classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 53
     - 775
@@ -27879,6 +29916,12 @@ f206fd9daf094f6c982c9cf2b0b1ba3a:
   image-id: f206fd9daf094f6c982c9cf2b0b1ba3a
   link: https://i.pinimg.com/236x/b2/a8/12/b2a81224fc02fddc601c04715e3f7ae6--ivan-bilibin-russian-style.jpg
   search-term: harpy painting greek mythical art classical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 25
     - 288
@@ -27948,6 +29991,12 @@ f36fa10e70be08224ee4f535f5f59d42:
   image-id: f36fa10e70be08224ee4f535f5f59d42
   link: https://i.pinimg.com/736x/f0/5e/a8/f05ea83217d58d35bd5975ff55fbf637--anime-art-illustration-art.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 12
     - 1017
@@ -27979,6 +30028,12 @@ f3ff081620979b553dc0b766abb0b761:
   image-id: f3ff081620979b553dc0b766abb0b761
   link: https://i.pinimg.com/736x/17/b5/bf/17b5bf3fe2e621677616890425cd42f2.jpg
   search-term: harpy cartoon classical mythical beast greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 92
     - 966
@@ -28009,6 +30064,12 @@ f41a273a1f77e6035ebb0ad62b3091d0:
   image-id: f41a273a1f77e6035ebb0ad62b3091d0
   link: https://static.wixstatic.com/media/e8fb89_189f5d9bba194b78b93c3d7a6dd9fc6c~mv2.jpg
   search-term: harpy cgi classical art greek
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
   bounding-boxes:
   - - 15
     - 530
@@ -28039,6 +30100,17 @@ f42e4b448b2551aad9fb6963ee73f889:
   image-id: f42e4b448b2551aad9fb6963ee73f889
   link: https://pre07.deviantart.net/3025/th/pre/f/2011/002/5/b/harpy_by_armandeo64-d368bd6.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 1
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 0
   bounding-boxes:
   - - 9
     - 768
@@ -28203,6 +30275,12 @@ f535a152d93ff34cd54b0d3c7a041797:
   image-id: f535a152d93ff34cd54b0d3c7a041797
   link: https://i.pinimg.com/originals/aa/c1/38/aac13824a329ae066968bbdb662c0d25.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 164
     - 1176
@@ -28383,6 +30461,12 @@ f7bea5f55c87b0d83ab81fe579467dde:
   image-id: f7bea5f55c87b0d83ab81fe579467dde
   link: https://c8.alamy.com/comp/G16A68/a-harpy-in-ulisse-aldrovandis-monstrorum-historia-1642-in-earlier-G16A68.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 1
+    - 2
   bounding-boxes:
   - - 68
     - 1184
@@ -28395,6 +30479,12 @@ f7f4d67c2e777493ef6279b45187cb56:
   image-id: f7f4d67c2e777493ef6279b45187cb56
   link: https://vignette.wikia.nocookie.net/epic-war-ccg/images/f/f9/HarpyL.png/revision/latest?cb=20141111190727
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 2
     - 251
@@ -28767,6 +30857,12 @@ fb432d936b5513c95fd1bd5fc64efce8:
   image-id: fb432d936b5513c95fd1bd5fc64efce8
   link: https://i.pinimg.com/originals/6f/25/90/6f259028f134d519a54da2bba6aa3e46.jpg
   search-term: harpy cgi classical art
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 179
     - 985
@@ -28816,6 +30912,12 @@ fb9be16aaef509d2d9f177d4a595985a:
   image-id: fb9be16aaef509d2d9f177d4a595985a
   link: https://img00.deviantart.net/1e9d/i/2004/275/1/e/harpy_by_wolfofsahara.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 1
   bounding-boxes:
   - - 4
     - 715
@@ -28828,6 +30930,22 @@ fbc84067a9dea44cbb05ac08e9886012:
   image-id: fbc84067a9dea44cbb05ac08e9886012
   link: https://i.pinimg.com/736x/70/18/25/7018252e30c4b4d6a5fa8ad42768a821--mythical-creatures-art-is.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 0
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 34
     - 137
@@ -28867,6 +30985,12 @@ fc6b98edea66fd359a47ee2a4665effd:
   image-id: fc6b98edea66fd359a47ee2a4665effd
   link: https://i.pinimg.com/originals/3c/2d/4a/3c2d4aa6084ca03bddcf7283ec6f6d75.jpg
   search-term: harpy painting greek mythical
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 18
     - 222
@@ -28879,6 +31003,12 @@ fc77d4b29f4dcdfb66bd123b536e1bbf:
   image-id: fc77d4b29f4dcdfb66bd123b536e1bbf
   link: https://i.pinimg.com/736x/3d/06/20/3d062092e5f3f8f23a14b3f9bd7a9cbd.jpg
   search-term: harpy cartoon classical mythical beast
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 48
     - 340
@@ -29113,6 +31243,12 @@ fef54824f20899b4bcda165d4b618230:
   image-id: fef54824f20899b4bcda165d4b618230
   link: https://i.pinimg.com/originals/8f/d2/82/8fd282304d64675616440ed666095879.jpg
   search-term: harpy painting
+  ground-truth-features:
+  - - 0
+    - 1
+    - 1
+    - 2
+    - 2
   bounding-boxes:
   - - 10
     - 742
