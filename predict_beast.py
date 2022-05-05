@@ -15,11 +15,11 @@ from classifier.classifier import Classifier
 Config = Dict[AnyStr, Any]
 
 
-@dataclass
-class ImageColletion:
-    image: np.ndarray
-    feature: np.ndarray
-    latent: np.ndarray
+# @dataclass
+# class ImageColletion:
+#     image: np.ndarray
+#     feature: np.ndarray
+#     latent: np.ndarray
 
 ClassPrediction = namedtuple('ClassPrediction', ['prediction', 'region_id'])
        

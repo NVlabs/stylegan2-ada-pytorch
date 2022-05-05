@@ -1,10 +1,19 @@
 @startuml
 class RegionProposal {
-
-{static} +get_region_proposals() : List[BoundingBox]
-{static} -format_box() : BoundingBox
+    + scale : Int
+    + sigma : Float
+    + min_size : Int
+    +get_region_proposals() : List[BoundingBox]
+    -format_box() : BoundingBox
 }
 
+class FewShotCNN {
+    + dilations: List
+    + channels: List
+    + layers: List
+
+    + forward(): Tensor
+}
 
 class StyleGAN2Ada {
 -paper_256_cfg : EasyDict
@@ -22,22 +31,62 @@ class StyleGAN2Ada {
 }
 
 class Predictor {
-+beast: String
-+projector: StyleGAN2Ada
-+few_shot: FewShotCNN
-+classes: List[String]
-+classifier: Classifier
+    +classes: List
+    +region_proposal: RegionProposal
+    +part_segmentors: Dict
+    +classifier: Classifier
 
--feature_vector: namedtuple
+    +predict_beast(): List
+    +process_regions(): List
+    +crop_image(): Image
+    +filter_predictions(): List 
+}
 
-+predict_beast(): String
-+get_region_suggestions(): List[BoundingBox]
-+process_regions(): List[np.ndarray]
-+crop_image(): np.ndarray
-+project_to_latent(): List[ImageColletion]
-+get_features(): Tuple
-+select_regions(): Tuple
-+predict_class(): String
-+filter_predictions(): List[ClassPrediction]
+class VGG16Singleton {
+    -instance: VGG16Singleton
+    +vgg: ScriptModule
+}
+
+class StyleGAN2Ada {
+    +device: String
+    +num_projection_steps: Int
+    + generator: Generator
+    + discriminator: Discriminator
+    + generator_copy: Generator
+    + vgg16: ScriptModule
+
+    - _paper_256_config: EasyDict
+    - _common_kwargs: Dict
+    - _gen_kwargs: EasyDict
+    - _dis_kwargs: EasyDict
+
+    + project_image(): Tensor
+    + get_image_and_features(): Tensor
+}
+
+class PartSegmentor {
+    + classes: List
+    + image_size: Int
+    + device: String
+    + stylegan2ada: StyleGAN2Ada
+    + few_shot: FewShotCNN
+
+    + segment_parts(): Tuple
+    + preprocess_image(): Tensor
+    + resize_region(): Image
+    + get_predictions(): np.array
+    + get_feature_vector(): Tuple
+    + concat_features(): Tensor
+}
+
+class Classifier {
+    + feature_descriptors: Dict
+    - _svc: SVC
+
+    + train(): List
+    + get_prediction(): String
+    + save_model()
+    + load_model()
+    + construct_feature_vector: Tuple
 }
 @enduml

@@ -267,8 +267,10 @@ class PartSegmentor:
         if save_image is not None:  
             img = PIL.Image.fromarray(synth_image, 'RGB')
             img.save(f'projected/{save_image}_result.png', "PNG")
-
-        feature_vector = self.get_feature_vector(features)
+        
+        predictions = self.get_predictions(features)
+        
+        feature_vector = self.get_feature_vector(predictions)
         return feature_vector
              
     def preprocess_image(self, image: PIL.Image) -> torch.Tensor:
@@ -281,15 +283,15 @@ class PartSegmentor:
     def resize_region(self, image: PIL.Image, new_size: Tuple[int, int]) -> PIL.Image:
         return image.resize(new_size, PIL.Image.LANCZOS)
 
-    def get_feature_vector(self, features) -> Tuple:
+    def get_predictions(self, features) -> np.array:
         with torch.no_grad():
             torch.cuda.empty_cache()
             out = self.few_shot(self.concat_features(features))
             predictions: np.ndarray = out.data.max(1)[1].cpu().numpy()
 
-        return self.get_parts(predictions)
+        return predictions 
 
-    def get_parts(self, predictions: np.ndarray) -> Tuple:
+    def get_feature_vector(self, predictions: np.ndarray) -> Tuple:
         feature_vector = [0] * len(self.classes)
         
         for class_id, _ in enumerate(feature_vector):
