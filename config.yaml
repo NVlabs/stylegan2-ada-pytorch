@@ -10,7 +10,7 @@ predictor_config:
       device: cuda
 
       stylegan2ada_config:
-        model_path: ./trained/network-snapshot-002419.pkl
+        model_path: ./trained/pegasus-gan.pkl
 
       fewshot_config:
         in_channels: 4480
@@ -31,7 +31,7 @@ predictor_config:
       device: cuda
 
       stylegan2ada_config:
-        model_path: ./trained/network-snapshot-002419.pkl
+        model_path: ./trained/minotaur-gan.pkl
 
       fewshot_config:
         in_channels: 4480
@@ -51,7 +51,7 @@ predictor_config:
       device: cuda
 
       stylegan2ada_config:
-        model_path: ./trained/network-snapshot-002419.pkl
+        model_path: ./trained/harpy-gan.pkl
 
       fewshot_config:
         in_channels: 4480
@@ -65,6 +65,9 @@ predictor_config:
         - feathered_body
         - wing
         - talon
+      
+  classifier_config:
+    model_path: ./trained/classifier.pkl
 
 test_beasts:
   - pegasus

@@ -2,6 +2,7 @@ from typing import AnyStr, List, Dict, Tuple, Any
 from pathlib import Path
 from multiprocessing import Pool, current_process
 import time
+import random
 
 import ruamel.yaml as yaml
 from skimage import io, color
@@ -104,13 +105,11 @@ def part_segmentation(image_data: Dict[AnyStr, AnyStr], part_segmentors: Dict[An
     
     region_vectors = []
     for processed_region in processed_regions:
-        feature_vectors = {}
-        for beast, part_segmentor in part_segmentors.items():
-            feature_vectors[beast] = part_segmentor.segment_parts(processed_region)
+        feature_vectors = part_segmentors[image_data["beast"]].segment_parts(processed_region)
 
         region_vectors.append(feature_vectors)
 
-    return tuple([image_data["image-id"], region_vectors])
+    return tuple([image_data["image-id"], list(zip(tuple(image_data["ground-truth-features"]), region_vectors))])
 
 def evaluate_part_segmentation(images: List[Dict[AnyStr, AnyStr]], segmentor_configs: Dict[AnyStr, Dict[AnyStr, Any]]) -> Dict[AnyStr, Dict[AnyStr, int]]:
 
@@ -125,7 +124,7 @@ def evaluate_part_segmentation(images: List[Dict[AnyStr, AnyStr]], segmentor_con
         import time
         start = time.perf_counter()
         part_segmentation_result = part_segmentation(image_data, part_segmentors)
-        print(f"Took: {(time.perf_counter() - start)} seconds")
+        print(f"Image {index} Took: {(time.perf_counter() - start)} seconds")
 
         segmentation_results[part_segmentation_result[0]] = part_segmentation_result[1]
 
@@ -134,11 +133,44 @@ def evaluate_part_segmentation(images: List[Dict[AnyStr, AnyStr]], segmentor_con
 
     return segmentation_results
 
+def whole_system(image_data: Dict[AnyStr, AnyStr], predictor: Predictor) -> Tuple[AnyStr, List[List[int]]]:
+    # Load in image
+    image = io.imread(str(Path("segmented_images") / image_data.get("file-path")))
+
+    predictions = predictor.predict_beast(image)
+
+    processed_predictions = []
+    for prediction in predictions:
+        new_prediction = prediction._asdict()
+        new_prediction['region_id'] = new_prediction['region_id']._asdict()
+
+    return tuple([image_data["image-id"], tuple([prediction._asdict() for prediction in predictions])])
+
+def evaluate_whole_system(images: List[Dict[AnyStr, AnyStr]], config) -> Dict[AnyStr, Dict[AnyStr, int]]:
+
+    predictor = Predictor(**config)
+
+    prediction_results = {} # ImageID: [{beast: [Predictions]}]
+
+    for index, image_data in enumerate(images, start=1):
+        import time
+        start = time.perf_counter()
+        predictions = whole_system(image_data, predictor)
+        print(f"Image {index} Took: {(time.perf_counter() - start)} seconds")
+
+        prediction_results[predictions[0]] = predictions[1]
+
+        if index % 10 == 0:
+            print("Completed: ", index)
+
+    return prediction_results
+
 
 if __name__=="__main__":
-    EVALUATE_REGIONS = True
+    EVALUATE_REGIONS = False
     EVALUATE_PART_SEGMENTATION = False
     EVALUATE_CLASSIFICATION = False
+    EVALUATE_WHOLE_SYSTEM = True
     metadata_file = Path("./segmented_images/image-data.yaml")
     data = yaml.load(metadata_file.read_text(), Loader=yaml.RoundTripLoader)
     config_file_path = Path("./config.yaml")
@@ -166,9 +198,41 @@ if __name__=="__main__":
 
     if EVALUATE_PART_SEGMENTATION:
         start = time.perf_counter()
-        results = evaluate_part_segmentation(images, segmentor_configs)
-        print(f"Took: {(time.perf_counter() - start)/60} minutes")
+        sample_per_class = 30
+        image_by_beast = {}
+        for image_data in images:
+            curr = image_by_beast.get(image_data["beast"], [])
+            curr.append(image_data)
+            image_by_beast[image_data["beast"]] = curr
+
+        sample = []
+        for all_imgs in image_by_beast.values():
+            sample.extend(random.sample(all_imgs, sample_per_class))
+
+        results = evaluate_part_segmentation(sample, segmentor_configs)
+        print(f"Evaluation Took: {(time.perf_counter() - start)/60} minutes")
         for image_key, feature_vectors in results.items():
             data[image_key]["feature-vectors"] = feature_vectors
 
         Path("./evaluate_part_segmentation.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))
+
+    if EVALUATE_WHOLE_SYSTEM:
+        start = time.perf_counter()
+        sample_per_class = 10
+        image_by_beast = {}
+        for image_data in images:
+            curr = image_by_beast.get(image_data["beast"], [])
+            curr.append(image_data)
+            image_by_beast[image_data["beast"]] = curr
+
+        sample = []
+        for all_imgs in image_by_beast.values():
+            sample.extend(random.sample(all_imgs, sample_per_class))
+
+        results = evaluate_whole_system(sample, config_file["predictor_config"])
+        print(results)
+        print(f"Evaluation Took: {(time.perf_counter() - start)/60} minutes")
+        for image_key, feature_vectors in results.items():
+            data[image_key]["prediction"] = feature_vectors
+
+        Path("./evaluate_whole_system.yaml").write_text(yaml.dump(data, Dumper=yaml.RoundTripDumper))

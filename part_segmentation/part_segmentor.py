@@ -303,7 +303,7 @@ class PartSegmentor:
             region_properties = measure.regionprops(label_image)
             num_regions = 0
             for region in region_properties:
-                if region.area > 50:
+                if region.area > 75:
                     num_regions += 1
 
             feature_vector[class_id] = num_regions

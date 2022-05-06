@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import AnyStr, List, Tuple, Dict, Any, Optional
 from pathlib import Path
 from collections import namedtuple
-from skimage import io
+from skimage import io, color
 import numpy as np
 import PIL
 
@@ -13,13 +13,6 @@ from part_segmentation.part_segmentor import PartSegmentor
 from classifier.classifier import Classifier
 
 Config = Dict[AnyStr, Any]
-
-
-# @dataclass
-# class ImageColletion:
-#     image: np.ndarray
-#     feature: np.ndarray
-#     latent: np.ndarray
 
 ClassPrediction = namedtuple('ClassPrediction', ['prediction', 'region_id'])
        
@@ -55,13 +48,21 @@ class Predictor:
 
     def predict_beast(self, image: np.ndarray) -> List[ClassPrediction]:
         image = np.copy(image)
+        if image.shape[2] == 2: # Convert Gray -> RGB
+            image = color.gray2rgb(image)
+
+        if image.shape[2] == 4: # Convert RBGA -> RGB
+            image = color.rgba2rgb(image)
+            image = image * 255
+            image = image.astype(np.uint8)
+
 
         suggested_regions = self.region_proposal.get_region_proposals(image)
         processed_regions: List[PIL.Image] = self.process_regions(suggested_regions, image)
 
         feature_vectors = []
         for processed_region in processed_regions:
-            features: Dict[AnyStr, Tuple] = []
+            features: Dict[AnyStr, Tuple] = {}
             for beast, part_segmentor in self.part_segmentors.items():
                 features[beast] = part_segmentor.segment_parts(processed_region)
 
@@ -69,13 +70,16 @@ class Predictor:
 
         predicted_classes = []
         for feature_vector in feature_vectors:
-            predicted_classes.append(self.classifier.get_prediction(feature_vector))
+            prediction = self.classifier.get_prediction(feature_vector)
+            if prediction is not None:
+                predicted_classes.append(prediction)
 
         results = self.filter_predictions(suggested_regions, predicted_classes)
 
         return results
 
-    def process_regions(self, region_suggestions: BoundingBox, image: PIL.Image.Image) -> List[PIL.Image.Image]:
+    def process_regions(self, region_suggestions: BoundingBox, image: np.array) -> List[PIL.Image.Image]:
+        image = PIL.Image.fromarray(image)
         processed_regions = []
         for suggested_region in region_suggestions:
             cropped_region = self.crop_image(image, suggested_region)
@@ -87,9 +91,10 @@ class Predictor:
         _, height = image.size
 
         # Reverse Y - Coord for PIL Crop
-        region[1] = height - region[1]
-        region[3] = height - region[3]
-        cropped = image.crop(region)
+        new = list(region)
+        new[1] = height - region[1]
+        new[3] = height - region[3]
+        cropped = image.crop(new)
         return cropped
 
     def filter_predictions(self, suggested_regions: List[BoundingBox], predictions: List[AnyStr]) -> List[ClassPrediction]:
