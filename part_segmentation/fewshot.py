@@ -1,12 +1,6 @@
 from torch import nn
 import torch.nn.functional as F
 
-# def ConvLReLU(in_ch, out_ch, kernel_size, dilation):
-#     return nn.Sequential(
-#         nn.Conv2d(in_ch, out_ch, kernel_size=kernel_size, padding=dilation, dilation=dilation),
-#         nn.LeakyReLU(inplace=True)
-#     )
-
 class FewShotCNN(nn.Module):
     def __init__(self, in_ch, n_class, size='S'):
         super().__init__()

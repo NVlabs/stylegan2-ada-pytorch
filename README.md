@@ -1,3 +1,16 @@
+# Mythical Beasts and How to Find Them
+Dissertation project to try and recognise mythical beasts in artwork using region proposal, part segmentation, and the bag of key parts technique.
+
+Region Proposal: Selective Search
+Part Segmentation: Repurposing GANs for One Shot Semantic Part Segmentation -
+    - Using StyleGAN2-ADA
+Classification: Bag of Key Parts using SVMs
+
+The provided Dockerfile can be used to setup an environment to run the project in.
+
+Companion repository [Mythical Images](https://github.com/willcruse/mythical-images)
+
+
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)

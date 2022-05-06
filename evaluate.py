@@ -9,7 +9,7 @@ from skimage import io, color
 import numpy as np
 import PIL
 
-from predict_beast import BoundingBox, Predictor, RegionProposal, PartSegmentor
+from predict_beast import Predictor, RegionProposal, PartSegmentor
 
 def convert_to_rgb(image: np.array) -> np.array:
             
@@ -21,13 +21,13 @@ def convert_to_rgb(image: np.array) -> np.array:
 
     return image
 
-def calculate_area(box: BoundingBox) -> float:
+def calculate_area(box: Tuple) -> float:
     delta_x = abs(box[2] - box[0])
     delta_y = abs(box[3] - box[1])
 
     return delta_x * delta_y
 
-def calculate_iou(ground_truth: BoundingBox, predicted: BoundingBox) -> float:
+def calculate_iou(ground_truth: Tuple, predicted: Tuple) -> float:
     area_gt = calculate_area(ground_truth)
     area_pr = calculate_area(predicted)
 
@@ -51,8 +51,8 @@ def calculate_iou(ground_truth: BoundingBox, predicted: BoundingBox) -> float:
 
     return iou
 
-def region_proposal(image_data: Dict[AnyStr, AnyStr]) -> Tuple[AnyStr, List[Tuple[float, BoundingBox]]]:
-    image = io.imread(str(Path("segmented_images") / image_data.get("file-path")))
+def region_proposal(image_data: Dict[AnyStr, AnyStr]) -> Tuple[AnyStr, List[Tuple[float, Tuple]]]:
+    image = io.imread(str(Path("../mythical-images") / image_data.get("file-path")))
             
     image = convert_to_rgb(image)
 
@@ -73,7 +73,7 @@ def region_proposal(image_data: Dict[AnyStr, AnyStr]) -> Tuple[AnyStr, List[Tupl
 
     return image_data.get("image-id"), iou_values
 
-def evaluate_region_proposal(images: List[Dict[AnyStr, AnyStr]]) -> Dict[AnyStr, List[Tuple[float, BoundingBox]]]:
+def evaluate_region_proposal(images: List[Dict[AnyStr, AnyStr]]) -> Dict[AnyStr, List[Tuple[float, Tuple]]]:
     iou_results = {}
     with Pool(processes=8) as pool:
         iou_results_generator = pool.imap(region_proposal, images, chunksize=1)
@@ -88,7 +88,7 @@ def evaluate_region_proposal(images: List[Dict[AnyStr, AnyStr]]) -> Dict[AnyStr,
 
 def part_segmentation(image_data: Dict[AnyStr, AnyStr], part_segmentors: Dict[AnyStr, Any]) -> Tuple[AnyStr, List[List[int]]]:
     # Load in image
-    image = PIL.Image.open(str(Path("segmented_images") / image_data.get("file-path"))).convert('RGB')
+    image = PIL.Image.open(str(Path("../mythical-images") / image_data.get("file-path"))).convert('RGB')
 
     # Crop beast region
     region_suggestions = image_data.get("bounding-boxes", [])
@@ -139,15 +139,9 @@ def whole_system(image_data: Dict[AnyStr, AnyStr], predictor: Predictor) -> Tupl
 
     predictions = predictor.predict_beast(image)
 
-    processed_predictions = []
-    for prediction in predictions:
-        new_prediction = prediction._asdict()
-        new_prediction['region_id'] = new_prediction['region_id']._asdict()
-
     return tuple([image_data["image-id"], tuple([prediction._asdict() for prediction in predictions])])
 
 def evaluate_whole_system(images: List[Dict[AnyStr, AnyStr]], config) -> Dict[AnyStr, Dict[AnyStr, int]]:
-
     predictor = Predictor(**config)
 
     prediction_results = {} # ImageID: [{beast: [Predictions]}]
@@ -171,7 +165,7 @@ if __name__=="__main__":
     EVALUATE_PART_SEGMENTATION = False
     EVALUATE_CLASSIFICATION = False
     EVALUATE_WHOLE_SYSTEM = True
-    metadata_file = Path("./segmented_images/image-data.yaml")
+    metadata_file = Path("../mythical-images/image-data.yaml")
     data = yaml.load(metadata_file.read_text(), Loader=yaml.RoundTripLoader)
     config_file_path = Path("./config.yaml")
     
@@ -181,7 +175,7 @@ if __name__=="__main__":
 
     images = []
     for image_data in data.values():
-        # if image_data.get("beast") not in ["harpy"]: #"pegasus", "minotaur"]:
+        # if image_data.get("beast") not in ["harpy"]: #"pegasus", "minotaur"]: # Uncomment to test only certain beasts
         #     continue
 
         images.append(image_data)

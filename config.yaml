@@ -69,8 +69,5 @@ predictor_config:
   classifier_config:
     model_path: ./trained/classifier.pkl
 
-test_beasts:
-  - pegasus
-
-images_path: ./segmented_images/dump.yaml
+images_path: ../mythical-images/image-data.yaml # Path to the mythical images data set
 

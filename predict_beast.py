@@ -8,7 +8,7 @@ import PIL
 
 import ruamel.yaml as yaml
 
-from region_proposal.region_proposal import RegionProposal, BoundingBox
+from region_proposal.region_proposal import RegionProposal
 from part_segmentation.part_segmentor import PartSegmentor
 from classifier.classifier import Classifier
 
@@ -78,7 +78,7 @@ class Predictor:
 
         return results
 
-    def process_regions(self, region_suggestions: BoundingBox, image: np.array) -> List[PIL.Image.Image]:
+    def process_regions(self, region_suggestions: Tuple, image: np.array) -> List[PIL.Image.Image]:
         image = PIL.Image.fromarray(image)
         processed_regions = []
         for suggested_region in region_suggestions:
@@ -97,7 +97,7 @@ class Predictor:
         cropped = image.crop(new)
         return cropped
 
-    def filter_predictions(self, suggested_regions: List[BoundingBox], predictions: List[AnyStr]) -> List[ClassPrediction]:
+    def filter_predictions(self, suggested_regions: List[Tuple], predictions: List[AnyStr]) -> List[ClassPrediction]:
         def is_class(prediction: ClassPrediction) -> bool:
             return prediction.prediction in self.classes
 
