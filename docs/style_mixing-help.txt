@@ -1,0 +1,39 @@
+Usage: style_mixing.py [OPTIONS]
+
+  Generate images using pretrained network
+  pickle.
+
+  Examples:
+
+  python style_mixing.py --outdir=out --rows=85,100,75,458,1500 --cols=55,821,1789,293 \
+      --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
+
+Options:
+  --network TEXT                  Network pickle
+                                  filename
+                                  [required]
+
+  --rows NUM_RANGE                Random seeds to
+                                  use for image
+                                  rows  [required]
+
+  --cols NUM_RANGE                Random seeds to
+                                  use for image
+                                  columns
+                                  [required]
+
+  --styles NUM_RANGE              Style layer
+                                  range  [default:
+                                  0-6]
+
+  --trunc FLOAT                   Truncation psi
+                                  [default: 1]
+
+  --noise-mode [const|random|none]
+                                  Noise mode
+                                  [default: const]
+
+  --outdir TEXT                   [required]
+  --help                          Show this
+                                  message and
+                                  exit.
