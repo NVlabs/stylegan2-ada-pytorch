@@ -38,25 +38,25 @@ This repository is a faithful reimplementation of [StyleGAN2-ADA](https://github
 
 ## Data repository
 
-| Path | Description
-| :--- | :----------
-| [stylegan2-ada-pytorch](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/) | Main directory hosted on Amazon S3
-| &ensp;&ensp;&boxvr;&nbsp; [ada-paper.pdf](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/ada-paper.pdf) | Paper PDF
-| &ensp;&ensp;&boxvr;&nbsp; [images](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/images/) | Curated example images produced using the pre-trained models
-| &ensp;&ensp;&boxvr;&nbsp; [videos](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/videos/) | Curated example interpolation videos
-| &ensp;&ensp;&boxur;&nbsp; [pretrained](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/) | Pre-trained models
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; ffhq.pkl | FFHQ at 1024x1024, trained using original StyleGAN2
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; metfaces.pkl | MetFaces at 1024x1024, transfer learning from FFHQ using ADA
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; afhqcat.pkl | AFHQ Cat at 512x512, trained from scratch using ADA
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; afhqdog.pkl | AFHQ Dog at 512x512, trained from scratch using ADA
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; afhqwild.pkl | AFHQ Wild at 512x512, trained from scratch using ADA
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; cifar10.pkl | Class-conditional CIFAR-10 at 32x32
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; brecahad.pkl | BreCaHAD at 512x512, trained from scratch using ADA
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [paper-fig7c-training-set-sweeps](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/paper-fig7c-training-set-sweeps/) | Models used in Fig.7c (sweep over training set size)
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [paper-fig11a-small-datasets](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/paper-fig11a-small-datasets/) | Models used in Fig.11a (small datasets & transfer learning)
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [paper-fig11b-cifar10](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/paper-fig11b-cifar10/) | Models used in Fig.11b (CIFAR-10)
-| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [transfer-learning-source-nets](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/transfer-learning-source-nets/) | Models used as starting point for transfer learning
-| &ensp;&ensp;&ensp;&ensp;&boxur;&nbsp; [metrics](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/) | Feature detectors used by the quality metrics
+| Path                                                                                                                                                                        | Description                                                  |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------|
+| [stylegan2-ada-pytorch](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/)                                                                                            | Main directory hosted on Amazon S3                           |
+| &ensp;&ensp;&boxvr;&nbsp; [ada-paper.pdf](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/ada-paper.pdf)                                                             | Paper PDF                                                    |
+| &ensp;&ensp;&boxvr;&nbsp; [images](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/images/)                                                                          | Curated example images produced using the pre-trained models |
+| &ensp;&ensp;&boxvr;&nbsp; [videos](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/videos/)                                                                          | Curated example interpolation videos                         |
+| &ensp;&ensp;&boxur;&nbsp; [pretrained](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/)                                                                  | Pre-trained models                                           |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; ffhq.pkl                                                                                                                              | FFHQ at 1024x1024, trained using original StyleGAN2          |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; metfaces.pkl                                                                                                                          | MetFaces at 1024x1024, transfer learning from FFHQ using ADA |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; afhqcat.pkl                                                                                                                           | AFHQ Cat at 512x512, trained from scratch using ADA          |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; afhqdog.pkl                                                                                                                           | AFHQ Dog at 512x512, trained from scratch using ADA          |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; afhqwild.pkl                                                                                                                          | AFHQ Wild at 512x512, trained from scratch using ADA         |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; cifar10.pkl                                                                                                                           | Class-conditional CIFAR-10 at 32x32                          |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; brecahad.pkl                                                                                                                          | BreCaHAD at 512x512, trained from scratch using ADA          |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [paper-fig7c-training-set-sweeps](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/paper-fig7c-training-set-sweeps/) | Models used in Fig.7c (sweep over training set size)         |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [paper-fig11a-small-datasets](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/paper-fig11a-small-datasets/)         | Models used in Fig.11a (small datasets & transfer learning)  |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [paper-fig11b-cifar10](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/paper-fig11b-cifar10/)                       | Models used in Fig.11b (CIFAR-10)                            |
+| &ensp;&ensp;&ensp;&ensp;&boxvr;&nbsp; [transfer-learning-source-nets](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/transfer-learning-source-nets/)     | Models used as starting point for transfer learning          |
+| &ensp;&ensp;&ensp;&ensp;&boxur;&nbsp; [metrics](https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metrics/)                                                 | Feature detectors used by the quality metrics                |
 
 ## Requirements
 
@@ -207,8 +207,7 @@ python dataset_tool.py --source=~/downloads/cifar-10-python.tar.gz --dest=~/data
 **LSUN**: Download the desired categories from the [LSUN project page](https://www.yf.io/p/lsun/) and convert to ZIP archive:
 
 ```.bash
-python dataset_tool.py --source=~/downloads/lsun/raw/cat_lmdb --dest=~/datasets/lsuncat200k.zip \
-    --transform=center-crop --width=256 --height=256 --max-images=200000
+python dataset_tool.py --source=~/downloads/lsun/raw/cat_lmdb --dest=~/datasets/lsuncat200k.zip --transform=center-crop --width=256 --height=256 --max-images=200000
 
 python dataset_tool.py --source=~/downloads/lsun/raw/car_lmdb --dest=~/datasets/lsuncar200k.zip \
     --transform=center-crop-wide --width=512 --height=384 --max-images=200000
@@ -248,14 +247,14 @@ In this example, the results are saved to a newly created directory `~/training-
 
 The name of the output directory reflects the training configuration. For example, `00000-mydataset-auto1` indicates that the *base configuration* was `auto1`, meaning that the hyperparameters were selected automatically for training on one GPU. The base configuration is controlled by `--cfg`:
 
-| Base config           | Description
-| :-------------------- | :----------
-| `auto`&nbsp;(default) | Automatically select reasonable defaults based on resolution and GPU count. Serves as a good starting point for new datasets but does not necessarily lead to optimal results.
-| `stylegan2`           | Reproduce results for StyleGAN2 config F at 1024x1024 using 1, 2, 4, or 8 GPUs.
-| `paper256`            | Reproduce results for FFHQ and LSUN Cat at 256x256 using 1, 2, 4, or 8 GPUs.
-| `paper512`            | Reproduce results for BreCaHAD and AFHQ at 512x512 using 1, 2, 4, or 8 GPUs.
-| `paper1024`           | Reproduce results for MetFaces at 1024x1024 using 1, 2, 4, or 8 GPUs.
-| `cifar`               | Reproduce results for CIFAR-10 (tuned configuration) using 1 or 2 GPUs.
+| Base config           | Description                                                                                                                                                                    |
+|:----------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `auto`&nbsp;(default) | Automatically select reasonable defaults based on resolution and GPU count. Serves as a good starting point for new datasets but does not necessarily lead to optimal results. |
+| `stylegan2`           | Reproduce results for StyleGAN2 config F at 1024x1024 using 1, 2, 4, or 8 GPUs.                                                                                                |
+| `paper256`            | Reproduce results for FFHQ and LSUN Cat at 256x256 using 1, 2, 4, or 8 GPUs.                                                                                                   |
+| `paper512`            | Reproduce results for BreCaHAD and AFHQ at 512x512 using 1, 2, 4, or 8 GPUs.                                                                                                   |
+| `paper1024`           | Reproduce results for MetFaces at 1024x1024 using 1, 2, 4, or 8 GPUs.                                                                                                          |
+| `cifar`               | Reproduce results for CIFAR-10 (tuned configuration) using 1 or 2 GPUs.                                                                                                        |
 
 The training configuration can be further customized with additional command line options:
 
@@ -324,25 +323,25 @@ Note that many of the metrics have a significant one-off cost when calculating t
 
 We employ the following metrics in the ADA paper. Execution time and GPU memory usage is reported for one NVIDIA Tesla V100 GPU at 1024x1024 resolution:
 
-| Metric        | Time   | GPU mem | Description |
-| :-----        | :----: | :-----: | :---------- |
-| `fid50k_full` | 13 min | 1.8 GB  | Fr&eacute;chet inception distance<sup>[1]</sup> against the full dataset
-| `kid50k_full` | 13 min | 1.8 GB  | Kernel inception distance<sup>[2]</sup> against the full dataset
-| `pr50k3_full` | 13 min | 4.1 GB  | Precision and recall<sup>[3]</sup> againt the full dataset
-| `is50k`       | 13 min | 1.8 GB  | Inception score<sup>[4]</sup> for CIFAR-10
+| Metric        |  Time  | GPU mem | Description                                                              |
+|:--------------|:------:|:-------:|:-------------------------------------------------------------------------|
+| `fid50k_full` | 13 min | 1.8 GB  | Fr&eacute;chet inception distance<sup>[1]</sup> against the full dataset |
+| `kid50k_full` | 13 min | 1.8 GB  | Kernel inception distance<sup>[2]</sup> against the full dataset         |
+| `pr50k3_full` | 13 min | 4.1 GB  | Precision and recall<sup>[3]</sup> againt the full dataset               |
+| `is50k`       | 13 min | 1.8 GB  | Inception score<sup>[4]</sup> for CIFAR-10                               |
 
 In addition, the following metrics from the [StyleGAN](https://github.com/NVlabs/stylegan) and [StyleGAN2](https://github.com/NVlabs/stylegan2) papers are also supported:
 
-| Metric        | Time   | GPU mem | Description |
-| :------------ | :----: | :-----: | :---------- |
-| `fid50k`      | 13 min | 1.8 GB  | Fr&eacute;chet inception distance against 50k real images
-| `kid50k`      | 13 min | 1.8 GB  | Kernel inception distance against 50k real images
-| `pr50k3`      | 13 min | 4.1 GB  | Precision and recall against 50k real images
-| `ppl2_wend`   | 36 min | 2.4 GB  | Perceptual path length<sup>[5]</sup> in W, endpoints, full image
-| `ppl_zfull`   | 36 min | 2.4 GB  | Perceptual path length in Z, full paths, cropped image
-| `ppl_wfull`   | 36 min | 2.4 GB  | Perceptual path length in W, full paths, cropped image
-| `ppl_zend`    | 36 min | 2.4 GB  | Perceptual path length in Z, endpoints, cropped image
-| `ppl_wend`    | 36 min | 2.4 GB  | Perceptual path length in W, endpoints, cropped image
+| Metric      |  Time  | GPU mem | Description                                                      |
+|:------------|:------:|:-------:|:-----------------------------------------------------------------|
+| `fid50k`    | 13 min | 1.8 GB  | Fr&eacute;chet inception distance against 50k real images        |
+| `kid50k`    | 13 min | 1.8 GB  | Kernel inception distance against 50k real images                |
+| `pr50k3`    | 13 min | 4.1 GB  | Precision and recall against 50k real images                     |
+| `ppl2_wend` | 36 min | 2.4 GB  | Perceptual path length<sup>[5]</sup> in W, endpoints, full image |
+| `ppl_zfull` | 36 min | 2.4 GB  | Perceptual path length in Z, full paths, cropped image           |
+| `ppl_wfull` | 36 min | 2.4 GB  | Perceptual path length in W, full paths, cropped image           |
+| `ppl_zend`  | 36 min | 2.4 GB  | Perceptual path length in Z, endpoints, cropped image            |
+| `ppl_wend`  | 36 min | 2.4 GB  | Perceptual path length in W, endpoints, cropped image            |
 
 References:
 1. [GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium](https://arxiv.org/abs/1706.08500), Heusel et al. 2017
