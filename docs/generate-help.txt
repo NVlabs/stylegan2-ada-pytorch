@@ -1,0 +1,54 @@
+Usage: generate.py [OPTIONS]
+
+  Generate images using pretrained network
+  pickle.
+
+  Examples:
+
+  # Generate curated MetFaces images without truncation (Fig.10 left)
+  python generate.py --outdir=out --trunc=1 --seeds=85,265,297,849 \
+      --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
+
+  # Generate uncurated MetFaces images with truncation (Fig.12 upper left)
+  python generate.py --outdir=out --trunc=0.7 --seeds=600-605 \
+      --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
+
+  # Generate class conditional CIFAR-10 images (Fig.17 left, Car)
+  python generate.py --outdir=out --seeds=0-35 --class=1 \
+      --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/cifar10.pkl
+
+  # Render an image from projected W
+  python generate.py --outdir=out --projected_w=projected_w.npz \
+      --network=https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/metfaces.pkl
+
+Options:
+  --network TEXT                  Network pickle
+                                  filename
+                                  [required]
+
+  --seeds NUM_RANGE               List of random
+                                  seeds
+
+  --trunc FLOAT                   Truncation psi
+                                  [default: 1]
+
+  --class INTEGER                 Class label
+                                  (unconditional
+                                  if not
+                                  specified)
+
+  --noise-mode [const|random|none]
+                                  Noise mode
+                                  [default: const]
+
+  --projected-w FILE              Projection
+                                  result file
+
+  --outdir DIR                    Where to save
+                                  the output
+                                  images
+                                  [required]
+
+  --help                          Show this
+                                  message and
+                                  exit.

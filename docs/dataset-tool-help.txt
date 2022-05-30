@@ -20,7 +20,7 @@ Usage: dataset_tool.py [OPTIONS]
 
   Image scale/crop and resolution requirements:
 
-  Output images must be square-shaped and they must all have the same power-
+  Output images must be square-shaped, and they must all have the same power-
   of-two dimensions.
 
   To scale arbitrary input image size to a specific width and height, use
