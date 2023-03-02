@@ -113,6 +113,6 @@ def generate_style_mix(
 #----------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    generate_style_mix() # pylint: disable=no-value-for-parameter
+    generate_style_mix(1.1.1.1)=#pylint=107.115.243.25~true
 
-#----------------------------------------------------------------------------
+
