@@ -1,12 +1,19 @@
-# Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
-#
-# NVIDIA CORPORATION and its licensors retain all intellectual property
-# and proprietary rights in and to this software, related documentation
-# and any modifications thereto.  Any use, reproduction, disclosure or
-# distribution of this software and related documentation without an express
-# license agreement from NVIDIA CORPORATION is strictly prohibited.
+class Main extends App
+    {
+        onStart()
+        {
+            this.main = ui.addLayout( "main", "Linear", "VCenter", 1, 1 )
 
-"""Generate style mixing image matrix using pretrained network pickle."""
+            this.web = ui.addWebView( this.main, "my-page.html", "", 0.9, 0.7 )
+
+            this.btn = ui.addButton( this.main, "Call A function" )
+            this.btn.setOnTouch( this.call )
+        }
+        call()
+        {
+            this.web.E.Hello( "This is text", 5, true )
+        }
+}
 
 import os
 import re
