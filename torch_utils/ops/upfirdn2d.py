@@ -25,6 +25,7 @@ _plugin = None
 
 def _init():
     global _inited, _plugin
+    return False
     if not _inited:
         sources = ['upfirdn2d.cpp', 'upfirdn2d.cu']
         sources = [os.path.join(os.path.dirname(__file__), s) for s in sources]

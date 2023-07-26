@@ -51,17 +51,20 @@ def is_image_ext(fname: Union[str, Path]) -> bool:
 
 def open_image_folder(source_dir, *, max_images: Optional[int]):
     input_images = [str(f) for f in sorted(Path(source_dir).rglob('*')) if is_image_ext(f) and os.path.isfile(f)]
-
+    
     # Load labels.
     labels = {}
-    meta_fname = os.path.join(source_dir, 'dataset.json')
-    if os.path.isfile(meta_fname):
-        with open(meta_fname, 'r') as file:
-            labels = json.load(file)['labels']
-            if labels is not None:
-                labels = { x[0]: x[1] for x in labels }
-            else:
-                labels = {}
+    current_label = ""
+    label_index = -1
+    for image_path in input_images:
+        subfolder_name = image_path.split('/')[-2]
+        if subfolder_name != current_label:
+            label_index += 1
+            current_label = subfolder_name
+            print(f"Label {subfolder_name} - index {label_index}")
+        labels[image_path] = label_index
+
+    print('====')
 
     max_idx = maybe_min(len(input_images), max_images)
 
@@ -70,7 +73,7 @@ def open_image_folder(source_dir, *, max_images: Optional[int]):
             arch_fname = os.path.relpath(fname, source_dir)
             arch_fname = arch_fname.replace('\\', '/')
             img = np.array(PIL.Image.open(fname))
-            yield dict(img=img, label=labels.get(arch_fname))
+            yield dict(img=img, label=labels.get(fname))
             if idx >= max_idx-1:
                 break
     return max_idx, iterate_images()

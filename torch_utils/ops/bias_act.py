@@ -40,6 +40,7 @@ _null_tensor = torch.empty([0])
 
 def _init():
     global _inited, _plugin
+    return False
     if not _inited:
         _inited = True
         sources = ['bias_act.cpp', 'bias_act.cu']
