@@ -13,6 +13,7 @@ Only works on 2D images and assumes
 
 import warnings
 import torch
+from distutils.version import LooseVersion
 
 # pylint: disable=redefined-builtin
 # pylint: disable=arguments-differ
@@ -34,7 +35,7 @@ def grid_sample(input, grid):
 def _should_use_custom_op():
     if not enabled:
         return False
-    if any(torch.__version__.startswith(x) for x in ['1.7.', '1.8.', '1.9']):
+    if LooseVersion(torch.__version__) >= LooseVersion('1.7.0'):
         return True
     warnings.warn(f'grid_sample_gradfix not supported on PyTorch {torch.__version__}. Falling back to torch.nn.functional.grid_sample().')
     return False
