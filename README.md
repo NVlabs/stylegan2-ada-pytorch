@@ -180,8 +180,12 @@ Step 3: Create ZIP archive using `dataset_tool.py` from this repository:
 python dataset_tool.py --source=/tmp/ffhq-unpacked --dest=~/datasets/ffhq.zip
 
 # Scaled down 256x256 resolution.
+#
+# Note: --resize-filter=box is required to reproduce FID scores shown in the
+# paper.  If you don't need to match exactly, it's better to leave this out
+# and default to Lanczos.  See https://github.com/NVlabs/stylegan2-ada-pytorch/issues/283#issuecomment-1731217782
 python dataset_tool.py --source=/tmp/ffhq-unpacked --dest=~/datasets/ffhq256x256.zip \
-    --width=256 --height=256
+    --width=256 --height=256 --resize-filter=box
 ```
 
 **MetFaces**: Download the [MetFaces dataset](https://github.com/NVlabs/metfaces-dataset) and create ZIP archive:
