@@ -212,10 +212,10 @@ python dataset_tool.py --source=~/downloads/cifar-10-python.tar.gz --dest=~/data
 
 ```.bash
 python dataset_tool.py --source=~/downloads/lsun/raw/cat_lmdb --dest=~/datasets/lsuncat200k.zip \
-    --transform=center-crop --width=256 --height=256 --max_images=200000
+    --transform=center-crop --width=256 --height=256 --max-images=200000
 
 python dataset_tool.py --source=~/downloads/lsun/raw/car_lmdb --dest=~/datasets/lsuncar200k.zip \
-    --transform=center-crop-wide --width=512 --height=384 --max_images=200000
+    --transform=center-crop-wide --width=512 --height=384 --max-images=200000
 ```
 
 **BreCaHAD**:
