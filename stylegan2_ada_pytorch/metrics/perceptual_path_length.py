@@ -14,7 +14,7 @@ https://github.com/NVlabs/stylegan/blob/master/metrics/perceptual_path_length.py
 import copy
 import numpy as np
 import torch
-import dnnlib
+from .. import dnnlib
 from . import metric_utils
 
 #----------------------------------------------------------------------------

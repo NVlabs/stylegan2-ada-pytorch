@@ -12,8 +12,9 @@ import re
 import copy
 import numpy as np
 import torch
-import dnnlib
-from torch_utils import misc
+from stylegan2_ada_pytorch import dnnlib
+from stylegan2_ada_pytorch.torch_utils import misc
+
 
 #----------------------------------------------------------------------------
 
@@ -165,7 +166,7 @@ def convert_tf_generator(tf_G):
     #for name, value in tf_params.items(): print(f'{name:<50s}{list(value.shape)}')
 
     # Convert params.
-    from training import networks
+    from stylegan2_ada_pytorch.training import networks
     G = networks.Generator(**kwargs).eval().requires_grad_(False)
     # pylint: disable=unnecessary-lambda
     _populate_module_params(G,
@@ -262,7 +263,7 @@ def convert_tf_discriminator(tf_D):
     #for name, value in tf_params.items(): print(f'{name:<50s}{list(value.shape)}')
 
     # Convert params.
-    from training import networks
+    from stylegan2_ada_pytorch.training import networks
     D = networks.Discriminator(**kwargs).eval().requires_grad_(False)
     # pylint: disable=unnecessary-lambda
     _populate_module_params(D,

@@ -1,3 +1,24 @@
+## StyleGAN2-ADA &mdash; `pip install` version of Official PyTorch implementation
+
+I have modified the official PyTorch implementation so that you can `pip install` this repository as a dependency and reuse the classes and functions here.
+
+### Requirements
+
+* Linux and Windows are supported, but we recommend Linux for performance and compatibility reasons.
+* 1&ndash;8 high-end NVIDIA GPUs with at least 12 GB of memory. We have done all testing and development using NVIDIA DGX-1 with 8 Tesla V100 GPUs.
+* 64-bit Python 3.7 and PyTorch 1.7.1. See [https://pytorch.org/](https://pytorch.org/) for PyTorch install instructions.
+* CUDA toolkit 11.0 or later.  Use at least version 11.1 if running on RTX 3090.  (Why is a separate CUDA toolkit installation required?  See comments in [#2](https://github.com/NVlabs/stylegan2-ada-pytorch/issues/2#issuecomment-779457121).)
+
+### Installation
+
+From repo's root directory `stylegan2-ada-pytorch`, run `python -m pip install .`
+
+### Original official implementation
+
+Available [here](https://github.com/NVlabs/stylegan2-ada-pytorch), the original `README.md` is copied below.
+
+***
+
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
@@ -150,7 +171,7 @@ w = G.mapping(z, c, truncation_psi=0.5, truncation_cutoff=8)
 img = G.synthesis(w, noise_mode='const', force_fp32=True)
 ```
 
-Please refer to [`generate.py`](./generate.py), [`style_mixing.py`](./style_mixing.py), and [`projector.py`](./projector.py) for further examples.
+Please refer to [`generate.py`](stylegan2_ada_pytorch/generate.py), [`style_mixing.py`](stylegan2_ada_pytorch/style_mixing.py), and [`projector.py`](stylegan2_ada_pytorch/projector.py) for further examples.
 
 ## Preparing datasets
 

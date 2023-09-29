@@ -105,19 +105,19 @@ def conv2d_resample(x, w, f=None, up=1, down=1, padding=0, groups=1, flip_weight
 
     # Fast path: 1x1 convolution with downsampling only => downsample first, then convolve.
     if kw == 1 and kh == 1 and (down > 1 and up == 1):
-        x = upfirdn2d.upfirdn2d(x=x, f=f, down=down, padding=[px0,px1,py0,py1], flip_filter=flip_filter)
+        x = upfirdn2d.upfirdn2d(x=x, f=f, down=down, padding=[px0, px1, py0, py1], flip_filter=flip_filter)
         x = _conv2d_wrapper(x=x, w=w, groups=groups, flip_weight=flip_weight)
         return x
 
     # Fast path: 1x1 convolution with upsampling only => convolve first, then upsample.
     if kw == 1 and kh == 1 and (up > 1 and down == 1):
         x = _conv2d_wrapper(x=x, w=w, groups=groups, flip_weight=flip_weight)
-        x = upfirdn2d.upfirdn2d(x=x, f=f, up=up, padding=[px0,px1,py0,py1], gain=up**2, flip_filter=flip_filter)
+        x = upfirdn2d.upfirdn2d(x=x, f=f, up=up, padding=[px0, px1, py0, py1], gain=up ** 2, flip_filter=flip_filter)
         return x
 
     # Fast path: downsampling only => use strided convolution.
     if down > 1 and up == 1:
-        x = upfirdn2d.upfirdn2d(x=x, f=f, padding=[px0,px1,py0,py1], flip_filter=flip_filter)
+        x = upfirdn2d.upfirdn2d(x=x, f=f, padding=[px0, px1, py0, py1], flip_filter=flip_filter)
         x = _conv2d_wrapper(x=x, w=w, stride=down, groups=groups, flip_weight=flip_weight)
         return x
 
@@ -136,7 +136,7 @@ def conv2d_resample(x, w, f=None, up=1, down=1, padding=0, groups=1, flip_weight
         pxt = max(min(-px0, -px1), 0)
         pyt = max(min(-py0, -py1), 0)
         x = _conv2d_wrapper(x=x, w=w, stride=up, padding=[pyt,pxt], groups=groups, transpose=True, flip_weight=(not flip_weight))
-        x = upfirdn2d.upfirdn2d(x=x, f=f, padding=[px0+pxt,px1+pxt,py0+pyt,py1+pyt], gain=up**2, flip_filter=flip_filter)
+        x = upfirdn2d.upfirdn2d(x=x, f=f, padding=[px0 + pxt, px1 + pxt, py0 + pyt, py1 + pyt], gain=up ** 2, flip_filter=flip_filter)
         if down > 1:
             x = upfirdn2d.upfirdn2d(x=x, f=f, down=down, flip_filter=flip_filter)
         return x
@@ -147,7 +147,7 @@ def conv2d_resample(x, w, f=None, up=1, down=1, padding=0, groups=1, flip_weight
             return _conv2d_wrapper(x=x, w=w, padding=[py0,px0], groups=groups, flip_weight=flip_weight)
 
     # Fallback: Generic reference implementation.
-    x = upfirdn2d.upfirdn2d(x=x, f=(f if up > 1 else None), up=up, padding=[px0,px1,py0,py1], gain=up**2, flip_filter=flip_filter)
+    x = upfirdn2d.upfirdn2d(x=x, f=(f if up > 1 else None), up=up, padding=[px0, px1, py0, py1], gain=up ** 2, flip_filter=flip_filter)
     x = _conv2d_wrapper(x=x, w=w, groups=groups, flip_weight=flip_weight)
     if down > 1:
         x = upfirdn2d.upfirdn2d(x=x, f=f, down=down, flip_filter=flip_filter)

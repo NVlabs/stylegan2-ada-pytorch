@@ -9,11 +9,9 @@
 import numpy as np
 import scipy.signal
 import torch
-from torch_utils import persistence
-from torch_utils import misc
-from torch_utils.ops import upfirdn2d
-from torch_utils.ops import grid_sample_gradfix
-from torch_utils.ops import conv2d_gradfix
+from stylegan2_ada_pytorch.torch_utils import persistence, misc
+from stylegan2_ada_pytorch.torch_utils.ops import grid_sample_gradfix, upfirdn2d
+from stylegan2_ada_pytorch.torch_utils.ops import conv2d_gradfix
 
 #----------------------------------------------------------------------------
 # Coefficients of various wavelet decomposition low-pass filters.
@@ -279,7 +277,7 @@ class AugmentPipe(torch.nn.Module):
             margin = torch.cat([-margin, margin]).max(dim=1).values # [x0, y0, x1, y1]
             margin = margin + misc.constant([Hz_pad * 2 - cx, Hz_pad * 2 - cy] * 2, device=device)
             margin = margin.max(misc.constant([0, 0] * 2, device=device))
-            margin = margin.min(misc.constant([width-1, height-1] * 2, device=device))
+            margin = margin.min(misc.constant([width - 1, height - 1] * 2, device=device))
             mx0, my0, mx1, my1 = margin.ceil().to(torch.int32)
 
             # Pad image and adjust origin.
@@ -298,7 +296,7 @@ class AugmentPipe(torch.nn.Module):
             images = grid_sample_gradfix.grid_sample(images, grid)
 
             # Downsample and crop.
-            images = upfirdn2d.downsample2d(x=images, f=self.Hz_geom, down=2, padding=-Hz_pad*2, flip_filter=True)
+            images = upfirdn2d.downsample2d(x=images, f=self.Hz_geom, down=2, padding=-Hz_pad * 2, flip_filter=True)
 
         # --------------------------------------------
         # Select parameters for color transformations.
@@ -395,8 +393,8 @@ class AugmentPipe(torch.nn.Module):
             p = self.Hz_fbank.shape[1] // 2
             images = images.reshape([1, batch_size * num_channels, height, width])
             images = torch.nn.functional.pad(input=images, pad=[p,p,p,p], mode='reflect')
-            images = conv2d_gradfix.conv2d(input=images, weight=Hz_prime.unsqueeze(2), groups=batch_size*num_channels)
-            images = conv2d_gradfix.conv2d(input=images, weight=Hz_prime.unsqueeze(3), groups=batch_size*num_channels)
+            images = conv2d_gradfix.conv2d(input=images, weight=Hz_prime.unsqueeze(2), groups=batch_size * num_channels)
+            images = conv2d_gradfix.conv2d(input=images, weight=Hz_prime.unsqueeze(3), groups=batch_size * num_channels)
             images = images.reshape([batch_size, num_channels, height, width])
 
         # ------------------------

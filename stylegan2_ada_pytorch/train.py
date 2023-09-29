@@ -15,12 +15,13 @@ import re
 import json
 import tempfile
 import torch
-import dnnlib
+from stylegan2_ada_pytorch import dnnlib
 
-from training import training_loop
-from metrics import metric_main
-from torch_utils import training_stats
-from torch_utils import custom_ops
+from stylegan2_ada_pytorch.training import training_loop
+from stylegan2_ada_pytorch.metrics import metric_main
+from stylegan2_ada_pytorch.torch_utils import training_stats
+from stylegan2_ada_pytorch.torch_utils import custom_ops
+
 
 #----------------------------------------------------------------------------
 
@@ -182,8 +183,8 @@ def setup_training_loop_kwargs(
     args.G_kwargs.synthesis_kwargs.conv_clamp = args.D_kwargs.conv_clamp = 256 # clamp activations to avoid float16 overflow
     args.D_kwargs.epilogue_kwargs.mbstd_group_size = spec.mbstd
 
-    args.G_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)
-    args.D_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)
+    args.G_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0, 0.99], eps=1e-8)
+    args.D_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0, 0.99], eps=1e-8)
     args.loss_kwargs = dnnlib.EasyDict(class_name='training.loss.StyleGAN2Loss', r1_gamma=spec.gamma)
 
     args.total_kimg = spec.kimg
