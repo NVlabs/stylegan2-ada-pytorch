@@ -23,6 +23,7 @@ from torch_utils.ops import grid_sample_gradfix
 
 import legacy
 from metrics import metric_main
+from training import misc as tmisc
 
 #----------------------------------------------------------------------------
 
@@ -152,6 +153,20 @@ def training_loop(
     G_ema = copy.deepcopy(G).eval()
 
     # Resume from existing pickle.
+    if resume_pkl == 'latest':
+        out_dir = tmisc.get_parent_dir(run_dir)
+        resume_pkl = tmisc.locate_latest_pkl(out_dir)
+
+    resume_kimg = tmisc.parse_kimg_from_network_name(resume_pkl)
+    if resume_kimg > 0:
+        print(f'Resuming from kimg = {resume_kimg}')
+
+    if ada_target is not None and augment_p == 0:
+        # Overwrite augment_p only if the augmentation probability is not fixed by the user
+        augment_p = tmisc.parse_augment_p_from_log(resume_pkl)
+        if augment_p > 0:
+            print(f'Resuming with augment_p = {augment_p}')
+
     if (resume_pkl is not None) and (rank == 0):
         print(f'Resuming from "{resume_pkl}"')
         with dnnlib.util.open_url(resume_pkl) as f:
@@ -220,11 +235,11 @@ def training_loop(
     if rank == 0:
         print('Exporting sample images...')
         grid_size, images, labels = setup_snapshot_image_grid(training_set=training_set)
-        save_image_grid(images, os.path.join(run_dir, 'reals.png'), drange=[0,255], grid_size=grid_size)
+        save_image_grid(images, os.path.join(run_dir, 'reals.jpg'), drange=[0,255], grid_size=grid_size)
         grid_z = torch.randn([labels.shape[0], G.z_dim], device=device).split(batch_gpu)
         grid_c = torch.from_numpy(labels).to(device).split(batch_gpu)
         images = torch.cat([G_ema(z=z, c=c, noise_mode='const').cpu() for z, c in zip(grid_z, grid_c)]).numpy()
-        save_image_grid(images, os.path.join(run_dir, 'fakes_init.png'), drange=[-1,1], grid_size=grid_size)
+        save_image_grid(images, os.path.join(run_dir, 'fakes_init.jpg'), drange=[-1,1], grid_size=grid_size)
 
     # Initialize logs.
     if rank == 0:
@@ -245,14 +260,14 @@ def training_loop(
     if rank == 0:
         print(f'Training for {total_kimg} kimg...')
         print()
-    cur_nimg = 0
+    cur_nimg = int(resume_kimg * 1000)
     cur_tick = 0
     tick_start_nimg = cur_nimg
     tick_start_time = time.time()
     maintenance_time = tick_start_time - start_time
     batch_idx = 0
     if progress_fn is not None:
-        progress_fn(0, total_kimg)
+        progress_fn(int(resume_kimg), total_kimg)
     while True:
 
         # Fetch training data.
@@ -347,7 +362,7 @@ def training_loop(
         # Save image snapshot.
         if (rank == 0) and (image_snapshot_ticks is not None) and (done or cur_tick % image_snapshot_ticks == 0):
             images = torch.cat([G_ema(z=z, c=c, noise_mode='const').cpu() for z, c in zip(grid_z, grid_c)]).numpy()
-            save_image_grid(images, os.path.join(run_dir, f'fakes{cur_nimg//1000:06d}.png'), drange=[-1,1], grid_size=grid_size)
+            save_image_grid(images, os.path.join(run_dir, f'fakes{cur_nimg//1000:06d}.jpg'), drange=[-1,1], grid_size=grid_size)
 
         # Save network snapshot.
         snapshot_pkl = None
