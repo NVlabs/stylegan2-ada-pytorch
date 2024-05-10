@@ -1,4 +1,4 @@
-# Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
+# Copyright (c) 2021, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 #
 # NVIDIA CORPORATION and its licensors retain all intellectual property
 # and proprietary rights in and to this software, related documentation
@@ -11,8 +11,8 @@ supports arbitrarily high order gradients between the input and output.
 Only works on 2D images and assumes
 `mode='bilinear'`, `padding_mode='zeros'`, `align_corners=False`."""
 
-import warnings
 import torch
+from pkg_resources import parse_version
 
 # pylint: disable=redefined-builtin
 # pylint: disable=arguments-differ
@@ -21,6 +21,8 @@ import torch
 #----------------------------------------------------------------------------
 
 enabled = False  # Enable the custom op by setting this to true.
+_use_pytorch_1_11_api = parse_version(torch.__version__) >= parse_version('1.11.0a') # Allow prerelease builds of 1.11
+_use_pytorch_1_12_api = parse_version(torch.__version__) >= parse_version('1.12.0a') # Allow prerelease builds of 1.12
 
 #----------------------------------------------------------------------------
 
@@ -32,12 +34,7 @@ def grid_sample(input, grid):
 #----------------------------------------------------------------------------
 
 def _should_use_custom_op():
-    if not enabled:
-        return False
-    if any(torch.__version__.startswith(x) for x in ['1.7.', '1.8.', '1.9']):
-        return True
-    warnings.warn(f'grid_sample_gradfix not supported on PyTorch {torch.__version__}. Falling back to torch.nn.functional.grid_sample().')
-    return False
+    return enabled
 
 #----------------------------------------------------------------------------
 
@@ -62,7 +59,13 @@ class _GridSample2dBackward(torch.autograd.Function):
     @staticmethod
     def forward(ctx, grad_output, input, grid):
         op = torch._C._jit_get_operation('aten::grid_sampler_2d_backward')
-        grad_input, grad_grid = op(grad_output, input, grid, 0, 0, False)
+        if _use_pytorch_1_12_api:
+            op = op[0]
+        if _use_pytorch_1_11_api:
+            output_mask = (ctx.needs_input_grad[1], ctx.needs_input_grad[2])
+            grad_input, grad_grid = op(grad_output, input, grid, 0, 0, False, output_mask)
+        else:
+            grad_input, grad_grid = op(grad_output, input, grid, 0, 0, False)
         ctx.save_for_backward(grid)
         return grad_input, grad_grid
 

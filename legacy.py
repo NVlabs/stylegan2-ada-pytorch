@@ -17,16 +17,39 @@ from torch_utils import misc
 
 #----------------------------------------------------------------------------
 
-def load_network_pkl(f, force_fp16=False):
+# !!! custom
+def load_network_pkl(f, force_fp16=False, custom=False, **ex_kwargs):
+# def load_network_pkl(f, force_fp16=False):
     data = _LegacyUnpickler(f).load()
+    # data = pickle.load(f, encoding='latin1')
 
     # Legacy TensorFlow pickle => convert.
     if isinstance(data, tuple) and len(data) == 3 and all(isinstance(net, _TFNetworkStub) for net in data):
         tf_G, tf_D, tf_Gs = data
-        G = convert_tf_generator(tf_G)
+        G = convert_tf_generator(tf_G, custom=custom, **ex_kwargs)
         D = convert_tf_discriminator(tf_D)
-        G_ema = convert_tf_generator(tf_Gs)
+        G_ema = convert_tf_generator(tf_Gs, custom=custom, **ex_kwargs)
         data = dict(G=G, D=D, G_ema=G_ema)
+# !!! custom
+        assert isinstance(data['G'], torch.nn.Module)
+        assert isinstance(data['D'], torch.nn.Module)
+        nets = ['G', 'D', 'G_ema']
+    elif isinstance(data, _TFNetworkStub):
+        G_ema = convert_tf_generator(data, custom=custom, **ex_kwargs)
+        data = dict(G_ema=G_ema)
+        nets = ['G_ema']
+    else:
+# !!! custom
+        if custom is True:
+            G_ema = custom_generator(data, **ex_kwargs)
+            data = dict(G_ema=G_ema)
+            nets = ['G_ema']
+        else:
+            nets = []
+            for name in ['G', 'D', 'G_ema']:
+                if name in data.keys():
+                    nets.append(name)
+        # print(nets)
 
     # Add missing fields.
     if 'training_set_kwargs' not in data:
@@ -35,15 +58,13 @@ def load_network_pkl(f, force_fp16=False):
         data['augment_pipe'] = None
 
     # Validate contents.
-    assert isinstance(data['G'], torch.nn.Module)
-    assert isinstance(data['D'], torch.nn.Module)
     assert isinstance(data['G_ema'], torch.nn.Module)
     assert isinstance(data['training_set_kwargs'], (dict, type(None)))
     assert isinstance(data['augment_pipe'], (torch.nn.Module, type(None)))
 
     # Force FP16.
     if force_fp16:
-        for key in ['G', 'D', 'G_ema']:
+        for key in nets: # !!! custom
             old = data[key]
             kwargs = copy.deepcopy(old.init_kwargs)
             if key.startswith('G'):
@@ -106,7 +127,30 @@ def _populate_module_params(module, *patterns):
 
 #----------------------------------------------------------------------------
 
-def convert_tf_generator(tf_G):
+# !!! custom
+def custom_generator(data, **ex_kwargs):
+    from training import stylegan2_multi as networks
+    try: # saved? (with new fix)
+        fmap_base = data['G_ema'].synthesis.fmap_base
+    except: # default from original configs
+        fmap_base = 32768 if data['G_ema'].img_resolution >= 512 else 16384
+    kwargs = dnnlib.EasyDict(
+        z_dim           = data['G_ema'].z_dim,
+        c_dim           = data['G_ema'].c_dim,
+        w_dim           = data['G_ema'].w_dim,
+        img_resolution  = data['G_ema'].img_resolution,
+        img_channels    = data['G_ema'].img_channels,
+        init_res        = [4,4], # hacky
+        mapping_kwargs  = dnnlib.EasyDict(num_layers = data['G_ema'].mapping.num_layers),
+        synthesis_kwargs = dnnlib.EasyDict(channel_base = fmap_base, **ex_kwargs),
+    )
+    G_out = networks.Generator(**kwargs).eval().requires_grad_(False)
+    misc.copy_params_and_buffers(data['G_ema'], G_out, require_all=False)
+    return G_out
+
+# !!! custom
+def convert_tf_generator(tf_G, custom=False, **ex_kwargs):
+# def convert_tf_generator(tf_G):
     if tf_G.version < 4:
         raise ValueError('TensorFlow pickle version too low')
 
@@ -143,6 +187,8 @@ def convert_tf_generator(tf_G):
             use_noise           = kwarg('use_noise',            True),
             activation          = kwarg('nonlinearity',         'lrelu'),
         ),
+# !!! custom
+        # init_res                = kwarg('init_res',            [4,4]),
     )
 
     # Check for unknown kwargs.
@@ -151,8 +197,18 @@ def convert_tf_generator(tf_G):
     kwarg('style_mixing_prob')
     kwarg('structure')
     unknown_kwargs = list(set(tf_kwargs.keys()) - known_kwargs)
+# !!! custom
+    if custom:
+        kwargs.init_res = [4,4]
+        kwargs.synthesis_kwargs = dnnlib.EasyDict(**kwargs.synthesis_kwargs, **ex_kwargs)
     if len(unknown_kwargs) > 0:
-        raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
+        print('Unknown TensorFlow data! This may result in problems with your converted model.')
+        print(unknown_kwargs)
+        #raise ValueError('Unknown TensorFlow kwargs:', unknown_kwargs)
+        # raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
+    # try: 
+        # if ex_kwargs['verbose'] is True: print(kwargs.synthesis_kwargs)
+    # except: pass
 
     # Collect params.
     tf_params = _collect_tf_params(tf_G)
@@ -165,7 +221,10 @@ def convert_tf_generator(tf_G):
     #for name, value in tf_params.items(): print(f'{name:<50s}{list(value.shape)}')
 
     # Convert params.
-    from training import networks
+    if custom:
+        from training import stylegan2_multi as networks
+    else:
+        from training import networks
     G = networks.Generator(**kwargs).eval().requires_grad_(False)
     # pylint: disable=unnecessary-lambda
     _populate_module_params(G,
@@ -243,13 +302,18 @@ def convert_tf_discriminator(tf_D):
             mbstd_num_channels  = kwarg('mbstd_num_features',   1),
             activation          = kwarg('nonlinearity',         'lrelu'),
         ),
+# !!! custom
+        # init_res                = kwarg('init_res',            [4,4]),
     )
 
     # Check for unknown kwargs.
     kwarg('structure')
     unknown_kwargs = list(set(tf_kwargs.keys()) - known_kwargs)
     if len(unknown_kwargs) > 0:
-        raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
+        print('Unknown TensorFlow data! This may result in problems with your converted model.')
+        print(unknown_kwargs)
+        # originally this repo threw errors:
+        # raise ValueError('Unknown TensorFlow kwarg', unknown_kwargs[0])
 
     # Collect params.
     tf_params = _collect_tf_params(tf_D)

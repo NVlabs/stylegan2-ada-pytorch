@@ -1,3 +1,39 @@
+## Add to Colab
+
+### StyleGAN2-ADA PyTorch (Start Here)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PyTorch.ipynb)
+
+### StyleGAN2-ADA-PyTorch to Rosinality Convertor
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2_ADA_PT_to_Rosinality.ipynb)
+
+### StyleGAN2-ADA PyTorch Reactive Audio
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/SG2-ADA-PT_AudioReactive%2BPitch.ipynb)
+
+### Blending Network Demo/Explainer
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvschultz/stylegan2-ada-pytorch/blob/main/Network_Blending_ADA_PT.ipynb)
+
+## Need Help?
+* If you’re new to StyleGAN2-ADA and looking to get started, please check out [this video series](https://www.youtube.com/playlist?list=PLWuCzxqIpJs8ViuBIUtAk-dsAtdrApYoy) from a course Lia Coleman and I taught in October 2020.
+* Interested in contributing? Please submit PRs or discuss changes in the [Artificial Images Slack](https://join.slack.com/t/ml-images/shared_invite/zt-9mxoe7va-eBZ9xzAWpx8VRL~Km_PzUQ) channel
+
+## Edits made to this repo
+
+* **Fakes .jpg**: save yourself a ton of space with fakes during training saved as .jpg instead of .png
+* **Multiple interpolation options**: use `--process="interpolation"`, see `--help` for more options
+* **Easing options for interpolations**: see `--help` for more (this would be a great place for new coders to build additional feautures/options)
+* **Vertical Mirroring**: use `--mirrory=True` to flip training set top to bottom (fixed, thanks [Diego](https://github.com/PDillis/stylegan2-ada-pytorch))
+* **Set Initial Augmentation Strength**: use `--initstrength={float value}` to set the initialized strength of augmentations (really helpful when restarting training)
+* **Set Initial Kimg count**: use `--nkimg={int value}` to set the initial kimg count (helpful with restarts)
+* **Closed Form Factorization:** converted from Rosinality repo by [Philip Bizimis](https://github.com/pbizimis); additional video creation features
+* **Additional Projector Techniques** Thanks to Peter Baylies for his projector code that optionally uses pixel-based loss or CLIP
+* **Interpolate from Projector .npz Files** Use the `combine_npz.py` script to combine multiple .npz files
+* **Convert to Rosinality model structure** Thanks to [Justin Pinkney](https://github.com/justinpinkney) for making this! Converting to Rosinality opens up numerous additional tools for manipulatinng StyleGAN models
+* **Custom data in Tensorflow models will no longer error out when converting to Official PyTorch format** Allows for conversion from many of the custom models on the [Awesome Pretrained SG2 repo](https://github.com/justinpinkney/awesome-pretrained-stylegan2) (This has the potential for problems but I’ve yet to find one.)
+* **Output size modification** Thank you to [Vadim Epstein](https://github.com/eps696/stylegan2ada) for allowing me to port his code for modifying output size for image and video generation. See `--size` and `--scale-type` in the generation script for more details.
+* **Flesh digressions script** based on Aydao script (ported by [grddavies](https://github.com/grddavies), thanks!)
+* **Blend Two Models at specific resolution layer** Based on [Justin Pinkney’s Tensorflow version](https://github.com/justinpinkney/stylegan2/blob/master/blend_models.py)
+* **Experimental Top-K training function** Improve generator training by only propagating gradients from images the discriminator was most unsure of: [Sinha & Zhao](https://arxiv.org/abs/2002.06224). Use `--topk={float value}` to define the decay rate. Ported from code written by [Hans Brouwer](https://github.com/JCBrouwer) from [SG2-ADA Tensorflow version](https://github.com/dvschultz/stylegan2-ada/issues?q=is%3Apr+author%3AJCBrouwer).
+
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
