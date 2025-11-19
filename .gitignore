@@ -1,2 +1,5 @@
 __pycache__/
 .cache/
+out
+.DS_Store
+*.pth
